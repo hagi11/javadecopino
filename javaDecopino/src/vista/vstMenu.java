@@ -5,7 +5,18 @@
  */
 package vista;
 
+import com.jtattoo.plaf.AbstractLookAndFeel;
+import com.jtattoo.plaf.acryl.AcrylLookAndFeel;
+import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import com.jtattoo.plaf.hifi.HiFiLookAndFeel;
+import com.jtattoo.plaf.noire.NoireLookAndFeel;
+import com.sun.java.swing.plaf.motif.MotifLookAndFeel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 
 /**
  *
@@ -34,14 +45,11 @@ public class vstMenu extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        pnlContenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setUndecorated(true);
+        setName("frmMenu"); // NOI18N
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -55,7 +63,7 @@ public class vstMenu extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 80, 80));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 80, 80));
 
         jButton1.setText("jButton1");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -83,29 +91,20 @@ public class vstMenu extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 530));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlContenido.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnlContenidoLayout = new javax.swing.GroupLayout(pnlContenido);
+        pnlContenido.setLayout(pnlContenidoLayout);
+        pnlContenidoLayout.setHorizontalGroup(
+            pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 640, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlContenidoLayout.setVerticalGroup(
+            pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 530, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 640, 530));
-
-        jMenuBar1.setAlignmentX(10.0F);
-        jMenuBar1.setAlignmentY(20.0F);
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
+        getContentPane().add(pnlContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 640, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -158,8 +157,14 @@ public class vstMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(new NoireLookAndFeel());
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(vstMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new vstMenu().setVisible(true);
             }
+            
         });
     }
 
@@ -168,10 +173,7 @@ public class vstMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel pnlContenido;
     // End of variables declaration//GEN-END:variables
 }
