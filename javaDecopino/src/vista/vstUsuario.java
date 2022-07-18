@@ -6,7 +6,7 @@
 package vista;
 
 import java.awt.BorderLayout;
-import vista.vstMenu;
+//import vista.vstMenu;
 
 /**
  *

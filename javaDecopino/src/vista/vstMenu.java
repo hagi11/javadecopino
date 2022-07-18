@@ -81,10 +81,10 @@ public class vstMenu extends javax.swing.JFrame {
     
     }
 
-    private void pintarImagen(JLabel lbl, String ruta) {
+    private void pintarImagen(JLabel label, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icon = new ImageIcon(this.imagen.getImage());
-        lbl.setIcon(icon);
+        label.setIcon(icon);
         this.repaint();
     }
 
@@ -450,6 +450,8 @@ public class vstMenu extends javax.swing.JFrame {
         pnlMenu.add(lblmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 540));
 
         pnlPrincipal.add(pnlMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 550));
+
+        pnlContenedor.setBackground(new java.awt.Color(244, 244, 244));
         pnlPrincipal.add(pnlContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 700, 520));
 
         getContentPane().add(pnlPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
