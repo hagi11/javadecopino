@@ -70,16 +70,16 @@ public class vstProveedor extends javax.swing.JPanel {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Nuevo Usuario");
+        jLabel2.setText("Nuevo Proveedor");
 
         javax.swing.GroupLayout pnlNuevoUsuarioLayout = new javax.swing.GroupLayout(pnlNuevoUsuario);
         pnlNuevoUsuario.setLayout(pnlNuevoUsuarioLayout);
         pnlNuevoUsuarioLayout.setHorizontalGroup(
             pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel2)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         pnlNuevoUsuarioLayout.setVerticalGroup(
             pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,16 +102,16 @@ public class vstProveedor extends javax.swing.JPanel {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Ver Usuarios");
+        jLabel3.setText("Ver Proveedores");
 
         javax.swing.GroupLayout pnlVerUsuriosLayout = new javax.swing.GroupLayout(pnlVerUsurios);
         pnlVerUsurios.setLayout(pnlVerUsuriosLayout);
         pnlVerUsuriosLayout.setHorizontalGroup(
             pnlVerUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlVerUsuriosLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel3)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         pnlVerUsuriosLayout.setVerticalGroup(
             pnlVerUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

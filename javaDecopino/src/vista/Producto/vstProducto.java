@@ -6,7 +6,6 @@
 package vista.Producto;
 
 import vista.Proveedor.*;
-import vista.vistaUsuario.*;
 import vista.*;
 
 /**

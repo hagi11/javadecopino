@@ -6,11 +6,11 @@
 package vista;
 
 import vista.Producto.vstProducto;
-import vista.vistaRolPer.vstRolPer;
-import vista.vistaUsuario.vstUsuario;
+import vista.RolPer.vstRolPer;
+import vista.Usuario.vstUsuario;
 import vista.Proveedor.vstProveedor;
 
-import vista.vistaCliente.vstVerCliente;
+import vista.Cliente.vstVerCliente;
 import com.jtattoo.plaf.bernstein.BernsteinLookAndFeel;
 import com.jtattoo.plaf.graphite.GraphiteLookAndFeel;
 import java.awt.BorderLayout;
@@ -413,7 +413,12 @@ public class vstMenu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Cerrar Sesión");
-        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 20));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 0, 90, 20));
 
         pnlPerfil.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 90, 20));
 
@@ -500,6 +505,13 @@ public class vstMenu extends javax.swing.JFrame {
     private void lblLogoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMousePressed
         inicio();
     }//GEN-LAST:event_lblLogoMousePressed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        vstLogin login = new vstLogin();
+        login.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments

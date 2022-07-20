@@ -450,9 +450,12 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel1MouseClicked"/>
+                      </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="10" y="0" width="-1" height="20"/>
+                          <AbsoluteConstraints x="1" y="0" width="90" height="20"/>
                         </Constraint>
                       </Constraints>
                     </Component>

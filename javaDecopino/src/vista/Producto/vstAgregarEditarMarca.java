@@ -29,7 +29,17 @@ public class vstAgregarEditarMarca extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlContenedor = new componentes.PanelRound();
+        panelRound1 = new componentes.PanelRound();
         lblTitulo = new javax.swing.JLabel();
+        panelRound2 = new componentes.PanelRound();
+        panelRound4 = new componentes.PanelRound();
+        jSeparator2 = new javax.swing.JSeparator();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        panelRound9 = new componentes.PanelRound();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -41,16 +51,94 @@ public class vstAgregarEditarMarca extends javax.swing.JPanel {
         pnlContenedor.setRoundTopRight(30);
         pnlContenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblTitulo.setText("Agregar o Modificar Marca");
-        pnlContenedor.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 460, 91));
+        panelRound1.setBackground(new java.awt.Color(255, 255, 255));
+        panelRound1.setRoundBottomLeft(30);
+        panelRound1.setRoundBottomRight(30);
+        panelRound1.setRoundTopLeft(30);
+        panelRound1.setRoundTopRight(30);
+        panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTitulo.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 24)); // NOI18N
+        lblTitulo.setText("Agregar Marca");
+        panelRound1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
+
+        panelRound2.setBackground(new java.awt.Color(255, 255, 255));
+        panelRound2.setForeground(new java.awt.Color(255, 51, 51));
+        panelRound2.setRoundBottomLeft(30);
+        panelRound2.setRoundBottomRight(30);
+        panelRound2.setRoundTopLeft(30);
+        panelRound2.setRoundTopRight(30);
+        panelRound2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelRound4.setBackground(new java.awt.Color(255, 255, 255));
+        panelRound4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelRound4.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 460, 10));
+
+        jTextField2.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        jTextField2.setBorder(null);
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        panelRound4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 460, 20));
+
+        jLabel3.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
+        jLabel3.setText("Nombre");
+        panelRound4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 110, 20));
+
+        panelRound2.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 630, 40));
+
+        panelRound9.setBackground(new java.awt.Color(255, 255, 255));
+        panelRound9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 0));
+        jButton1.setText("Actualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panelRound9.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(0, 255, 153));
+        jButton2.setText("Aceptar");
+        panelRound9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
+
+        jButton3.setBackground(new java.awt.Color(255, 51, 51));
+        jButton3.setText("Cancelar");
+        panelRound9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
+
+        panelRound2.add(panelRound9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 630, 40));
+
+        panelRound1.add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 680, 570));
+
+        pnlContenedor.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
 
         add(pnlContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblTitulo;
+    private componentes.PanelRound panelRound1;
+    private componentes.PanelRound panelRound2;
+    private componentes.PanelRound panelRound4;
+    private componentes.PanelRound panelRound9;
     private componentes.PanelRound pnlContenedor;
     // End of variables declaration//GEN-END:variables
 }

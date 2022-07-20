@@ -325,111 +325,9 @@
                       <Data value="null"/>
                       <Data value="null"/>
                     </Column>
-                    <Column editable="true" title="TI" type="java.lang.Object">
-                      <Data value="TI"/>
-                      <Data value="CC"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                    </Column>
-                    <Column editable="true" title="Identificaci&#xf3;n" type="java.lang.Object">
-                      <Data value="121212"/>
-                      <Data value="131313"/>
+                    <Column editable="true" title="No.Ref" type="java.lang.Object">
+                      <Data value="1"/>
+                      <Data value="4"/>
                       <Data value="null"/>
                       <Data value="null"/>
                       <Data value="null"/>
@@ -530,8 +428,8 @@
                       <Data value="null"/>
                     </Column>
                     <Column editable="true" title="Nombre" type="java.lang.Object">
-                      <Data value="Hammer"/>
-                      <Data value="Carlos"/>
+                      <Data value="Silla"/>
+                      <Data value="Cama"/>
                       <Data value="null"/>
                       <Data value="null"/>
                       <Data value="null"/>
@@ -631,9 +529,9 @@
                       <Data value="null"/>
                       <Data value="null"/>
                     </Column>
-                    <Column editable="true" title="Correo" type="java.lang.Object">
-                      <Data value="HAgi@gmail.com"/>
-                      <Data value="Car@Gmail.com"/>
+                    <Column editable="true" title="Precio" type="java.lang.Object">
+                      <Data value="120000"/>
+                      <Data value="400000"/>
                       <Data value="null"/>
                       <Data value="null"/>
                       <Data value="null"/>
@@ -733,9 +631,9 @@
                       <Data value="null"/>
                       <Data value="null"/>
                     </Column>
-                    <Column editable="true" title="Telefono" type="java.lang.Object">
-                      <Data value="4203034"/>
-                      <Data value="3153214343"/>
+                    <Column editable="true" title="Proveedor" type="java.lang.Object">
+                      <Data value="Harold"/>
+                      <Data value="Diego"/>
                       <Data value="null"/>
                       <Data value="null"/>
                       <Data value="null"/>
@@ -835,6 +733,7 @@
                       <Data value="null"/>
                       <Data value="null"/>
                     </Column>
+                    <Column editable="true" title="Cantidad" type="java.lang.Integer"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -866,7 +765,7 @@
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                       <Title/>
-                      <Editor/>
+                      <Editor editor="org.netbeans.modules.form.RADConnectionPropertyEditor"/>
                       <Renderer/>
                     </Column>
                   </TableColumnModel>

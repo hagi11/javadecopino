@@ -241,8 +241,8 @@ public class vstInventario extends javax.swing.JPanel {
 
         tblCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "TI", "121212", "Hammer", "HAgi@gmail.com", "4203034"},
-                {"2", "CC", "131313", "Carlos", "Car@Gmail.com", "3153214343"},
+                {"1", "1", "Silla", "120000", "Harold", null},
+                {"2", "4", "Cama", "400000", "Diego", null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -343,9 +343,17 @@ public class vstInventario extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "#", "TI", "Identificación", "Nombre", "Correo", "Telefono"
+                "#", "No.Ref", "Nombre", "Precio", "Proveedor", "Cantidad"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblCliente);
         if (tblCliente.getColumnModel().getColumnCount() > 0) {
             tblCliente.getColumnModel().getColumn(0).setResizable(false);
@@ -356,6 +364,7 @@ public class vstInventario extends javax.swing.JPanel {
             tblCliente.getColumnModel().getColumn(3).setResizable(false);
             tblCliente.getColumnModel().getColumn(4).setResizable(false);
             tblCliente.getColumnModel().getColumn(5).setResizable(false);
+            tblCliente.getColumnModel().getColumn(5).setCellEditor(null);
         }
 
         pnlTabla.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 740, 470));
