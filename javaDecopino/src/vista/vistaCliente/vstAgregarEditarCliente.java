@@ -6,7 +6,6 @@
 package vista.vistaCliente;
 
 import vista.vistaUsuario.*;
-import vista.Locacion.*;
 import vista.*;
 
 /**

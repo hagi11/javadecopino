@@ -5,8 +5,6 @@
  */
 package vista.Proveedor;
 
-import vista.vistaUsuario.*;
-import vista.Locacion.*;
 import vista.*;
 
 /**
@@ -58,8 +56,8 @@ public class vstProveedor extends javax.swing.JPanel {
         panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("usuarios");
-        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 117, 91));
+        jLabel1.setText("Proveedores");
+        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 180, 91));
 
         pnlNuevoUsuario.setRoundBottomLeft(30);
         pnlNuevoUsuario.setRoundBottomRight(30);

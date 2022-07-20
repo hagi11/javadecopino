@@ -5,8 +5,6 @@
  */
 package vista.Proveedor;
 
-import vista.vistaUsuario.*;
-import vista.Locacion.*;
 import vista.*;
 
 /**
@@ -40,7 +38,7 @@ public class vstMostrarInformacionProveedor extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelRound1 = new componentes.PanelRound();
+        pnlContenedor = new componentes.PanelRound();
         jLabel1 = new javax.swing.JLabel();
         pnlAgregarLocacion = new componentes.PanelRound();
         jLabel2 = new javax.swing.JLabel();
@@ -50,16 +48,16 @@ public class vstMostrarInformacionProveedor extends javax.swing.JPanel {
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelRound1.setBackground(new java.awt.Color(255, 255, 255));
-        panelRound1.setRoundBottomLeft(30);
-        panelRound1.setRoundBottomRight(30);
-        panelRound1.setRoundTopLeft(30);
-        panelRound1.setRoundTopRight(30);
-        panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlContenedor.setBackground(new java.awt.Color(255, 255, 255));
+        pnlContenedor.setRoundBottomLeft(30);
+        pnlContenedor.setRoundBottomRight(30);
+        pnlContenedor.setRoundTopLeft(30);
+        pnlContenedor.setRoundTopRight(30);
+        pnlContenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Usuario Informacion");
-        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 310, 91));
+        pnlContenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 310, 91));
 
         pnlAgregarLocacion.setRoundBottomLeft(30);
         pnlAgregarLocacion.setRoundBottomRight(30);
@@ -91,7 +89,7 @@ public class vstMostrarInformacionProveedor extends javax.swing.JPanel {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        panelRound1.add(pnlAgregarLocacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 190, 90));
+        pnlContenedor.add(pnlAgregarLocacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 190, 90));
 
         pnlVerLocaciones.setRoundBottomLeft(30);
         pnlVerLocaciones.setRoundBottomRight(30);
@@ -123,9 +121,9 @@ public class vstMostrarInformacionProveedor extends javax.swing.JPanel {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        panelRound1.add(pnlVerLocaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 190, 90));
+        pnlContenedor.add(pnlVerLocaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 190, 90));
 
-        add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
+        add(pnlContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
     private void pnlVerLocacionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerLocacionesMousePressed
@@ -141,8 +139,8 @@ public class vstMostrarInformacionProveedor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private componentes.PanelRound panelRound1;
     private componentes.PanelRound pnlAgregarLocacion;
+    private componentes.PanelRound pnlContenedor;
     private componentes.PanelRound pnlVerLocaciones;
     // End of variables declaration//GEN-END:variables
 }

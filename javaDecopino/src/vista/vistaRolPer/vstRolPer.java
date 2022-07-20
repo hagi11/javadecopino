@@ -5,8 +5,6 @@
  */
 package vista.vistaRolPer;
 
-import vista.vistaUsuario.*;
-import vista.Locacion.*;
 import vista.*;
 
 /**

@@ -5,7 +5,7 @@
  */
 package vista.vistaUsuario;
 
-import vista.Locacion.*;
+
 import vista.*;
 
 /**

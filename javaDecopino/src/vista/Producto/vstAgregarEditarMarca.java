@@ -5,11 +5,6 @@
  */
 package vista.Producto;
 
-import vista.Proveedor.*;
-import vista.vistaUsuario.*;
-import vista.Locacion.*;
-import vista.*;
-
 /**
  *
  * @author hamme
@@ -21,6 +16,7 @@ public class vstAgregarEditarMarca extends javax.swing.JPanel {
      */
     public vstAgregarEditarMarca() {
         initComponents();
+        System.out.println(this.getName()); 
     }
 
     /**
@@ -32,29 +28,29 @@ public class vstAgregarEditarMarca extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelRound1 = new componentes.PanelRound();
+        pnlContenedor = new componentes.PanelRound();
         lblTitulo = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelRound1.setBackground(new java.awt.Color(255, 255, 255));
-        panelRound1.setRoundBottomLeft(30);
-        panelRound1.setRoundBottomRight(30);
-        panelRound1.setRoundTopLeft(30);
-        panelRound1.setRoundTopRight(30);
-        panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlContenedor.setBackground(new java.awt.Color(255, 255, 255));
+        pnlContenedor.setRoundBottomLeft(30);
+        pnlContenedor.setRoundBottomRight(30);
+        pnlContenedor.setRoundTopLeft(30);
+        pnlContenedor.setRoundTopRight(30);
+        pnlContenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblTitulo.setText("Agregar o Modificar Locaciones");
-        panelRound1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 460, 91));
+        lblTitulo.setText("Agregar o Modificar Marca");
+        pnlContenedor.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 460, 91));
 
-        add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
+        add(pnlContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblTitulo;
-    private componentes.PanelRound panelRound1;
+    private componentes.PanelRound pnlContenedor;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,8 +6,6 @@
 package vista.vistaRolPer;
 
 import vista.vistaUsuario.*;
-import vista.Locacion.*;
-import vista.vistaCliente.*;
 import componentes.ScrollBar;
 import java.awt.Color;
 import java.awt.Cursor;

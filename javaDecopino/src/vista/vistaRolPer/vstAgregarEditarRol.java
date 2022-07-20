@@ -5,9 +5,6 @@
  */
 package vista.vistaRolPer;
 
-import vista.vistaUsuario.*;
-import vista.Locacion.*;
-import vista.*;
 
 /**
  *
@@ -45,7 +42,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblTitulo.setText("Agregar o Modificar Locaciones");
+        lblTitulo.setText("Agregar o Modificar Rol");
         panelRound1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 460, 91));
 
         add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));

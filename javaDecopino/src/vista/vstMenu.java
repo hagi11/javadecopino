@@ -9,7 +9,7 @@ import vista.Producto.vstProducto;
 import vista.vistaRolPer.vstRolPer;
 import vista.vistaUsuario.vstUsuario;
 import vista.Proveedor.vstProveedor;
-import vista.Locacion.vstLocacion;
+
 import vista.vistaCliente.vstVerCliente;
 import com.jtattoo.plaf.bernstein.BernsteinLookAndFeel;
 import com.jtattoo.plaf.graphite.GraphiteLookAndFeel;
@@ -102,7 +102,7 @@ public class vstMenu extends javax.swing.JFrame {
         pnlItemClientes.setBackground(colorInactivo);
         pnlItemUsuarios.setBackground(colorInactivo);
         pnlItemProductos.setBackground(colorInactivo);
-        pnlItemLocaciones.setBackground(colorInactivo);
+
         pnlItemRolPer.setBackground(colorInactivo);
         pnlItemProveedores.setBackground(colorInactivo);
         
@@ -142,8 +142,7 @@ public class vstMenu extends javax.swing.JFrame {
         lblItemProductos.setForeground(lblColor);
         lblItemRolPer.setFont(font);
         lblItemRolPer.setForeground(lblColor);
-        lblItemLocaciones.setFont(font);
-        lblItemLocaciones.setForeground(lblColor);
+
 
         lblUsuarioNombre.setFont(font);
         lblUsuarioNombre.setForeground(lblColorUser);
@@ -179,18 +178,14 @@ public class vstMenu extends javax.swing.JFrame {
         vstProveedor panel = new vstProveedor(); 
         panelContenedor(panel);
     }
-    public void ItemBtnLocacion(){
-        seleccionItem(pnlItemLocaciones, colorSelecciondo, 4);
-        vstLocacion panel = new vstLocacion(); 
-        panelContenedor(panel);
-    }
+    
     public void ItemBtnRolPer(){
-        seleccionItem(pnlItemRolPer, colorSelecciondo, 5);
+        seleccionItem(pnlItemRolPer, colorSelecciondo, 4);
         vstRolPer panel = new vstRolPer(); 
         panelContenedor(panel);
     }
     public void ItemBtnProducto(){
-        seleccionItem(pnlItemProductos, colorSelecciondo, 6);
+        seleccionItem(pnlItemProductos, colorSelecciondo, 5);
         vstProducto panel = new vstProducto(); 
         panelContenedor(panel);
     }
@@ -221,9 +216,6 @@ public class vstMenu extends javax.swing.JFrame {
         pnlItemProveedores = new javax.swing.JPanel();
         lblItemImgProveedores = new javax.swing.JLabel();
         lblItemProveedores = new javax.swing.JLabel();
-        pnlItemLocaciones = new javax.swing.JPanel();
-        lblItemImgLocaciones = new javax.swing.JLabel();
-        lblItemLocaciones = new javax.swing.JLabel();
         pnlItemRolPer = new javax.swing.JPanel();
         lblItemImgRolPer = new javax.swing.JLabel();
         lblItemRolPer = new javax.swing.JLabel();
@@ -277,7 +269,7 @@ public class vstMenu extends javax.swing.JFrame {
         lblItemUsuario.setText("Usuarios");
         pnlItemUsuarios.add(lblItemUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 80, 20));
 
-        pnlMenu4.add(pnlItemUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 220, -1));
+        pnlMenu4.add(pnlItemUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 220, -1));
 
         pnlItemClientes.setBackground(getBackground());
         pnlItemClientes.setPreferredSize(new java.awt.Dimension(220, 30));
@@ -302,7 +294,7 @@ public class vstMenu extends javax.swing.JFrame {
         lblItemCliente.setText("Clientes");
         pnlItemClientes.add(lblItemCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 70, 20));
 
-        pnlMenu4.add(pnlItemClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 220, -1));
+        pnlMenu4.add(pnlItemClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 220, -1));
 
         pnlItemProveedores.setBackground(new java.awt.Color(255, 204, 0));
         pnlItemProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -327,32 +319,7 @@ public class vstMenu extends javax.swing.JFrame {
         lblItemProveedores.setText("Proveedores");
         pnlItemProveedores.add(lblItemProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 110, 20));
 
-        pnlMenu4.add(pnlItemProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 220, 30));
-
-        pnlItemLocaciones.setBackground(new java.awt.Color(255, 204, 0));
-        pnlItemLocaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlItemLocaciones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                pnlItemLocacionesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                pnlItemLocacionesMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlItemLocacionesMousePressed(evt);
-            }
-        });
-        pnlItemLocaciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblItemImgLocaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons/user.png"))); // NOI18N
-        pnlItemLocaciones.add(lblItemImgLocaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 30, 30));
-
-        lblItemLocaciones.setFont(new java.awt.Font("Poor Richard", 1, 20)); // NOI18N
-        lblItemLocaciones.setForeground(new java.awt.Color(255, 255, 255));
-        lblItemLocaciones.setText("Locaciones");
-        pnlItemLocaciones.add(lblItemLocaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 110, 20));
-
-        pnlMenu4.add(pnlItemLocaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 220, 30));
+        pnlMenu4.add(pnlItemProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 220, 30));
 
         pnlItemRolPer.setBackground(new java.awt.Color(255, 204, 0));
         pnlItemRolPer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -377,7 +344,7 @@ public class vstMenu extends javax.swing.JFrame {
         lblItemRolPer.setText("Roles y Permisos");
         pnlItemRolPer.add(lblItemRolPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 140, 20));
 
-        pnlMenu4.add(pnlItemRolPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 220, 30));
+        pnlMenu4.add(pnlItemRolPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 220, 30));
 
         pnlItemProductos.setBackground(new java.awt.Color(255, 204, 0));
         pnlItemProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -399,10 +366,10 @@ public class vstMenu extends javax.swing.JFrame {
 
         lblItemProductos.setFont(new java.awt.Font("Poor Richard", 1, 20)); // NOI18N
         lblItemProductos.setForeground(new java.awt.Color(255, 255, 255));
-        lblItemProductos.setText("Productos");
+        lblItemProductos.setText("Mercancia");
         pnlItemProductos.add(lblItemProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 110, 20));
 
-        pnlMenu4.add(pnlItemProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 220, 30));
+        pnlMenu4.add(pnlItemProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 220, 30));
 
         pnlLogo.setRoundBottomLeft(30);
         pnlLogo.setRoundBottomRight(30);
@@ -505,24 +472,12 @@ public class vstMenu extends javax.swing.JFrame {
         outColor(pnlItemProveedores, colorInactivo, 3);
     }//GEN-LAST:event_pnlItemProveedoresMouseExited
 
-    private void pnlItemLocacionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemLocacionesMouseEntered
-        inColor(pnlItemLocaciones, colorActivo, 4);
-    }//GEN-LAST:event_pnlItemLocacionesMouseEntered
-
-    private void pnlItemLocacionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemLocacionesMouseExited
-        outColor(pnlItemLocaciones, colorInactivo, 4);
-    }//GEN-LAST:event_pnlItemLocacionesMouseExited
-
-    private void pnlItemLocacionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemLocacionesMousePressed
-        ItemBtnLocacion();
-    }//GEN-LAST:event_pnlItemLocacionesMousePressed
-
     private void pnlItemRolPerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemRolPerMouseEntered
-        inColor(pnlItemRolPer, colorActivo, 5);
+        inColor(pnlItemRolPer, colorActivo, 4);
     }//GEN-LAST:event_pnlItemRolPerMouseEntered
 
     private void pnlItemRolPerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemRolPerMouseExited
-        outColor(pnlItemRolPer, colorInactivo, 5);
+        outColor(pnlItemRolPer, colorInactivo, 4);
     }//GEN-LAST:event_pnlItemRolPerMouseExited
 
     private void pnlItemRolPerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemRolPerMousePressed
@@ -531,11 +486,11 @@ public class vstMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlItemRolPerMousePressed
 
     private void pnlItemProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemProductosMouseEntered
-        inColor(pnlItemProductos, colorActivo, 6);
+        inColor(pnlItemProductos, colorActivo, 5);
     }//GEN-LAST:event_pnlItemProductosMouseEntered
 
     private void pnlItemProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemProductosMouseExited
-        outColor(pnlItemProductos, colorInactivo, 6);
+        outColor(pnlItemProductos, colorInactivo, 5);
     }//GEN-LAST:event_pnlItemProductosMouseExited
 
     private void pnlItemProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemProductosMousePressed
@@ -594,12 +549,10 @@ public class vstMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblFotoPerfil;
     private javax.swing.JLabel lblItemCliente;
     private javax.swing.JLabel lblItemImgCliente;
-    private javax.swing.JLabel lblItemImgLocaciones;
     private javax.swing.JLabel lblItemImgProductos;
     private javax.swing.JLabel lblItemImgProveedores;
     private javax.swing.JLabel lblItemImgRolPer;
     private javax.swing.JLabel lblItemImgUsuario;
-    private javax.swing.JLabel lblItemLocaciones;
     private javax.swing.JLabel lblItemProductos;
     private javax.swing.JLabel lblItemProveedores;
     private javax.swing.JLabel lblItemRolPer;
@@ -610,7 +563,6 @@ public class vstMenu extends javax.swing.JFrame {
     private componentes.PanelRound panelRound1;
     public static javax.swing.JPanel pnlContenedor;
     private javax.swing.JPanel pnlItemClientes;
-    private javax.swing.JPanel pnlItemLocaciones;
     private javax.swing.JPanel pnlItemProductos;
     private javax.swing.JPanel pnlItemProveedores;
     private javax.swing.JPanel pnlItemRolPer;

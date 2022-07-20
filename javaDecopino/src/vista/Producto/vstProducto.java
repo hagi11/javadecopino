@@ -7,7 +7,6 @@ package vista.Producto;
 
 import vista.Proveedor.*;
 import vista.vistaUsuario.*;
-import vista.Locacion.*;
 import vista.*;
 
 /**
@@ -23,13 +22,18 @@ public class vstProducto extends javax.swing.JPanel {
         initComponents();
     }
     
-    public void verUsuario(){
-        vstVerMarca panel = new vstVerMarca();
+    public void verInventario(){
+        vstInventario panel = new vstInventario();
         vstMenu.panelContenedor(panel);
     }
     
-    public void nuevoUsuario(){
+    public void nuevoMarca(){
         vstAgregarEditarMarca panel = new vstAgregarEditarMarca();
+        vstMenu.panelContenedor(panel);
+    }
+    
+    public void verMarca(){
+        vstVerMarca panel = new vstVerMarca();
         vstMenu.panelContenedor(panel);
     }
     /**
@@ -41,109 +45,149 @@ public class vstProducto extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelRound1 = new componentes.PanelRound();
+        pnlContenedor = new componentes.PanelRound();
         jLabel1 = new javax.swing.JLabel();
-        pnlNuevoUsuario = new componentes.PanelRound();
+        pnlNuevoMarca = new componentes.PanelRound();
         jLabel2 = new javax.swing.JLabel();
-        pnlVerUsurios = new componentes.PanelRound();
+        pnlVerInventario = new componentes.PanelRound();
         jLabel3 = new javax.swing.JLabel();
+        pnlVerMarcas = new componentes.PanelRound();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelRound1.setBackground(new java.awt.Color(255, 255, 255));
-        panelRound1.setRoundBottomLeft(30);
-        panelRound1.setRoundBottomRight(30);
-        panelRound1.setRoundTopLeft(30);
-        panelRound1.setRoundTopRight(30);
-        panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlContenedor.setBackground(new java.awt.Color(255, 255, 255));
+        pnlContenedor.setRoundBottomLeft(30);
+        pnlContenedor.setRoundBottomRight(30);
+        pnlContenedor.setRoundTopLeft(30);
+        pnlContenedor.setRoundTopRight(30);
+        pnlContenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Producto");
-        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 117, 91));
+        pnlContenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 117, 91));
 
-        pnlNuevoUsuario.setRoundBottomLeft(30);
-        pnlNuevoUsuario.setRoundBottomRight(30);
-        pnlNuevoUsuario.setRoundTopLeft(30);
-        pnlNuevoUsuario.setRoundTopRight(30);
-        pnlNuevoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlNuevoMarca.setRoundBottomLeft(30);
+        pnlNuevoMarca.setRoundBottomRight(30);
+        pnlNuevoMarca.setRoundTopLeft(30);
+        pnlNuevoMarca.setRoundTopRight(30);
+        pnlNuevoMarca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlNuevoUsuarioMousePressed(evt);
+                pnlNuevoMarcaMousePressed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Nuevo Usuario");
+        jLabel2.setText("Nuevo Marca");
 
-        javax.swing.GroupLayout pnlNuevoUsuarioLayout = new javax.swing.GroupLayout(pnlNuevoUsuario);
-        pnlNuevoUsuario.setLayout(pnlNuevoUsuarioLayout);
-        pnlNuevoUsuarioLayout.setHorizontalGroup(
-            pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlNuevoMarcaLayout = new javax.swing.GroupLayout(pnlNuevoMarca);
+        pnlNuevoMarca.setLayout(pnlNuevoMarcaLayout);
+        pnlNuevoMarcaLayout.setHorizontalGroup(
+            pnlNuevoMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoMarcaLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel2)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
-        pnlNuevoUsuarioLayout.setVerticalGroup(
-            pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
+        pnlNuevoMarcaLayout.setVerticalGroup(
+            pnlNuevoMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoMarcaLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel2)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        panelRound1.add(pnlNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 190, 90));
+        pnlContenedor.add(pnlNuevoMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 190, 90));
 
-        pnlVerUsurios.setRoundBottomLeft(30);
-        pnlVerUsurios.setRoundBottomRight(30);
-        pnlVerUsurios.setRoundTopLeft(30);
-        pnlVerUsurios.setRoundTopRight(30);
-        pnlVerUsurios.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlVerInventario.setRoundBottomLeft(30);
+        pnlVerInventario.setRoundBottomRight(30);
+        pnlVerInventario.setRoundTopLeft(30);
+        pnlVerInventario.setRoundTopRight(30);
+        pnlVerInventario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlVerUsuriosMousePressed(evt);
+                pnlVerInventarioMousePressed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Ver Usuarios");
+        jLabel3.setText("Ver Inventario");
 
-        javax.swing.GroupLayout pnlVerUsuriosLayout = new javax.swing.GroupLayout(pnlVerUsurios);
-        pnlVerUsurios.setLayout(pnlVerUsuriosLayout);
-        pnlVerUsuriosLayout.setHorizontalGroup(
-            pnlVerUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsuriosLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlVerInventarioLayout = new javax.swing.GroupLayout(pnlVerInventario);
+        pnlVerInventario.setLayout(pnlVerInventarioLayout);
+        pnlVerInventarioLayout.setHorizontalGroup(
+            pnlVerInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerInventarioLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel3)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
-        pnlVerUsuriosLayout.setVerticalGroup(
-            pnlVerUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsuriosLayout.createSequentialGroup()
+        pnlVerInventarioLayout.setVerticalGroup(
+            pnlVerInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerInventarioLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel3)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        panelRound1.add(pnlVerUsurios, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 190, 90));
+        pnlContenedor.add(pnlVerInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 190, 90));
 
-        add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
+        pnlVerMarcas.setRoundBottomLeft(30);
+        pnlVerMarcas.setRoundBottomRight(30);
+        pnlVerMarcas.setRoundTopLeft(30);
+        pnlVerMarcas.setRoundTopRight(30);
+        pnlVerMarcas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlVerMarcasMousePressed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Ver Marcas");
+
+        javax.swing.GroupLayout pnlVerMarcasLayout = new javax.swing.GroupLayout(pnlVerMarcas);
+        pnlVerMarcas.setLayout(pnlVerMarcasLayout);
+        pnlVerMarcasLayout.setHorizontalGroup(
+            pnlVerMarcasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerMarcasLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel5)
+                .addContainerGap(74, Short.MAX_VALUE))
+        );
+        pnlVerMarcasLayout.setVerticalGroup(
+            pnlVerMarcasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerMarcasLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel5)
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+
+        pnlContenedor.add(pnlVerMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 190, 90));
+
+        add(pnlContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pnlVerUsuriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsuriosMousePressed
-        verUsuario();
-    }//GEN-LAST:event_pnlVerUsuriosMousePressed
+    private void pnlVerInventarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerInventarioMousePressed
+        verInventario();
+    }//GEN-LAST:event_pnlVerInventarioMousePressed
 
-    private void pnlNuevoUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNuevoUsuarioMousePressed
-        nuevoUsuario();
-    }//GEN-LAST:event_pnlNuevoUsuarioMousePressed
+    private void pnlNuevoMarcaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNuevoMarcaMousePressed
+        nuevoMarca();
+    }//GEN-LAST:event_pnlNuevoMarcaMousePressed
+
+    private void pnlVerMarcasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerMarcasMousePressed
+        verMarca();
+    }//GEN-LAST:event_pnlVerMarcasMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private componentes.PanelRound panelRound1;
-    private componentes.PanelRound pnlNuevoUsuario;
-    private componentes.PanelRound pnlVerUsurios;
+    private javax.swing.JLabel jLabel5;
+    private componentes.PanelRound pnlContenedor;
+    private componentes.PanelRound pnlNuevoMarca;
+    private componentes.PanelRound pnlVerInventario;
+    private componentes.PanelRound pnlVerMarcas;
     // End of variables declaration//GEN-END:variables
 }

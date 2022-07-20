@@ -5,8 +5,6 @@
  */
 package vista.vistaCliente;
 
-import vista.vistaUsuario.*;
-import vista.Locacion.*;
 import vista.*;
 
 /**
@@ -58,7 +56,7 @@ public class vstMostrarInformacionCliente extends javax.swing.JPanel {
         panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Usuario Informacion");
+        jLabel1.setText("Cliente Informacion");
         panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 310, 91));
 
         pnlAgregarLocacion.setRoundBottomLeft(30);
