@@ -153,7 +153,7 @@ public class vstMenu extends javax.swing.JFrame {
     }
     
     public static void panelContenedor(JPanel panel){
-        panel.setSize(700,520);
+        panel.setSize(760, 620);
         panel.setLocation(0,0);
         
         vstMenu.pnlContenedor.removeAll();
@@ -230,20 +230,22 @@ public class vstMenu extends javax.swing.JFrame {
         pnlItemProductos = new javax.swing.JPanel();
         lblItemImgProductos = new javax.swing.JLabel();
         lblItemProductos = new javax.swing.JLabel();
+        pnlLogo = new componentes.PanelRound();
+        lblLogo = new javax.swing.JLabel();
         pnlPerfil = new componentes.PanelRound();
         lblFotoPerfil = new javax.swing.JLabel();
         lblUsuarioNombre = new javax.swing.JLabel();
         lblUsuarioRol = new javax.swing.JLabel();
         panelRound1 = new componentes.PanelRound();
         jLabel1 = new javax.swing.JLabel();
-        pnlLogo = new componentes.PanelRound();
-        lblLogo = new javax.swing.JLabel();
         pnlContenedor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(1024, 640));
         setName("menu"); // NOI18N
         setResizable(false);
+        setSize(new java.awt.Dimension(1024, 640));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlPrincipal.setBackground(new java.awt.Color(244, 244, 244));
@@ -402,6 +404,22 @@ public class vstMenu extends javax.swing.JFrame {
 
         pnlMenu4.add(pnlItemProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 220, 30));
 
+        pnlLogo.setRoundBottomLeft(30);
+        pnlLogo.setRoundBottomRight(30);
+        pnlLogo.setRoundTopLeft(30);
+        pnlLogo.setRoundTopRight(30);
+        pnlLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblLogoMousePressed(evt);
+            }
+        });
+        pnlLogo.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 100));
+
+        pnlMenu4.add(pnlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 100));
+
         pnlPerfil.setBackground(new java.awt.Color(102, 102, 102));
         pnlPerfil.setRoundBottomLeft(30);
         pnlPerfil.setRoundBottomRight(30);
@@ -432,30 +450,14 @@ public class vstMenu extends javax.swing.JFrame {
 
         pnlPerfil.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 90, 20));
 
-        pnlMenu4.add(pnlPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 220, 100));
+        pnlMenu4.add(pnlPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 220, 100));
 
-        pnlLogo.setRoundBottomLeft(30);
-        pnlLogo.setRoundBottomRight(30);
-        pnlLogo.setRoundTopLeft(30);
-        pnlLogo.setRoundTopRight(30);
-        pnlLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblLogoMousePressed(evt);
-            }
-        });
-        pnlLogo.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 100));
-
-        pnlMenu4.add(pnlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 100));
-
-        pnlPrincipal.add(pnlMenu4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 540));
+        pnlPrincipal.add(pnlMenu4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 640));
 
         pnlContenedor.setBackground(new java.awt.Color(244, 244, 244));
-        pnlPrincipal.add(pnlContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 700, 520));
+        pnlPrincipal.add(pnlContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 760, 620));
 
-        getContentPane().add(pnlPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
+        getContentPane().add(pnlPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 640));
 
         pack();
         setLocationRelativeTo(null);

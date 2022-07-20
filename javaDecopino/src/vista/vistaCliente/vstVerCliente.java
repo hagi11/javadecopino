@@ -5,8 +5,10 @@
  */
 package vista.vistaCliente;
 
+import vista.vistaUsuario.*;
+import vista.Locacion.*;
+import vista.vistaCliente.*;
 import componentes.ScrollBar;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import static java.awt.Cursor.HAND_CURSOR;
@@ -78,8 +80,7 @@ public class vstVerCliente extends javax.swing.JPanel {
     }
         
         public void PressBtnModificar(){
-            vstAgregarEditarCliente panel = new vstAgregarEditarCliente();
-            vstMenu.panelContenedor(panel);
+          
     }
         
         public void PressBtnInformacion(){
@@ -149,7 +150,7 @@ public class vstVerCliente extends javax.swing.JPanel {
             .addComponent(lblInformacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        add(pnlInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 220, 40));
+        add(pnlInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 220, 40));
 
         pnlEliminar.setBackground(new java.awt.Color(255, 255, 255));
         pnlEliminar.setPreferredSize(new java.awt.Dimension(220, 100));
@@ -189,7 +190,7 @@ public class vstVerCliente extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        add(pnlEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, 220, 40));
+        add(pnlEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 570, 220, 40));
 
         pnlModificar.setBackground(new java.awt.Color(255, 255, 255));
         pnlModificar.setPreferredSize(new java.awt.Dimension(220, 100));
@@ -229,7 +230,7 @@ public class vstVerCliente extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        add(pnlModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 460, 220, 40));
+        add(pnlModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 570, 220, 40));
 
         pnlTabla.setBackground(new java.awt.Color(255, 255, 255));
         pnlTabla.setRoundBottomLeft(30);
@@ -359,9 +360,9 @@ public class vstVerCliente extends javax.swing.JPanel {
             tblCliente.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        pnlTabla.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 680, 350));
+        pnlTabla.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 740, 470));
 
-        add(pnlTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 700, 370));
+        add(pnlTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 760, 490));
 
         pnlBuscador.setBackground(new java.awt.Color(255, 255, 255));
         pnlBuscador.setRoundBottomLeft(30);
@@ -377,7 +378,7 @@ public class vstVerCliente extends javax.swing.JPanel {
         txtBuscador.setBorder(null);
         pnlBuscador.add(txtBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 550, 30));
 
-        add(pnlBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 700, 40));
+        add(pnlBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 760, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void pnlEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEliminarMousePressed

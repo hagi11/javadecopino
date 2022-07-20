@@ -5,10 +5,9 @@
  */
 package vista.vistaRolPer;
 
-import vista.vistaRolPer.vstAgregarEditarRol;
-import vista.vistaRolPer.vstVerRecursos;
-import vista.vistaRolPer.vstVerRoles;
-import vista.vstMenu;
+import vista.vistaUsuario.*;
+import vista.Locacion.*;
+import vista.*;
 
 /**
  *
@@ -22,7 +21,16 @@ public class vstRolPer extends javax.swing.JPanel {
     public vstRolPer() {
         initComponents();
     }
-
+    
+    public void verUsuario(){
+        vstVerRol panel = new vstVerRol();
+        vstMenu.panelContenedor(panel);
+    }
+    
+    public void nuevoUsuario(){
+        vstAgregarEditarRol panel = new vstAgregarEditarRol();
+        vstMenu.panelContenedor(panel);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,13 +41,11 @@ public class vstRolPer extends javax.swing.JPanel {
     private void initComponents() {
 
         panelRound1 = new componentes.PanelRound();
-        lblTituloPanel = new javax.swing.JLabel();
-        pnlInfoRecursos = new componentes.PanelRound();
-        lblInfoRecursos = new javax.swing.JLabel();
-        pnlVerRoles = new componentes.PanelRound();
-        lblVerRoles = new javax.swing.JLabel();
-        pnlCrearRol = new componentes.PanelRound();
-        lblCrearRol = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        pnlNuevoUsuario = new componentes.PanelRound();
+        jLabel2 = new javax.swing.JLabel();
+        pnlVerUsurios = new componentes.PanelRound();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -51,149 +57,92 @@ public class vstRolPer extends javax.swing.JPanel {
         panelRound1.setRoundTopRight(30);
         panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTituloPanel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblTituloPanel.setText("Rol Y per");
-        panelRound1.add(lblTituloPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 117, 91));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("usuarios");
+        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 117, 91));
 
-        pnlInfoRecursos.setRoundBottomLeft(30);
-        pnlInfoRecursos.setRoundBottomRight(30);
-        pnlInfoRecursos.setRoundTopLeft(30);
-        pnlInfoRecursos.setRoundTopRight(30);
-        pnlInfoRecursos.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlNuevoUsuario.setRoundBottomLeft(30);
+        pnlNuevoUsuario.setRoundBottomRight(30);
+        pnlNuevoUsuario.setRoundTopLeft(30);
+        pnlNuevoUsuario.setRoundTopRight(30);
+        pnlNuevoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlInfoRecursosMousePressed(evt);
+                pnlNuevoUsuarioMousePressed(evt);
             }
         });
 
-        lblInfoRecursos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblInfoRecursos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblInfoRecursos.setText("Información Recursos");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Nuevo Usuario");
 
-        javax.swing.GroupLayout pnlInfoRecursosLayout = new javax.swing.GroupLayout(pnlInfoRecursos);
-        pnlInfoRecursos.setLayout(pnlInfoRecursosLayout);
-        pnlInfoRecursosLayout.setHorizontalGroup(
-            pnlInfoRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInfoRecursosLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(lblInfoRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlNuevoUsuarioLayout = new javax.swing.GroupLayout(pnlNuevoUsuario);
+        pnlNuevoUsuario.setLayout(pnlNuevoUsuarioLayout);
+        pnlNuevoUsuarioLayout.setHorizontalGroup(
+            pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel2)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
-        pnlInfoRecursosLayout.setVerticalGroup(
-            pnlInfoRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInfoRecursosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblInfoRecursos, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                .addContainerGap())
+        pnlNuevoUsuarioLayout.setVerticalGroup(
+            pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel2)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        panelRound1.add(pnlInfoRecursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 190, 90));
+        panelRound1.add(pnlNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 190, 90));
 
-        pnlVerRoles.setRoundBottomLeft(30);
-        pnlVerRoles.setRoundBottomRight(30);
-        pnlVerRoles.setRoundTopLeft(30);
-        pnlVerRoles.setRoundTopRight(30);
-        pnlVerRoles.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlVerUsurios.setRoundBottomLeft(30);
+        pnlVerUsurios.setRoundBottomRight(30);
+        pnlVerUsurios.setRoundTopLeft(30);
+        pnlVerUsurios.setRoundTopRight(30);
+        pnlVerUsurios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlVerRolesMousePressed(evt);
+                pnlVerUsuriosMousePressed(evt);
             }
         });
 
-        lblVerRoles.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblVerRoles.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVerRoles.setText("Ver Roles");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Ver Usuarios");
 
-        javax.swing.GroupLayout pnlVerRolesLayout = new javax.swing.GroupLayout(pnlVerRoles);
-        pnlVerRoles.setLayout(pnlVerRolesLayout);
-        pnlVerRolesLayout.setHorizontalGroup(
-            pnlVerRolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerRolesLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(lblVerRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout pnlVerUsuriosLayout = new javax.swing.GroupLayout(pnlVerUsurios);
+        pnlVerUsurios.setLayout(pnlVerUsuriosLayout);
+        pnlVerUsuriosLayout.setHorizontalGroup(
+            pnlVerUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsuriosLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel3)
                 .addContainerGap(65, Short.MAX_VALUE))
         );
-        pnlVerRolesLayout.setVerticalGroup(
-            pnlVerRolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerRolesLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(lblVerRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+        pnlVerUsuriosLayout.setVerticalGroup(
+            pnlVerUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsuriosLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel3)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        panelRound1.add(pnlVerRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 190, 90));
+        panelRound1.add(pnlVerUsurios, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 190, 90));
 
-        pnlCrearRol.setRoundBottomLeft(30);
-        pnlCrearRol.setRoundBottomRight(30);
-        pnlCrearRol.setRoundTopLeft(30);
-        pnlCrearRol.setRoundTopRight(30);
-        pnlCrearRol.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlCrearRolMousePressed(evt);
-            }
-        });
-
-        lblCrearRol.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblCrearRol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCrearRol.setText("Crear Rol");
-
-        javax.swing.GroupLayout pnlCrearRolLayout = new javax.swing.GroupLayout(pnlCrearRol);
-        pnlCrearRol.setLayout(pnlCrearRolLayout);
-        pnlCrearRolLayout.setHorizontalGroup(
-            pnlCrearRolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCrearRolLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(lblCrearRol, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-        pnlCrearRolLayout.setVerticalGroup(
-            pnlCrearRolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCrearRolLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(lblCrearRol, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
-
-        panelRound1.add(pnlCrearRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 190, 90));
-
-        add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 520));
+        add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void verRoles(){
-        vstVerRoles panel = new vstVerRoles();
-        vstMenu.panelContenedor(panel);
-    }
-    
-    public void crearRol(){
-    vstAgregarEditarRol panel = new vstAgregarEditarRol();
-    vstMenu.panelContenedor(panel);
-    }
-    
-    public void infoRecurso(){
-    vstVerRecursos panel = new vstVerRecursos();
-    vstMenu.panelContenedor(panel);
-    }
-    
-    
-    private void pnlVerRolesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerRolesMousePressed
-         verRoles();
-    }//GEN-LAST:event_pnlVerRolesMousePressed
 
-    private void pnlCrearRolMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCrearRolMousePressed
-        crearRol();
-    }//GEN-LAST:event_pnlCrearRolMousePressed
+    private void pnlVerUsuriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsuriosMousePressed
+        verUsuario();
+    }//GEN-LAST:event_pnlVerUsuriosMousePressed
 
-    private void pnlInfoRecursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInfoRecursosMousePressed
-        infoRecurso();
-    }//GEN-LAST:event_pnlInfoRecursosMousePressed
+    private void pnlNuevoUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNuevoUsuarioMousePressed
+        nuevoUsuario();
+    }//GEN-LAST:event_pnlNuevoUsuarioMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblCrearRol;
-    private javax.swing.JLabel lblInfoRecursos;
-    private javax.swing.JLabel lblTituloPanel;
-    private javax.swing.JLabel lblVerRoles;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private componentes.PanelRound panelRound1;
-    private componentes.PanelRound pnlCrearRol;
-    private componentes.PanelRound pnlInfoRecursos;
-    private componentes.PanelRound pnlVerRoles;
+    private componentes.PanelRound pnlNuevoUsuario;
+    private componentes.PanelRound pnlVerUsurios;
     // End of variables declaration//GEN-END:variables
 }

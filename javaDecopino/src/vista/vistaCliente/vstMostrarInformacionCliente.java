@@ -5,6 +5,10 @@
  */
 package vista.vistaCliente;
 
+import vista.vistaUsuario.*;
+import vista.Locacion.*;
+import vista.*;
+
 /**
  *
  * @author hamme
@@ -17,7 +21,16 @@ public class vstMostrarInformacionCliente extends javax.swing.JPanel {
     public vstMostrarInformacionCliente() {
         initComponents();
     }
-
+    
+    public void verLocaciones(){
+        vstVerCliente panel = new vstVerCliente();
+        vstMenu.panelContenedor(panel);
+    }
+    
+    public void agregarLocacion(){
+        vstAgregarEditarCliente panel = new vstAgregarEditarCliente();
+        vstMenu.panelContenedor(panel);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,73 +40,109 @@ public class vstMostrarInformacionCliente extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlContenedor = new componentes.PanelRound();
         panelRound1 = new componentes.PanelRound();
+        jLabel1 = new javax.swing.JLabel();
+        pnlAgregarLocacion = new componentes.PanelRound();
         jLabel2 = new javax.swing.JLabel();
+        pnlVerLocaciones = new componentes.PanelRound();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnlContenedor.setBackground(new java.awt.Color(255, 255, 255));
-        pnlContenedor.setRoundBottomLeft(30);
-        pnlContenedor.setRoundBottomRight(30);
-        pnlContenedor.setRoundTopLeft(30);
-        pnlContenedor.setRoundTopRight(30);
-        pnlContenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
+        panelRound1.setBackground(new java.awt.Color(255, 255, 255));
         panelRound1.setRoundBottomLeft(30);
         panelRound1.setRoundBottomRight(30);
         panelRound1.setRoundTopLeft(30);
         panelRound1.setRoundTopRight(30);
+        panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setText("Agregar");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("Usuario Informacion");
+        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 310, 91));
 
-        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
-        panelRound1.setLayout(panelRound1Layout);
-        panelRound1Layout.setHorizontalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
-        );
-        panelRound1Layout.setVerticalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound1Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
-        );
-
-        pnlContenedor.add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 220, -1));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setText("Informacion Cliente");
-        pnlContenedor.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 240, 91));
-
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        pnlAgregarLocacion.setRoundBottomLeft(30);
+        pnlAgregarLocacion.setRoundBottomRight(30);
+        pnlAgregarLocacion.setRoundTopLeft(30);
+        pnlAgregarLocacion.setRoundTopRight(30);
+        pnlAgregarLocacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlAgregarLocacionMousePressed(evt);
             }
         });
-        pnlContenedor.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 200, 50));
 
-        add(pnlContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 520));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Agregar Locacion");
+
+        javax.swing.GroupLayout pnlAgregarLocacionLayout = new javax.swing.GroupLayout(pnlAgregarLocacion);
+        pnlAgregarLocacion.setLayout(pnlAgregarLocacionLayout);
+        pnlAgregarLocacionLayout.setHorizontalGroup(
+            pnlAgregarLocacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAgregarLocacionLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel2)
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        pnlAgregarLocacionLayout.setVerticalGroup(
+            pnlAgregarLocacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAgregarLocacionLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel2)
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+
+        panelRound1.add(pnlAgregarLocacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 190, 90));
+
+        pnlVerLocaciones.setRoundBottomLeft(30);
+        pnlVerLocaciones.setRoundBottomRight(30);
+        pnlVerLocaciones.setRoundTopLeft(30);
+        pnlVerLocaciones.setRoundTopRight(30);
+        pnlVerLocaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlVerLocacionesMousePressed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Ver Locaciones");
+
+        javax.swing.GroupLayout pnlVerLocacionesLayout = new javax.swing.GroupLayout(pnlVerLocaciones);
+        pnlVerLocaciones.setLayout(pnlVerLocacionesLayout);
+        pnlVerLocacionesLayout.setHorizontalGroup(
+            pnlVerLocacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerLocacionesLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel3)
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
+        pnlVerLocacionesLayout.setVerticalGroup(
+            pnlVerLocacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerLocacionesLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel3)
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+
+        panelRound1.add(pnlVerLocaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 190, 90));
+
+        add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void pnlVerLocacionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerLocacionesMousePressed
+        verLocaciones();
+    }//GEN-LAST:event_pnlVerLocacionesMousePressed
+
+    private void pnlAgregarLocacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAgregarLocacionMousePressed
+        agregarLocacion();
+    }//GEN-LAST:event_pnlAgregarLocacionMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
     private componentes.PanelRound panelRound1;
-    private componentes.PanelRound pnlContenedor;
+    private componentes.PanelRound pnlAgregarLocacion;
+    private componentes.PanelRound pnlVerLocaciones;
     // End of variables declaration//GEN-END:variables
 }

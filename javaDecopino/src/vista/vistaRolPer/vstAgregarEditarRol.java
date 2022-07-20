@@ -5,6 +5,10 @@
  */
 package vista.vistaRolPer;
 
+import vista.vistaUsuario.*;
+import vista.Locacion.*;
+import vista.*;
+
 /**
  *
  * @author hamme
@@ -28,8 +32,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private void initComponents() {
 
         panelRound1 = new componentes.PanelRound();
-        jLabel1 = new javax.swing.JLabel();
-        panelRound2 = new componentes.PanelRound();
+        lblTitulo = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -41,30 +44,16 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         panelRound1.setRoundTopRight(30);
         panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Crear Rol");
-        panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 117, 91));
+        lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblTitulo.setText("Agregar o Modificar Locaciones");
+        panelRound1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 460, 91));
 
-        javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
-        panelRound2.setLayout(panelRound2Layout);
-        panelRound2Layout.setHorizontalGroup(
-            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
-        );
-        panelRound2Layout.setVerticalGroup(
-            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 90, Short.MAX_VALUE)
-        );
-
-        panelRound1.add(panelRound2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 190, 90));
-
-        add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 520));
+        add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblTitulo;
     private componentes.PanelRound panelRound1;
-    private componentes.PanelRound panelRound2;
     // End of variables declaration//GEN-END:variables
 }
