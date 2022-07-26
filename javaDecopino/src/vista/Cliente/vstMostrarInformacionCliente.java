@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista.vistaCliente;
+package vista.Cliente;
 
 import vista.*;
 
@@ -26,7 +26,7 @@ public class vstMostrarInformacionCliente extends javax.swing.JPanel {
     }
     
     public void agregarLocacion(){
-        vstAgregarEditarCliente panel = new vstAgregarEditarCliente();
+        vstEditarCliente panel = new vstEditarCliente();
         vstMenu.panelContenedor(panel);
     }
     /**

@@ -1,0 +1,23 @@
+﻿id;codigo;nombre;descripcion;ruta;estado;fregistro;factualizado
+1;ESC01;vstLogin.java;Ventana de inicio de sesión.;vista;1;25/07/2022;NULL
+2;ESC02;vstInicio.java;Panel de inicio.;vista;1;25/07/2022;NULL
+3;ESC03;vstMenu.java;Ventana para el menú.;vista;1;25/07/2022;NULL
+4;ESC04;vstAgregarEditarMarca.java;Panel para agregar marcas nuevas o editar uno previamente seleccionada.;vista.Producto;1;25/07/2022;NULL
+5;ESC05;vstInventario.java;Panel para visualizar el inventario.;vista.Producto;1;25/07/2022;NULL
+6;ESC06;vstProducto.java;Panel inicial de productos.;vista.Producto;1;25/07/2022;NULL
+7;ESC07;vstVerMarca.java;Panel para visualizar las marcas registradas, eliminarlas o seleccionarlas para edición.;vista.Producto;1;25/07/2022;NULL
+8;ESC08;vstAgregarEditarProveedor.java;Panel para agregar los proveedores nuevos o editar uno previamente seleccionada.;vista.Proveedor;1;25/07/2022;NULL
+9;ESC09;vstMostrarInformacionProveedor.java;Panel para mostrar toda la información de un proveedor previamente seleccionado.;vista.Proveedor;1;25/07/2022;NULL
+10;ESC10;vstProveedor.java;Panel inicial de proveedores.;vista.Proveedor;1;25/07/2022;NULL
+11;ESC11;vstVerProveedor.java;Panel para visualizar los proveedores registrados, eliminarlos o seleccionarlos para edición.;vista.Proveedor;1;25/07/2022;NULL
+12;ESC12;vstEditarCliente.java;Panel para editar un cliente previamente seleccionado.;vsita.Cliente;1;25/07/2022;NULL
+13;ESC13;vstMostrarInformacionCliente.java;Panel para mostrar toda la información de un cliente previamente seleccionado.;vsita.Cliente;1;25/07/2022;NULL
+14;ESC14;vstVerCliente;Panel para visualizar los clientes registrados, seleccionarlos para edición o para ver más información de los mismos.;vsita.Cliente;1;25/07/2022;NULL
+15;ESC15;vsrAgregarEditarRol.java;Panel para agregar los roles nuevos o editar uno previamente seleccionada.;vista.RolPEr;1;25/07/2022;NULL
+16;ESC16;vstRolPer.java;Panel inicial de los roles y permisos;vista.RolPEr;1;25/07/2022;NULL
+17;ESC17;vstVerRecurso.java;Panel para visualizar todos los recursos disponibles.;vista.RolPEr;1;25/07/2022;NULL
+18;ESC18;vstVerRol.java;Panel para visualizar los roles registrados, eliminarlos o seleccionarlos para edición.;vista.RolPEr;1;25/07/2022;NULL
+19;ESC19;vstAgregarEditarUsuario.java;Panel para agregar los usuarios nuevos o editar uno previamente seleccionada.;vista.Usuario;1;25/07/2022;NULL
+20;ESC20;vstMostrarInformacionUsuario.java;Panel para mostrar toda la información de un usuario previamente seleccionado.;vista.Usuario;1;25/07/2022;NULL
+21;ESC21;vstUsuario.java;Panel inicial de usuario.;vista.Usuario;1;25/07/2022;NULL
+22;ESC22;vstVerUsuario.java;Panel para visualizar los usuarios registrados, eliminarlos o seleccionarlos para edición.;vista.Usuario;1;25/07/2022;NULL

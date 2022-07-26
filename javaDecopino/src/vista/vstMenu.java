@@ -10,7 +10,7 @@ import vista.vistaRolPer.vstRolPer;
 import vista.vistaUsuario.vstUsuario;
 import vista.Proveedor.vstProveedor;
 
-import vista.vistaCliente.vstVerCliente;
+import vista.Cliente.vstVerCliente;
 import com.jtattoo.plaf.bernstein.BernsteinLookAndFeel;
 import com.jtattoo.plaf.graphite.GraphiteLookAndFeel;
 import java.awt.BorderLayout;

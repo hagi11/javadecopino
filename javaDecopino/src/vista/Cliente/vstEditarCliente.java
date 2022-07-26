@@ -3,21 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista.vistaCliente;
+package vista.Cliente;
 
-import vista.vistaUsuario.*;
+import vista.Usuario.*;
 import vista.*;
 
 /**
  *
  * @author hamme
  */
-public class vstAgregarEditarCliente extends javax.swing.JPanel {
+public class vstEditarCliente extends javax.swing.JPanel {
 
     /**
      * Creates new form pnlInicio
      */
-    public vstAgregarEditarCliente() {
+    public vstEditarCliente() {
         initComponents();
     }
 
