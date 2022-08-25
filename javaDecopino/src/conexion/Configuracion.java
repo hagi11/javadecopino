@@ -17,12 +17,6 @@ public interface Configuracion {
 //    String PASSWORD = "oracle";
     
 //    String DRIVER = "com.mysql.jdbc.Driver";
-//    String DATA_BASE = "PruebaADSI194";
-//    String CONNECTION_URL = "jdbc:mysql://localhost:3306/"+DATA_BASE;    
-//    String USERNAME = "root";
-//    String PASSWORD = "";
-    
-//    String DRIVER = "com.mysql.jdbc.Driver";
 //    String DATA_BASE = "softclotech_ADSI192_prueba";   
 //    String CONNECTION_URL = "jdbc:mysql://34.95.206.133:3306/"+DATA_BASE;
 //    String USERNAME = "softclotech_invitadoadsi192";
@@ -40,10 +34,22 @@ public interface Configuracion {
 //    String USERNAME = "postgres";
 //    String PASSWORD = "jaime";
 //    
-    String DRIVER = "org.apache.derby.jdbc.ClientDriver";
-    String DATA_BASE = "agenda";
-    String CONNECTION_URL = "jdbc:derby://localhost:1527/"+DATA_BASE;    
-    String USERNAME = "agenda";
-    String PASSWORD = "agenda";
+//    String DRIVER = "org.apache.derby.jdbc.ClientDriver";
+//    String DATA_BASE = "agenda";
+//    String CONNECTION_URL = "jdbc:derby://localhost:1527/"+DATA_BASE;    
+//    String USERNAME = "agenda";
+//    String PASSWORD = "agenda";
+    
+//    String DRIVER = "com.mysql.jdbc.Driver";
+//    String DATA_BASE = "decoraci_decopino";
+//    String CONNECTION_URL = "jdbc:mysql://localhost:3306/"+DATA_BASE;    
+//    String USERNAME = "root";
+//    String PASSWORD = "";
+    
+    String DRIVER = "com.mysql.cj.jdbc.Driver";
+    String DATA_BASE = "decoraci_decopino";
+//    String CONNECTION_URL = "jdbc:mysql://decoracioneslospinos.com:3306/" + DATA_BASE + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    String CONNECTION_URL = "jdbc:mysql://decoracioneslospinos.com:3306/"+DATA_BASE;
+    String USERNAME = "decoraci_adsi200";
+    String PASSWORD = "los20pinos";
 }
-

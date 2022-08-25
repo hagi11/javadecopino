@@ -11,32 +11,36 @@ import java.sql.Timestamp;
  *
  * @author hamme
  */
-public class MdlUsuario extends MdlPersona{
+public class MdlUsuario extends MdlPersona {
+
     private int id;
     private String login;
     private String contrasenia;
     private int estado;
+    private MdlRol rol;
     private Timestamp fregistro;
     private Timestamp factualizado;
 
     public MdlUsuario() {
     }
 
-    public MdlUsuario(int id, String login, String contrasenia, int estado, Timestamp fregistro, Timestamp factualizado) {
+    public MdlUsuario(int id, String login, String contrasenia, int estado, MdlRol rol, Timestamp fregistro, Timestamp factualizado) {
         this.id = id;
         this.login = login;
         this.contrasenia = contrasenia;
         this.estado = estado;
+        this.rol = rol;
         this.fregistro = fregistro;
         this.factualizado = factualizado;
     }
 
-    public MdlUsuario(int idUsu, String login, String contrasenia, int estadoUsu, Timestamp fregistroUsu, Timestamp factualizadoUsu, int id, String tidenrificacion, int identificacion, String nombre, String apellido, String correo, String telefono, String direccion, MdlCiudad ciudad, int estado, Timestamp fregistro, Timestamp factualizado) {
+    public MdlUsuario(int idUsu, String login, String contrasenia, int estadoUsu, MdlRol rol, Timestamp fregistroUsu, Timestamp factualizadoUsu, int id, String tidenrificacion, int identificacion, String nombre, String apellido, String correo, String telefono, String direccion, MdlCiudad ciudad, int estado, Timestamp fregistro, Timestamp factualizado) {
         super(id, tidenrificacion, identificacion, nombre, apellido, correo, telefono, direccion, ciudad, estado, fregistro, factualizado);
         this.id = idUsu;
         this.login = login;
         this.contrasenia = contrasenia;
         this.estado = estadoUsu;
+        this.rol = rol;
         this.fregistro = fregistroUsu;
         this.factualizado = factualizadoUsu;
     }
@@ -73,6 +77,14 @@ public class MdlUsuario extends MdlPersona{
         this.estado = estado;
     }
 
+    public MdlRol getRol() {
+        return rol;
+    }
+
+    public void setRol(MdlRol rol) {
+        this.rol = rol;
+    }
+
     public Timestamp getFregistro() {
         return fregistro;
     }
@@ -88,6 +100,5 @@ public class MdlUsuario extends MdlPersona{
     public void setFactualizado(Timestamp factualizado) {
         this.factualizado = factualizado;
     }
-    
-}
 
+}
