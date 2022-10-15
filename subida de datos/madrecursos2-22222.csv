@@ -1,7 +1,6 @@
 ﻿id;codigo;nombre;descripcion;ruta;estado;fregistro;factualizado
-5;ESC05;inventario;Panel para visualizar el inventario.;vista.Producto;1;25/07/2022;NULL
-6;ESC06;producto;Panel para visualizar las producto registradas, eliminarlas o seleccionarlas para edición.;vista.Producto;1;25/07/2022;NULL
-7;ESC07;proveedor;Panel para visualizar las marcas registradas, eliminarlas o seleccionarlas para edición.;vista.Producto;1;25/07/2022;NULL
-8;ESC08;cliente;Panel para agregar los proveedores nuevos o editar uno previamente seleccionada.;vista.Proveedor;1;25/07/2022;NULL
-9;ESC09;rol;Panel para mostrar toda la información de un proveedor previamente seleccionado.;vista.Proveedor;1;25/07/2022;NULL
-10;ESC10;usuario;Panel inicial de proveedores.;vista.Proveedor;1;25/07/2022;NULL
+5;ESC01;inventario;Panel para visualizar el inventario.;vista.Inventario;1;25/07/2022;NULL
+7;ESC02;proveedor;Panel para visualizar las marcas registradas, eliminarlas o seleccionarlas para edición.;vista.Proveedor;1;25/07/2022;NULL
+8;ESC03;cliente;Panel para agregar los proveedores nuevos o editar uno previamente seleccionada.;vista.Cliente;1;25/07/2022;NULL
+9;ESC04;rol;Panel para mostrar toda la información de un proveedor previamente seleccionado.;vista.RolPer;1;25/07/2022;NULL
+10;ESC05;usuario;Panel inicial de proveedores.;vista.Usuario;1;25/07/2022;NULL

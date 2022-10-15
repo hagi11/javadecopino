@@ -366,7 +366,7 @@ public class vstMenu extends javax.swing.JFrame {
 
         lblItemProductos.setFont(new java.awt.Font("Poor Richard", 1, 20)); // NOI18N
         lblItemProductos.setForeground(new java.awt.Color(255, 255, 255));
-        lblItemProductos.setText("Mercancia");
+        lblItemProductos.setText("Inventario");
         pnlItemProductos.add(lblItemProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 110, 20));
 
         pnlMenu4.add(pnlItemProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 220, 30));

@@ -5,6 +5,7 @@
  */
 package vista.vistaRolPer;
 
+import vista.RolPer.vstAgregarEditarRol;
 import vista.*;
 
 /**

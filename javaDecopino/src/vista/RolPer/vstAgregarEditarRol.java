@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista.vistaRolPer;
+package vista.RolPer;
 
 
 /**
@@ -29,7 +29,64 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private void initComponents() {
 
         panelRound1 = new componentes.PanelRound();
-        lblTitulo = new javax.swing.JLabel();
+        lblTituloRol = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblOpcionVer = new javax.swing.JLabel();
+        lblOpcionVer1 = new javax.swing.JLabel();
+        lblOpcionAgregar = new javax.swing.JLabel();
+        lblOpcionEditar = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblOpcionVer2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        pnlVerUsurios2 = new componentes.PanelRound();
+        chbClienteVer = new javax.swing.JCheckBox();
+        chbClienteAgregar = new javax.swing.JCheckBox();
+        chbClienteEditar = new javax.swing.JCheckBox();
+        chbClienteEliminar = new javax.swing.JCheckBox();
+        chbClienteMostrar = new javax.swing.JCheckBox();
+        jSeparator3 = new javax.swing.JSeparator();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        pnlVerUsurios3 = new componentes.PanelRound();
+        chbInventario3 = new javax.swing.JCheckBox();
+        jCheckBox14 = new javax.swing.JCheckBox();
+        jCheckBox15 = new javax.swing.JCheckBox();
+        jCheckBox16 = new javax.swing.JCheckBox();
+        jCheckBox17 = new javax.swing.JCheckBox();
+        jSeparator4 = new javax.swing.JSeparator();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        pnlVerUsurios4 = new componentes.PanelRound();
+        chbInventario4 = new javax.swing.JCheckBox();
+        jCheckBox18 = new javax.swing.JCheckBox();
+        jCheckBox19 = new javax.swing.JCheckBox();
+        jCheckBox20 = new javax.swing.JCheckBox();
+        jCheckBox21 = new javax.swing.JCheckBox();
+        jSeparator5 = new javax.swing.JSeparator();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        pnlVerUsurios5 = new componentes.PanelRound();
+        chbInventario5 = new javax.swing.JCheckBox();
+        jCheckBox22 = new javax.swing.JCheckBox();
+        jCheckBox23 = new javax.swing.JCheckBox();
+        jCheckBox24 = new javax.swing.JCheckBox();
+        jCheckBox25 = new javax.swing.JCheckBox();
+        jSeparator6 = new javax.swing.JSeparator();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        pnlVerUsurios7 = new componentes.PanelRound();
+        chbInventario7 = new javax.swing.JCheckBox();
+        jCheckBox30 = new javax.swing.JCheckBox();
+        jCheckBox31 = new javax.swing.JCheckBox();
+        jCheckBox32 = new javax.swing.JCheckBox();
+        jCheckBox33 = new javax.swing.JCheckBox();
+        jSeparator8 = new javax.swing.JSeparator();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        panelRound4 = new componentes.PanelRound();
+        jSeparator2 = new javax.swing.JSeparator();
+        txtNombreRol = new javax.swing.JTextField();
+        lblNombreRol = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -41,16 +98,792 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         panelRound1.setRoundTopRight(30);
         panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblTitulo.setText("Agregar o Modificar Rol");
-        panelRound1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 460, 91));
+        lblTituloRol.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblTituloRol.setText("Agregar o Modificar Rol");
+        panelRound1.add(lblTituloRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 460, 91));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblOpcionVer.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblOpcionVer.setText("Permisos");
+
+        lblOpcionVer1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblOpcionVer1.setText("Mostar");
+
+        lblOpcionAgregar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblOpcionAgregar.setText("Agregar");
+
+        lblOpcionEditar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblOpcionEditar.setText("Editar");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel4.setText("Eliminar");
+
+        lblOpcionVer2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblOpcionVer2.setText("Ver");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(lblOpcionVer)
+                .addGap(132, 132, 132)
+                .addComponent(lblOpcionVer2)
+                .addGap(38, 38, 38)
+                .addComponent(lblOpcionAgregar)
+                .addGap(27, 27, 27)
+                .addComponent(lblOpcionVer1)
+                .addGap(28, 28, 28)
+                .addComponent(lblOpcionEditar)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel4))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 30, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblOpcionVer)
+                    .addComponent(lblOpcionAgregar)
+                    .addComponent(lblOpcionEditar)
+                    .addComponent(jLabel4)
+                    .addComponent(lblOpcionVer2)
+                    .addComponent(lblOpcionVer1)))
+        );
+
+        panelRound1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 650, 50));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        pnlVerUsurios2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVerUsurios2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlVerUsurios2MousePressed(evt);
+            }
+        });
+
+        chbClienteVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbClienteVerActionPerformed(evt);
+            }
+        });
+
+        chbClienteAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbClienteAgregarActionPerformed(evt);
+            }
+        });
+
+        chbClienteEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbClienteEditarActionPerformed(evt);
+            }
+        });
+
+        chbClienteEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbClienteEliminarActionPerformed(evt);
+            }
+        });
+
+        chbClienteMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbClienteMostrarActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Clientes");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel6)
+                .addGap(28, 28, 28))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 5, Short.MAX_VALUE)
+                .addComponent(jLabel6))
+        );
+
+        javax.swing.GroupLayout pnlVerUsurios2Layout = new javax.swing.GroupLayout(pnlVerUsurios2);
+        pnlVerUsurios2.setLayout(pnlVerUsurios2Layout);
+        pnlVerUsurios2Layout.setHorizontalGroup(
+            pnlVerUsurios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsurios2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlVerUsurios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlVerUsurios2Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(128, 128, 128)
+                        .addComponent(chbClienteVer)
+                        .addGap(65, 65, 65)
+                        .addComponent(chbClienteAgregar)
+                        .addGap(65, 65, 65)
+                        .addComponent(chbClienteMostrar)
+                        .addGap(65, 65, 65)
+                        .addComponent(chbClienteEditar)
+                        .addGap(65, 65, 65)
+                        .addComponent(chbClienteEliminar)
+                        .addGap(17, 17, 17))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+        );
+        pnlVerUsurios2Layout.setVerticalGroup(
+            pnlVerUsurios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsurios2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlVerUsurios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(chbClienteMostrar)
+                    .addComponent(chbClienteEliminar)
+                    .addComponent(chbClienteEditar)
+                    .addComponent(chbClienteAgregar)
+                    .addComponent(chbClienteVer)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pnlVerUsurios3.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVerUsurios3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlVerUsurios3MousePressed(evt);
+            }
+        });
+
+        chbInventario3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbInventario3ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox14ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox15ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox16ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox17ActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Roles");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel7)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 5, Short.MAX_VALUE)
+                .addComponent(jLabel7))
+        );
+
+        javax.swing.GroupLayout pnlVerUsurios3Layout = new javax.swing.GroupLayout(pnlVerUsurios3);
+        pnlVerUsurios3.setLayout(pnlVerUsurios3Layout);
+        pnlVerUsurios3Layout.setHorizontalGroup(
+            pnlVerUsurios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsurios3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlVerUsurios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlVerUsurios3Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(128, 128, 128)
+                        .addComponent(chbInventario3)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox14)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox17)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox15)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox16)
+                        .addGap(17, 17, 17))
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+        );
+        pnlVerUsurios3Layout.setVerticalGroup(
+            pnlVerUsurios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsurios3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlVerUsurios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCheckBox17)
+                    .addComponent(jCheckBox16)
+                    .addComponent(jCheckBox15)
+                    .addComponent(jCheckBox14)
+                    .addComponent(chbInventario3)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pnlVerUsurios4.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVerUsurios4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlVerUsurios4MousePressed(evt);
+            }
+        });
+
+        chbInventario4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbInventario4ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox18ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox19ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox20ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox21ActionPerformed(evt);
+            }
+        });
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Provedores");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel8)
+                .addGap(10, 10, 10))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 5, Short.MAX_VALUE)
+                .addComponent(jLabel8))
+        );
+
+        javax.swing.GroupLayout pnlVerUsurios4Layout = new javax.swing.GroupLayout(pnlVerUsurios4);
+        pnlVerUsurios4.setLayout(pnlVerUsurios4Layout);
+        pnlVerUsurios4Layout.setHorizontalGroup(
+            pnlVerUsurios4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsurios4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlVerUsurios4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlVerUsurios4Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(128, 128, 128)
+                        .addComponent(chbInventario4)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox18)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox21)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox19)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox20)
+                        .addGap(17, 17, 17))
+                    .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+        );
+        pnlVerUsurios4Layout.setVerticalGroup(
+            pnlVerUsurios4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsurios4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlVerUsurios4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCheckBox21)
+                    .addComponent(jCheckBox20)
+                    .addComponent(jCheckBox19)
+                    .addComponent(jCheckBox18)
+                    .addComponent(chbInventario4)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pnlVerUsurios5.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVerUsurios5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlVerUsurios5MousePressed(evt);
+            }
+        });
+
+        chbInventario5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbInventario5ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox22ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox23ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox24ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox25ActionPerformed(evt);
+            }
+        });
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setText("Inventario");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 5, Short.MAX_VALUE)
+                .addComponent(jLabel9))
+        );
+
+        javax.swing.GroupLayout pnlVerUsurios5Layout = new javax.swing.GroupLayout(pnlVerUsurios5);
+        pnlVerUsurios5.setLayout(pnlVerUsurios5Layout);
+        pnlVerUsurios5Layout.setHorizontalGroup(
+            pnlVerUsurios5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsurios5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlVerUsurios5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlVerUsurios5Layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(128, 128, 128)
+                        .addComponent(chbInventario5)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox22)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox25)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox23)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox24)
+                        .addGap(17, 17, 17))
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+        );
+        pnlVerUsurios5Layout.setVerticalGroup(
+            pnlVerUsurios5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsurios5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlVerUsurios5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCheckBox25)
+                    .addComponent(jCheckBox24)
+                    .addComponent(jCheckBox23)
+                    .addComponent(jCheckBox22)
+                    .addComponent(chbInventario5)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pnlVerUsurios7.setBackground(new java.awt.Color(255, 255, 255));
+        pnlVerUsurios7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlVerUsurios7MousePressed(evt);
+            }
+        });
+
+        chbInventario7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbInventario7ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox30ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox31ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox32ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox33ActionPerformed(evt);
+            }
+        });
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("Usuarios");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(0, 5, Short.MAX_VALUE)
+                .addComponent(jLabel11))
+        );
+
+        javax.swing.GroupLayout pnlVerUsurios7Layout = new javax.swing.GroupLayout(pnlVerUsurios7);
+        pnlVerUsurios7.setLayout(pnlVerUsurios7Layout);
+        pnlVerUsurios7Layout.setHorizontalGroup(
+            pnlVerUsurios7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsurios7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlVerUsurios7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlVerUsurios7Layout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(128, 128, 128)
+                        .addComponent(chbInventario7)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox30)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox33)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox31)
+                        .addGap(65, 65, 65)
+                        .addComponent(jCheckBox32)
+                        .addGap(17, 17, 17))
+                    .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+        );
+        pnlVerUsurios7Layout.setVerticalGroup(
+            pnlVerUsurios7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerUsurios7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlVerUsurios7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCheckBox33)
+                    .addComponent(jCheckBox32)
+                    .addComponent(jCheckBox31)
+                    .addComponent(jCheckBox30)
+                    .addComponent(chbInventario7)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlVerUsurios2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlVerUsurios3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlVerUsurios4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlVerUsurios7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlVerUsurios5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(pnlVerUsurios2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlVerUsurios5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlVerUsurios3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlVerUsurios4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlVerUsurios7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+
+        panelRound1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 670, 350));
+
+        panelRound4.setBackground(new java.awt.Color(255, 255, 255));
+        panelRound4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelRound4.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 460, 10));
+
+        txtNombreRol.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        txtNombreRol.setBorder(null);
+        txtNombreRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreRolActionPerformed(evt);
+            }
+        });
+        panelRound4.add(txtNombreRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
+
+        lblNombreRol.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
+        lblNombreRol.setText("Nombre del rol");
+        panelRound4.add(lblNombreRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 20));
+
+        panelRound1.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 630, 40));
 
         add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void chbClienteVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteVerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbClienteVerActionPerformed
+
+    private void chbClienteAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbClienteAgregarActionPerformed
+
+    private void chbClienteEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbClienteEditarActionPerformed
+
+    private void chbClienteEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbClienteEliminarActionPerformed
+
+    private void chbClienteMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteMostrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbClienteMostrarActionPerformed
+
+    private void pnlVerUsurios2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsurios2MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlVerUsurios2MousePressed
+
+    private void chbInventario3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventario3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbInventario3ActionPerformed
+
+    private void jCheckBox14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox14ActionPerformed
+
+    private void jCheckBox15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox15ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox15ActionPerformed
+
+    private void jCheckBox16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox16ActionPerformed
+
+    private void jCheckBox17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox17ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox17ActionPerformed
+
+    private void pnlVerUsurios3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsurios3MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlVerUsurios3MousePressed
+
+    private void chbInventario4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventario4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbInventario4ActionPerformed
+
+    private void jCheckBox18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox18ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox18ActionPerformed
+
+    private void jCheckBox19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox19ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox19ActionPerformed
+
+    private void jCheckBox20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox20ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox20ActionPerformed
+
+    private void jCheckBox21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox21ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox21ActionPerformed
+
+    private void pnlVerUsurios4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsurios4MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlVerUsurios4MousePressed
+
+    private void chbInventario5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventario5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbInventario5ActionPerformed
+
+    private void jCheckBox22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox22ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox22ActionPerformed
+
+    private void jCheckBox23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox23ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox23ActionPerformed
+
+    private void jCheckBox24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox24ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox24ActionPerformed
+
+    private void jCheckBox25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox25ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox25ActionPerformed
+
+    private void pnlVerUsurios5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsurios5MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlVerUsurios5MousePressed
+
+    private void chbInventario7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventario7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbInventario7ActionPerformed
+
+    private void jCheckBox30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox30ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox30ActionPerformed
+
+    private void jCheckBox31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox31ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox31ActionPerformed
+
+    private void jCheckBox32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox32ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox32ActionPerformed
+
+    private void jCheckBox33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox33ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox33ActionPerformed
+
+    private void pnlVerUsurios7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsurios7MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlVerUsurios7MousePressed
+
+    private void txtNombreRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreRolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreRolActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JCheckBox chbClienteAgregar;
+    private javax.swing.JCheckBox chbClienteEditar;
+    private javax.swing.JCheckBox chbClienteEliminar;
+    private javax.swing.JCheckBox chbClienteMostrar;
+    private javax.swing.JCheckBox chbClienteVer;
+    private javax.swing.JCheckBox chbInventario3;
+    private javax.swing.JCheckBox chbInventario4;
+    private javax.swing.JCheckBox chbInventario5;
+    private javax.swing.JCheckBox chbInventario6;
+    private javax.swing.JCheckBox chbInventario7;
+    private javax.swing.JCheckBox jCheckBox14;
+    private javax.swing.JCheckBox jCheckBox15;
+    private javax.swing.JCheckBox jCheckBox16;
+    private javax.swing.JCheckBox jCheckBox17;
+    private javax.swing.JCheckBox jCheckBox18;
+    private javax.swing.JCheckBox jCheckBox19;
+    private javax.swing.JCheckBox jCheckBox20;
+    private javax.swing.JCheckBox jCheckBox21;
+    private javax.swing.JCheckBox jCheckBox22;
+    private javax.swing.JCheckBox jCheckBox23;
+    private javax.swing.JCheckBox jCheckBox24;
+    private javax.swing.JCheckBox jCheckBox25;
+    private javax.swing.JCheckBox jCheckBox26;
+    private javax.swing.JCheckBox jCheckBox27;
+    private javax.swing.JCheckBox jCheckBox28;
+    private javax.swing.JCheckBox jCheckBox29;
+    private javax.swing.JCheckBox jCheckBox30;
+    private javax.swing.JCheckBox jCheckBox31;
+    private javax.swing.JCheckBox jCheckBox32;
+    private javax.swing.JCheckBox jCheckBox33;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JLabel lblNombreRol;
+    private javax.swing.JLabel lblOpcionAgregar;
+    private javax.swing.JLabel lblOpcionEditar;
+    private javax.swing.JLabel lblOpcionVer;
+    private javax.swing.JLabel lblOpcionVer1;
+    private javax.swing.JLabel lblOpcionVer2;
+    private javax.swing.JLabel lblTituloRol;
     private componentes.PanelRound panelRound1;
+    private componentes.PanelRound panelRound4;
+    private componentes.PanelRound pnlVerUsurios2;
+    private componentes.PanelRound pnlVerUsurios3;
+    private componentes.PanelRound pnlVerUsurios4;
+    private componentes.PanelRound pnlVerUsurios5;
+    private componentes.PanelRound pnlVerUsurios6;
+    private componentes.PanelRound pnlVerUsurios7;
+    private javax.swing.JTextField txtNombreRol;
     // End of variables declaration//GEN-END:variables
 }
