@@ -56,7 +56,7 @@ public class vstRolPer extends javax.swing.JPanel {
         panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("usuarios");
+        jLabel1.setText("Rol");
         panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 117, 91));
 
         pnlNuevoUsuario.setRoundBottomLeft(30);
@@ -70,7 +70,7 @@ public class vstRolPer extends javax.swing.JPanel {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Nuevo Usuario");
+        jLabel2.setText("Nuevo Rol");
 
         javax.swing.GroupLayout pnlNuevoUsuarioLayout = new javax.swing.GroupLayout(pnlNuevoUsuario);
         pnlNuevoUsuario.setLayout(pnlNuevoUsuarioLayout);
@@ -79,7 +79,7 @@ public class vstRolPer extends javax.swing.JPanel {
             .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel2)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         pnlNuevoUsuarioLayout.setVerticalGroup(
             pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +102,7 @@ public class vstRolPer extends javax.swing.JPanel {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Ver Usuarios");
+        jLabel3.setText("Ver Roles");
 
         javax.swing.GroupLayout pnlVerUsuriosLayout = new javax.swing.GroupLayout(pnlVerUsurios);
         pnlVerUsurios.setLayout(pnlVerUsuriosLayout);
@@ -111,7 +111,7 @@ public class vstRolPer extends javax.swing.JPanel {
             .addGroup(pnlVerUsuriosLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel3)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         pnlVerUsuriosLayout.setVerticalGroup(
             pnlVerUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
