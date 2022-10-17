@@ -38,7 +38,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }
 
     public void ModoAgregar() {
-
         lblTituloRol.setText("Agregar Rol");
         btnActualizar.setVisible(false);
     }
@@ -54,11 +53,89 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         chbInventarioEliminar.setEnabled(false);
     }
 
+    public void validarInformacionRol() {
+        boolean validadorNombre = false;
+        boolean validadorFunciones = false;
+
+        validadorNombre = validarRolNombre();
+        
+        /// HAcer validacion para 
+        if (validadorNombre) {
+            boolean continuar = true;
+            if (txaFunciones.getText().isEmpty()) {
+                int opcion = JOptionPane.showConfirmDialog(null, "Esta apunto de crear el rol sin \nasignarle funciones desea continuar", "  Advertencia", 2);
+                if (!(opcion == 0)) {
+                    continuar = false;
+                    validadorFunciones = true;
+                }
+            }else{
+                validadorFunciones = validarRolFunciones();
+            }
+
+            if (continuar) {
+//            CrearRol();
+                System.err.println("Crear rol");
+            }
+        }
+    }
+
+    public boolean validarRolNombre() {
+        boolean confirmar = false;
+        boolean valCaracteres = false;
+        int validador = 0;
+        String informacionError = "";
+        CtrRol ctrr = new CtrRol();
+        if (txtNombreRol.getText().length() > 2 && !txtNombreRol.getText().isEmpty() && txtNombreRol.getText().length() < 31) {
+            valCaracteres = validarCaracteres(txtNombreRol.getText());
+            if (valCaracteres) {
+                if (!ctrr.rolExiste(txtNombreRol.getText())) {
+                    informacionError = informacionError + "Este rol ya a sido creado\n";
+                    txtNombreRol.setForeground(Color.red);
+                } else {
+                    confirmar = true;
+                }
+            }else{
+                txtNombreRol.setForeground(Color.red);
+                informacionError = informacionError + "EL nombre no debe contener \ncaracteres especiales ni números";       
+            }
+        } else {
+            txtNombreRol.setForeground(Color.red);
+            informacionError = informacionError + "El nombre debe contener entre 3 y 30 carácter \n";
+        }
+        if (confirmar == false) {
+            JOptionPane.showMessageDialog(null, informacionError, "Error Creando el Rol", 1);
+        }
+        return confirmar;
+    }
+
+    public boolean validarRolFunciones(){
+        boolean confirmar = false;
+        return confirmar;
+    }
+    public boolean validarCaracteres(String texto) {
+        boolean validar = true;
+        for (int x = 0; x < texto.length(); x++) {
+            if ((texto.charAt(x) > 63 && texto.charAt(x) < 65)) { // Cuenta laS arrobas
+                validar = false;
+            }
+            if ((texto.charAt(x) > 32 && texto.charAt(x) < 44)) { // Cuenta la cantidad signos
+                validar = false;
+            }
+            if ((texto.charAt(x) > 47 && texto.charAt(x) < 58)) { // Cuenta la cantidad de numero
+                validar = false;
+            }
+            if ((texto.charAt(x) > 64 && texto.charAt(x) < 91)) { // Cuenta la cantidad de mayuscula
+                validar = false;
+            }
+        }
+        return validar;
+    }
+
     public void CrearRol() {
         MdlRol rol = new MdlRol();
         rol.setFunciones(txaFunciones.getText());
         rol.setNombre(txtNombreRol.getText().toLowerCase());
-        
+
         ObtenerDatosRecursos();
         boolean subir = false;
         CtrRol Ctrr = new CtrRol();
@@ -69,7 +146,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             vstVerRol panel = new vstVerRol();
             vstMenu.panelContenedor(panel);
         }
-
     }
 
     public void ObtenerDatosRecursos() {
@@ -219,7 +295,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         for (int posicion = 0; posicion < listaRolRecurso.size(); posicion++) {
             System.out.println(listaRolRecurso.get(posicion));
         }
-        int result = JOptionPane.showConfirmDialog(panelRound1, "Confirmar para cancelar", "Cancelar", 2);
+        int result = JOptionPane.showConfirmDialog(panelRound1, "Seguro que desea salir", "Cancelar", 2);
         if (result == 0) {
             vstRolPer panel = new vstRolPer();
             vstMenu.panelContenedor(panel);
@@ -1137,7 +1213,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        CrearRol();
+        validarInformacionRol();
     }//GEN-LAST:event_btnCrearActionPerformed
 
 

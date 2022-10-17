@@ -97,7 +97,7 @@ public class CtrRol {
                 }
             }
         }
-        
+
         System.out.println(confirmacion);
         if (confirmacion == 5) {
             validar = true;
@@ -160,5 +160,23 @@ public class CtrRol {
             System.out.println("Error en consulta de codigo de id(controlador user): " + e);
         }
         return codigo;
+    }
+
+    public boolean rolExiste(String rolNombre) {
+        boolean validar = false;
+        Conexion conectar = new Conexion();
+        String sql = "SELECT count(`nombre`) as numero FROM madroles WHERE nombre = '" + rolNombre + "'";
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            if (rs.next()) {                
+                if (rs.getString("numero").toString().equals("0")) {
+                    validar = true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error en consultar si el rol existe(controlador rol): " + e);
+        }
+        return validar;
     }
 }
