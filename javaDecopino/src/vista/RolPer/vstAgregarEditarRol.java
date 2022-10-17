@@ -5,6 +5,14 @@
  */
 package vista.RolPer;
 
+import controlador.CtrRol;
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import modelo.MdlRecursos;
+import modelo.MdlRol;
+import modelo.MdlRolRecurso;
+import vista.vstMenu;
 
 /**
  *
@@ -12,11 +20,210 @@ package vista.RolPer;
  */
 public class vstAgregarEditarRol extends javax.swing.JPanel {
 
+    ArrayList<MdlRolRecurso> listaRolRecurso = new ArrayList();
+    MdlRol direccion = new MdlRol();
+
     /**
      * Creates new form pnlInicio
      */
-    public vstAgregarEditarRol() {
+    public vstAgregarEditarRol(int opcion) {
         initComponents();
+
+        if (opcion == 1) {
+            ModoAgregar();
+        } else {
+            ModoEditar();
+        }
+        inicio();
+    }
+
+    public void ModoAgregar() {
+
+        lblTituloRol.setText("Agregar Rol");
+        btnActualizar.setVisible(false);
+    }
+
+    public void ModoEditar() {
+        lblTituloRol.setText("Modificar Rol");
+        btnCrear.setVisible(false);
+    }
+
+    public void inicio() {
+        chbClienteAgregar.setEnabled(false);
+        chbInventarioAgregar.setEnabled(false);
+        chbInventarioEliminar.setEnabled(false);
+    }
+
+    public void CrearRol() {
+        MdlRol rol = new MdlRol();
+        rol.setFunciones(txaFunciones.getText());
+        rol.setNombre(txtNombreRol.getText().toLowerCase());
+        
+        ObtenerDatosRecursos();
+        boolean subir = false;
+        CtrRol Ctrr = new CtrRol();
+        subir = Ctrr.crearRolPer(listaRolRecurso, rol);
+
+        if (subir == true) {
+            JOptionPane.showMessageDialog(null, "Rol creado Exitosamente");
+            vstVerRol panel = new vstVerRol();
+            vstMenu.panelContenedor(panel);
+        }
+
+    }
+
+    public void ObtenerDatosRecursos() {
+        ArrayList<MdlRecursos> listaRecursos = new ArrayList();
+        CtrRol Ctrr = new CtrRol();
+        listaRecursos = Ctrr.consultarRecursos();
+
+        rolRecursoCliente(listaRecursos.get(0));
+        rolRecursoInventario(listaRecursos.get(1));
+        rolRecursoProveedores(listaRecursos.get(2));
+        rolRecursoRoles(listaRecursos.get(3));
+        rolRecursoUsuarios(listaRecursos.get(4));
+
+    }
+
+    public void rolRecursoCliente(MdlRecursos recurso) {
+        MdlRolRecurso RolRecurso = new MdlRolRecurso();
+        RolRecurso.setRecurso(recurso);
+        RolRecurso.setCrear(0);
+        RolRecurso.setEditar(0);
+        RolRecurso.setLeer(0);
+        RolRecurso.setMostrar(0);
+        RolRecurso.setEliminar(0);
+        if (chbClienteAgregar.isSelected() == true) {
+            RolRecurso.setCrear(1);
+        }
+        if (chbClienteEditar.isSelected() == true) {
+            RolRecurso.setEditar(1);
+        }
+        if (chbClienteEliminar.isSelected() == true) {
+            RolRecurso.setEliminar(1);
+        }
+        if (chbClienteVer.isSelected() == true) {
+            RolRecurso.setLeer(1);
+        }
+        if (chbClienteMostrar.isSelected() == true) {
+            RolRecurso.setMostrar(1);
+        }
+        listaRolRecurso.add(RolRecurso);
+    }
+
+    public void rolRecursoInventario(MdlRecursos recurso) {
+        MdlRolRecurso RolRecurso = new MdlRolRecurso();
+        RolRecurso.setRecurso(recurso);
+        RolRecurso.setCrear(0);
+        RolRecurso.setEditar(0);
+        RolRecurso.setLeer(0);
+        RolRecurso.setMostrar(0);
+        RolRecurso.setEliminar(0);
+        if (chbInventarioAgregar.isSelected() == true) {
+            RolRecurso.setCrear(1);
+        }
+        if (chbInventarioEditar.isSelected() == true) {
+            RolRecurso.setEditar(1);
+        }
+        if (chbInventarioEliminar.isSelected() == true) {
+            RolRecurso.setEliminar(1);
+        }
+        if (chbInventarioVer.isSelected() == true) {
+            RolRecurso.setLeer(1);
+        }
+        if (chbInventarioMostrar.isSelected() == true) {
+            RolRecurso.setMostrar(1);
+        }
+        listaRolRecurso.add(RolRecurso);
+    }
+
+    public void rolRecursoRoles(MdlRecursos recurso) {
+        MdlRolRecurso RolRecurso = new MdlRolRecurso();
+        RolRecurso.setRecurso(recurso);
+        RolRecurso.setCrear(0);
+        RolRecurso.setEditar(0);
+        RolRecurso.setLeer(0);
+        RolRecurso.setMostrar(0);
+        RolRecurso.setEliminar(0);
+        if (chbRolesAgregar.isSelected() == true) {
+            RolRecurso.setCrear(1);
+        }
+        if (chbRolesEditar.isSelected() == true) {
+            RolRecurso.setEditar(1);
+        }
+        if (chbRolesEliminar.isSelected() == true) {
+            RolRecurso.setEliminar(1);
+        }
+        if (chbRolesVer.isSelected() == true) {
+            RolRecurso.setLeer(1);
+        }
+        if (chbRolesMostrar.isSelected() == true) {
+            RolRecurso.setMostrar(1);
+        }
+        listaRolRecurso.add(RolRecurso);
+    }
+
+    public void rolRecursoProveedores(MdlRecursos recurso) {
+        MdlRolRecurso RolRecurso = new MdlRolRecurso();
+        RolRecurso.setRecurso(recurso);
+        RolRecurso.setCrear(0);
+        RolRecurso.setEditar(0);
+        RolRecurso.setLeer(0);
+        RolRecurso.setMostrar(0);
+        RolRecurso.setEliminar(0);
+        if (chbProveedoresAgregar.isSelected() == true) {
+            RolRecurso.setCrear(1);
+        }
+        if (chbProveedoresEditar.isSelected() == true) {
+            RolRecurso.setEditar(1);
+        }
+        if (chbProveedoresEliminar.isSelected() == true) {
+            RolRecurso.setEliminar(1);
+        }
+        if (chbProveedoresVer.isSelected() == true) {
+            RolRecurso.setLeer(1);
+        }
+        if (chbProveedoresMostrar.isSelected() == true) {
+            RolRecurso.setMostrar(1);
+        }
+        listaRolRecurso.add(RolRecurso);
+    }
+
+    public void rolRecursoUsuarios(MdlRecursos recurso) {
+        MdlRolRecurso RolRecurso = new MdlRolRecurso();
+        RolRecurso.setRecurso(recurso);
+        RolRecurso.setCrear(0);
+        RolRecurso.setEditar(0);
+        RolRecurso.setLeer(0);
+        RolRecurso.setMostrar(0);
+        RolRecurso.setEliminar(0);
+        if (chbUsuariosAgregar.isSelected() == true) {
+            RolRecurso.setCrear(1);
+        }
+        if (chbUsuariosEditar.isSelected() == true) {
+            RolRecurso.setEditar(1);
+        }
+        if (chbUsuariosEliminar.isSelected() == true) {
+            RolRecurso.setEliminar(1);
+        }
+        if (chbUsuariosVer.isSelected() == true) {
+            RolRecurso.setLeer(1);
+        }
+        if (chbUsuariosMostrar.isSelected() == true) {
+            RolRecurso.setMostrar(1);
+        }
+        listaRolRecurso.add(RolRecurso);
+    }
+
+    public void confirmacionCancelacion() {
+        for (int posicion = 0; posicion < listaRolRecurso.size(); posicion++) {
+            System.out.println(listaRolRecurso.get(posicion));
+        }
+        int result = JOptionPane.showConfirmDialog(panelRound1, "Confirmar para cancelar", "Cancelar", 2);
+        if (result == 0) {
+            vstRolPer panel = new vstRolPer();
+            vstMenu.panelContenedor(panel);
+        }
     }
 
     /**
@@ -31,14 +238,14 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         panelRound1 = new componentes.PanelRound();
         lblTituloRol = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        lblOpcionVer = new javax.swing.JLabel();
-        lblOpcionVer1 = new javax.swing.JLabel();
-        lblOpcionAgregar = new javax.swing.JLabel();
-        lblOpcionEditar = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        lblOpcionVer2 = new javax.swing.JLabel();
+        lblPermisos = new javax.swing.JLabel();
+        lblMostrar = new javax.swing.JLabel();
+        lblAgregar = new javax.swing.JLabel();
+        lblEditar = new javax.swing.JLabel();
+        lblEliminar = new javax.swing.JLabel();
+        lblVer = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        pnlVerUsurios2 = new componentes.PanelRound();
+        pnlClientes = new componentes.PanelRound();
         chbClienteVer = new javax.swing.JCheckBox();
         chbClienteAgregar = new javax.swing.JCheckBox();
         chbClienteEditar = new javax.swing.JCheckBox();
@@ -46,47 +253,56 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         chbClienteMostrar = new javax.swing.JCheckBox();
         jSeparator3 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        pnlVerUsurios3 = new componentes.PanelRound();
-        chbInventario3 = new javax.swing.JCheckBox();
-        jCheckBox14 = new javax.swing.JCheckBox();
-        jCheckBox15 = new javax.swing.JCheckBox();
-        jCheckBox16 = new javax.swing.JCheckBox();
-        jCheckBox17 = new javax.swing.JCheckBox();
+        lblCliente = new javax.swing.JLabel();
+        pnlRoles = new componentes.PanelRound();
+        chbRolesVer = new javax.swing.JCheckBox();
+        chbRolesAgregar = new javax.swing.JCheckBox();
+        chbRolesEditar = new javax.swing.JCheckBox();
+        chbRolesEliminar = new javax.swing.JCheckBox();
+        chbRolesMostrar = new javax.swing.JCheckBox();
         jSeparator4 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        pnlVerUsurios4 = new componentes.PanelRound();
-        chbInventario4 = new javax.swing.JCheckBox();
-        jCheckBox18 = new javax.swing.JCheckBox();
-        jCheckBox19 = new javax.swing.JCheckBox();
-        jCheckBox20 = new javax.swing.JCheckBox();
-        jCheckBox21 = new javax.swing.JCheckBox();
+        pnlProveedores = new componentes.PanelRound();
+        chbProveedoresVer = new javax.swing.JCheckBox();
+        chbProveedoresAgregar = new javax.swing.JCheckBox();
+        chbProveedoresEditar = new javax.swing.JCheckBox();
+        chbProveedoresEliminar = new javax.swing.JCheckBox();
+        chbProveedoresMostrar = new javax.swing.JCheckBox();
         jSeparator5 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        pnlVerUsurios5 = new componentes.PanelRound();
-        chbInventario5 = new javax.swing.JCheckBox();
-        jCheckBox22 = new javax.swing.JCheckBox();
-        jCheckBox23 = new javax.swing.JCheckBox();
-        jCheckBox24 = new javax.swing.JCheckBox();
-        jCheckBox25 = new javax.swing.JCheckBox();
+        pnlInventario = new componentes.PanelRound();
+        chbInventarioVer = new javax.swing.JCheckBox();
+        chbInventarioAgregar = new javax.swing.JCheckBox();
+        chbInventarioEditar = new javax.swing.JCheckBox();
+        chbInventarioEliminar = new javax.swing.JCheckBox();
+        chbInventarioMostrar = new javax.swing.JCheckBox();
         jSeparator6 = new javax.swing.JSeparator();
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        pnlVerUsurios7 = new componentes.PanelRound();
-        chbInventario7 = new javax.swing.JCheckBox();
-        jCheckBox30 = new javax.swing.JCheckBox();
-        jCheckBox31 = new javax.swing.JCheckBox();
-        jCheckBox32 = new javax.swing.JCheckBox();
-        jCheckBox33 = new javax.swing.JCheckBox();
+        pnlUsuarios = new componentes.PanelRound();
+        chbUsuariosVer = new javax.swing.JCheckBox();
+        chbUsuariosAgregar = new javax.swing.JCheckBox();
+        chbUsuariosEditar = new javax.swing.JCheckBox();
+        chbUsuariosEliminar = new javax.swing.JCheckBox();
+        chbUsuariosMostrar = new javax.swing.JCheckBox();
         jSeparator8 = new javax.swing.JSeparator();
         jPanel8 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        panelRound4 = new componentes.PanelRound();
+        jSeparator7 = new javax.swing.JSeparator();
+        pnlNombreRol = new componentes.PanelRound();
         jSeparator2 = new javax.swing.JSeparator();
         txtNombreRol = new javax.swing.JTextField();
         lblNombreRol = new javax.swing.JLabel();
+        pnlOpciones = new javax.swing.JPanel();
+        btnCrear = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        lblNombreRol1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaFunciones = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -100,75 +316,72 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
 
         lblTituloRol.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblTituloRol.setText("Agregar o Modificar Rol");
-        panelRound1.add(lblTituloRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 460, 91));
+        panelRound1.add(lblTituloRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 270, 91));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblOpcionVer.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        lblOpcionVer.setText("Permisos");
+        lblPermisos.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
+        lblPermisos.setText("Permisos");
 
-        lblOpcionVer1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        lblOpcionVer1.setText("Mostar");
+        lblMostrar.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
+        lblMostrar.setText("Mostrar");
 
-        lblOpcionAgregar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        lblOpcionAgregar.setText("Agregar");
+        lblAgregar.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
+        lblAgregar.setText("Agregar");
 
-        lblOpcionEditar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        lblOpcionEditar.setText("Editar");
+        lblEditar.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
+        lblEditar.setText("Editar");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel4.setText("Eliminar");
+        lblEliminar.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
+        lblEliminar.setText("Eliminar");
 
-        lblOpcionVer2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        lblOpcionVer2.setText("Ver");
+        lblVer.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
+        lblVer.setText("Ver");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(lblOpcionVer)
-                .addGap(132, 132, 132)
-                .addComponent(lblOpcionVer2)
-                .addGap(38, 38, 38)
-                .addComponent(lblOpcionAgregar)
+                .addGap(35, 35, 35)
+                .addComponent(lblPermisos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addComponent(lblVer)
+                .addGap(41, 41, 41)
+                .addComponent(lblAgregar)
                 .addGap(27, 27, 27)
-                .addComponent(lblOpcionVer1)
-                .addGap(28, 28, 28)
-                .addComponent(lblOpcionEditar)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel4))
+                .addComponent(lblMostrar)
+                .addGap(35, 35, 35)
+                .addComponent(lblEditar)
+                .addGap(33, 33, 33)
+                .addComponent(lblEliminar)
+                .addGap(19, 19, 19))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 30, Short.MAX_VALUE)
+                .addGap(0, 14, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblOpcionVer)
-                    .addComponent(lblOpcionAgregar)
-                    .addComponent(lblOpcionEditar)
-                    .addComponent(jLabel4)
-                    .addComponent(lblOpcionVer2)
-                    .addComponent(lblOpcionVer1)))
+                    .addComponent(lblPermisos)
+                    .addComponent(lblAgregar)
+                    .addComponent(lblEditar)
+                    .addComponent(lblEliminar)
+                    .addComponent(lblVer)
+                    .addComponent(lblMostrar)))
         );
 
-        panelRound1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 650, 50));
+        panelRound1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 640, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        pnlVerUsurios2.setBackground(new java.awt.Color(255, 255, 255));
-        pnlVerUsurios2.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlClientes.setBackground(new java.awt.Color(255, 255, 255));
+        pnlClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlVerUsurios2MousePressed(evt);
+                pnlClientesMousePressed(evt);
             }
         });
 
-        chbClienteVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbClienteVerActionPerformed(evt);
-            }
-        });
+        chbClienteVer.setSelected(true);
 
         chbClienteAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,8 +409,8 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Clientes");
+        lblCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblCliente.setText("Clientes");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -205,24 +418,24 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jLabel6)
+                .addComponent(lblCliente)
                 .addGap(28, 28, 28))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 5, Short.MAX_VALUE)
-                .addComponent(jLabel6))
+                .addComponent(lblCliente))
         );
 
-        javax.swing.GroupLayout pnlVerUsurios2Layout = new javax.swing.GroupLayout(pnlVerUsurios2);
-        pnlVerUsurios2.setLayout(pnlVerUsurios2Layout);
-        pnlVerUsurios2Layout.setHorizontalGroup(
-            pnlVerUsurios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsurios2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlClientesLayout = new javax.swing.GroupLayout(pnlClientes);
+        pnlClientes.setLayout(pnlClientesLayout);
+        pnlClientesLayout.setHorizontalGroup(
+            pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlClientesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlVerUsurios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlVerUsurios2Layout.createSequentialGroup()
+                .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlClientesLayout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(128, 128, 128)
                         .addComponent(chbClienteVer)
@@ -238,11 +451,11 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
-        pnlVerUsurios2Layout.setVerticalGroup(
-            pnlVerUsurios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsurios2Layout.createSequentialGroup()
+        pnlClientesLayout.setVerticalGroup(
+            pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlClientesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlVerUsurios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(chbClienteMostrar)
                     .addComponent(chbClienteEliminar)
                     .addComponent(chbClienteEditar)
@@ -253,40 +466,41 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        pnlVerUsurios3.setBackground(new java.awt.Color(255, 255, 255));
-        pnlVerUsurios3.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlRoles.setBackground(new java.awt.Color(255, 255, 255));
+        pnlRoles.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlVerUsurios3MousePressed(evt);
+                pnlRolesMousePressed(evt);
             }
         });
 
-        chbInventario3.addActionListener(new java.awt.event.ActionListener() {
+        chbRolesVer.setSelected(true);
+        chbRolesVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbInventario3ActionPerformed(evt);
+                chbRolesVerActionPerformed(evt);
             }
         });
 
-        jCheckBox14.addActionListener(new java.awt.event.ActionListener() {
+        chbRolesAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox14ActionPerformed(evt);
+                chbRolesAgregarActionPerformed(evt);
             }
         });
 
-        jCheckBox15.addActionListener(new java.awt.event.ActionListener() {
+        chbRolesEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox15ActionPerformed(evt);
+                chbRolesEditarActionPerformed(evt);
             }
         });
 
-        jCheckBox16.addActionListener(new java.awt.event.ActionListener() {
+        chbRolesEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox16ActionPerformed(evt);
+                chbRolesEliminarActionPerformed(evt);
             }
         });
 
-        jCheckBox17.addActionListener(new java.awt.event.ActionListener() {
+        chbRolesMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox17ActionPerformed(evt);
+                chbRolesMostrarActionPerformed(evt);
             }
         });
 
@@ -311,94 +525,95 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
                 .addComponent(jLabel7))
         );
 
-        javax.swing.GroupLayout pnlVerUsurios3Layout = new javax.swing.GroupLayout(pnlVerUsurios3);
-        pnlVerUsurios3.setLayout(pnlVerUsurios3Layout);
-        pnlVerUsurios3Layout.setHorizontalGroup(
-            pnlVerUsurios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsurios3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlRolesLayout = new javax.swing.GroupLayout(pnlRoles);
+        pnlRoles.setLayout(pnlRolesLayout);
+        pnlRolesLayout.setHorizontalGroup(
+            pnlRolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRolesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlVerUsurios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlVerUsurios3Layout.createSequentialGroup()
+                .addGroup(pnlRolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlRolesLayout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(128, 128, 128)
-                        .addComponent(chbInventario3)
+                        .addComponent(chbRolesVer)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox14)
+                        .addComponent(chbRolesAgregar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox17)
+                        .addComponent(chbRolesMostrar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox15)
+                        .addComponent(chbRolesEditar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox16)
+                        .addComponent(chbRolesEliminar)
                         .addGap(17, 17, 17))
                     .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
-        pnlVerUsurios3Layout.setVerticalGroup(
-            pnlVerUsurios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsurios3Layout.createSequentialGroup()
+        pnlRolesLayout.setVerticalGroup(
+            pnlRolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRolesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlVerUsurios3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCheckBox17)
-                    .addComponent(jCheckBox16)
-                    .addComponent(jCheckBox15)
-                    .addComponent(jCheckBox14)
-                    .addComponent(chbInventario3)
+                .addGroup(pnlRolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(chbRolesMostrar)
+                    .addComponent(chbRolesEliminar)
+                    .addComponent(chbRolesEditar)
+                    .addComponent(chbRolesAgregar)
+                    .addComponent(chbRolesVer)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        pnlVerUsurios4.setBackground(new java.awt.Color(255, 255, 255));
-        pnlVerUsurios4.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlProveedores.setBackground(new java.awt.Color(255, 255, 255));
+        pnlProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlVerUsurios4MousePressed(evt);
+                pnlProveedoresMousePressed(evt);
             }
         });
 
-        chbInventario4.addActionListener(new java.awt.event.ActionListener() {
+        chbProveedoresVer.setSelected(true);
+        chbProveedoresVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbInventario4ActionPerformed(evt);
+                chbProveedoresVerActionPerformed(evt);
             }
         });
 
-        jCheckBox18.addActionListener(new java.awt.event.ActionListener() {
+        chbProveedoresAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox18ActionPerformed(evt);
+                chbProveedoresAgregarActionPerformed(evt);
             }
         });
 
-        jCheckBox19.addActionListener(new java.awt.event.ActionListener() {
+        chbProveedoresEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox19ActionPerformed(evt);
+                chbProveedoresEditarActionPerformed(evt);
             }
         });
 
-        jCheckBox20.addActionListener(new java.awt.event.ActionListener() {
+        chbProveedoresEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox20ActionPerformed(evt);
+                chbProveedoresEliminarActionPerformed(evt);
             }
         });
 
-        jCheckBox21.addActionListener(new java.awt.event.ActionListener() {
+        chbProveedoresMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox21ActionPerformed(evt);
+                chbProveedoresMostrarActionPerformed(evt);
             }
         });
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Provedores");
+        jLabel8.setText("Proveedores");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel8)
-                .addGap(10, 10, 10))
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,78 +622,79 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
                 .addComponent(jLabel8))
         );
 
-        javax.swing.GroupLayout pnlVerUsurios4Layout = new javax.swing.GroupLayout(pnlVerUsurios4);
-        pnlVerUsurios4.setLayout(pnlVerUsurios4Layout);
-        pnlVerUsurios4Layout.setHorizontalGroup(
-            pnlVerUsurios4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsurios4Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlProveedoresLayout = new javax.swing.GroupLayout(pnlProveedores);
+        pnlProveedores.setLayout(pnlProveedoresLayout);
+        pnlProveedoresLayout.setHorizontalGroup(
+            pnlProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlProveedoresLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlVerUsurios4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlVerUsurios4Layout.createSequentialGroup()
+                .addGroup(pnlProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlProveedoresLayout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(128, 128, 128)
-                        .addComponent(chbInventario4)
+                        .addComponent(chbProveedoresVer)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox18)
+                        .addComponent(chbProveedoresAgregar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox21)
+                        .addComponent(chbProveedoresMostrar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox19)
+                        .addComponent(chbProveedoresEditar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox20)
+                        .addComponent(chbProveedoresEliminar)
                         .addGap(17, 17, 17))
                     .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
-        pnlVerUsurios4Layout.setVerticalGroup(
-            pnlVerUsurios4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsurios4Layout.createSequentialGroup()
+        pnlProveedoresLayout.setVerticalGroup(
+            pnlProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlProveedoresLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlVerUsurios4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCheckBox21)
-                    .addComponent(jCheckBox20)
-                    .addComponent(jCheckBox19)
-                    .addComponent(jCheckBox18)
-                    .addComponent(chbInventario4)
+                .addGroup(pnlProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(chbProveedoresMostrar)
+                    .addComponent(chbProveedoresEliminar)
+                    .addComponent(chbProveedoresEditar)
+                    .addComponent(chbProveedoresAgregar)
+                    .addComponent(chbProveedoresVer)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        pnlVerUsurios5.setBackground(new java.awt.Color(255, 255, 255));
-        pnlVerUsurios5.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlInventario.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInventario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlVerUsurios5MousePressed(evt);
+                pnlInventarioMousePressed(evt);
             }
         });
 
-        chbInventario5.addActionListener(new java.awt.event.ActionListener() {
+        chbInventarioVer.setSelected(true);
+        chbInventarioVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbInventario5ActionPerformed(evt);
+                chbInventarioVerActionPerformed(evt);
             }
         });
 
-        jCheckBox22.addActionListener(new java.awt.event.ActionListener() {
+        chbInventarioAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox22ActionPerformed(evt);
+                chbInventarioAgregarActionPerformed(evt);
             }
         });
 
-        jCheckBox23.addActionListener(new java.awt.event.ActionListener() {
+        chbInventarioEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox23ActionPerformed(evt);
+                chbInventarioEditarActionPerformed(evt);
             }
         });
 
-        jCheckBox24.addActionListener(new java.awt.event.ActionListener() {
+        chbInventarioEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox24ActionPerformed(evt);
+                chbInventarioEliminarActionPerformed(evt);
             }
         });
 
-        jCheckBox25.addActionListener(new java.awt.event.ActionListener() {
+        chbInventarioMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox25ActionPerformed(evt);
+                chbInventarioMostrarActionPerformed(evt);
             }
         });
 
@@ -503,78 +719,79 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
                 .addComponent(jLabel9))
         );
 
-        javax.swing.GroupLayout pnlVerUsurios5Layout = new javax.swing.GroupLayout(pnlVerUsurios5);
-        pnlVerUsurios5.setLayout(pnlVerUsurios5Layout);
-        pnlVerUsurios5Layout.setHorizontalGroup(
-            pnlVerUsurios5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsurios5Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlInventarioLayout = new javax.swing.GroupLayout(pnlInventario);
+        pnlInventario.setLayout(pnlInventarioLayout);
+        pnlInventarioLayout.setHorizontalGroup(
+            pnlInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInventarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlVerUsurios5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlVerUsurios5Layout.createSequentialGroup()
+                .addGroup(pnlInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlInventarioLayout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(128, 128, 128)
-                        .addComponent(chbInventario5)
+                        .addComponent(chbInventarioVer)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox22)
+                        .addComponent(chbInventarioAgregar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox25)
+                        .addComponent(chbInventarioMostrar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox23)
+                        .addComponent(chbInventarioEditar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox24)
+                        .addComponent(chbInventarioEliminar)
                         .addGap(17, 17, 17))
                     .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
-        pnlVerUsurios5Layout.setVerticalGroup(
-            pnlVerUsurios5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsurios5Layout.createSequentialGroup()
+        pnlInventarioLayout.setVerticalGroup(
+            pnlInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInventarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlVerUsurios5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCheckBox25)
-                    .addComponent(jCheckBox24)
-                    .addComponent(jCheckBox23)
-                    .addComponent(jCheckBox22)
-                    .addComponent(chbInventario5)
+                .addGroup(pnlInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(chbInventarioMostrar)
+                    .addComponent(chbInventarioEliminar)
+                    .addComponent(chbInventarioEditar)
+                    .addComponent(chbInventarioAgregar)
+                    .addComponent(chbInventarioVer)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        pnlVerUsurios7.setBackground(new java.awt.Color(255, 255, 255));
-        pnlVerUsurios7.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlUsuarios.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlVerUsurios7MousePressed(evt);
+                pnlUsuariosMousePressed(evt);
             }
         });
 
-        chbInventario7.addActionListener(new java.awt.event.ActionListener() {
+        chbUsuariosVer.setSelected(true);
+        chbUsuariosVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbInventario7ActionPerformed(evt);
+                chbUsuariosVerActionPerformed(evt);
             }
         });
 
-        jCheckBox30.addActionListener(new java.awt.event.ActionListener() {
+        chbUsuariosAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox30ActionPerformed(evt);
+                chbUsuariosAgregarActionPerformed(evt);
             }
         });
 
-        jCheckBox31.addActionListener(new java.awt.event.ActionListener() {
+        chbUsuariosEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox31ActionPerformed(evt);
+                chbUsuariosEditarActionPerformed(evt);
             }
         });
 
-        jCheckBox32.addActionListener(new java.awt.event.ActionListener() {
+        chbUsuariosEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox32ActionPerformed(evt);
+                chbUsuariosEliminarActionPerformed(evt);
             }
         });
 
-        jCheckBox33.addActionListener(new java.awt.event.ActionListener() {
+        chbUsuariosMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox33ActionPerformed(evt);
+                chbUsuariosMostrarActionPerformed(evt);
             }
         });
 
@@ -599,39 +816,39 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
                 .addComponent(jLabel11))
         );
 
-        javax.swing.GroupLayout pnlVerUsurios7Layout = new javax.swing.GroupLayout(pnlVerUsurios7);
-        pnlVerUsurios7.setLayout(pnlVerUsurios7Layout);
-        pnlVerUsurios7Layout.setHorizontalGroup(
-            pnlVerUsurios7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsurios7Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlUsuariosLayout = new javax.swing.GroupLayout(pnlUsuarios);
+        pnlUsuarios.setLayout(pnlUsuariosLayout);
+        pnlUsuariosLayout.setHorizontalGroup(
+            pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUsuariosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlVerUsurios7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlVerUsurios7Layout.createSequentialGroup()
+                .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUsuariosLayout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(128, 128, 128)
-                        .addComponent(chbInventario7)
+                        .addComponent(chbUsuariosVer)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox30)
+                        .addComponent(chbUsuariosAgregar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox33)
+                        .addComponent(chbUsuariosMostrar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox31)
+                        .addComponent(chbUsuariosEditar)
                         .addGap(65, 65, 65)
-                        .addComponent(jCheckBox32)
+                        .addComponent(chbUsuariosEliminar)
                         .addGap(17, 17, 17))
                     .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
-        pnlVerUsurios7Layout.setVerticalGroup(
-            pnlVerUsurios7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsurios7Layout.createSequentialGroup()
+        pnlUsuariosLayout.setVerticalGroup(
+            pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUsuariosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlVerUsurios7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCheckBox33)
-                    .addComponent(jCheckBox32)
-                    .addComponent(jCheckBox31)
-                    .addComponent(jCheckBox30)
-                    .addComponent(chbInventario7)
+                .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(chbUsuariosMostrar)
+                    .addComponent(chbUsuariosEliminar)
+                    .addComponent(chbUsuariosEditar)
+                    .addComponent(chbUsuariosAgregar)
+                    .addComponent(chbUsuariosVer)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -642,36 +859,42 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlVerUsurios2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlVerUsurios3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlVerUsurios4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlVerUsurios7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlVerUsurios5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(pnlVerUsurios2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlVerUsurios5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(pnlClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(pnlVerUsurios3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlVerUsurios4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlVerUsurios7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
 
-        panelRound1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 670, 350));
+        panelRound1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 670, 350));
 
-        panelRound4.setBackground(new java.awt.Color(255, 255, 255));
-        panelRound4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        panelRound4.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 460, 10));
+        pnlNombreRol.setBackground(new java.awt.Color(255, 255, 255));
+        pnlNombreRol.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlNombreRol.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 160, 10));
 
         txtNombreRol.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
         txtNombreRol.setBorder(null);
@@ -680,20 +903,109 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
                 txtNombreRolActionPerformed(evt);
             }
         });
-        panelRound4.add(txtNombreRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
+        pnlNombreRol.add(txtNombreRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 160, 20));
 
         lblNombreRol.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
         lblNombreRol.setText("Nombre del rol");
-        panelRound4.add(lblNombreRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 20));
+        pnlNombreRol.add(lblNombreRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 20));
 
-        panelRound1.add(panelRound4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 630, 40));
+        panelRound1.add(pnlNombreRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 310, 40));
+
+        pnlOpciones.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnCrear.setBackground(new java.awt.Color(0, 255, 153));
+        btnCrear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCrear.setText("Crear");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setBackground(new java.awt.Color(255, 255, 0));
+        btnActualizar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlOpcionesLayout = new javax.swing.GroupLayout(pnlOpciones);
+        pnlOpciones.setLayout(pnlOpcionesLayout);
+        pnlOpcionesLayout.setHorizontalGroup(
+            pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlOpcionesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(btnActualizar)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(btnCrear)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlOpcionesLayout.setVerticalGroup(
+            pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOpcionesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnCrear))
+                .addContainerGap())
+        );
+
+        panelRound1.add(pnlOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 560, 320, 40));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblNombreRol1.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
+        lblNombreRol1.setText("Funciones");
+
+        txaFunciones.setColumns(20);
+        txaFunciones.setLineWrap(true);
+        txaFunciones.setRows(5);
+        txaFunciones.setWrapStyleWord(true);
+        txaFunciones.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txaFunciones.setDragEnabled(true);
+        txaFunciones.setSelectionColor(new java.awt.Color(204, 204, 204));
+        jScrollPane1.setViewportView(txaFunciones);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNombreRol1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblNombreRol1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(0, 14, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        panelRound1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 350, 110));
 
         add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void chbClienteVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteVerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbClienteVerActionPerformed
 
     private void chbClienteAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteAgregarActionPerformed
         // TODO add your handling code here:
@@ -711,146 +1023,154 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_chbClienteMostrarActionPerformed
 
-    private void pnlVerUsurios2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsurios2MousePressed
+    private void pnlClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlClientesMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_pnlVerUsurios2MousePressed
+    }//GEN-LAST:event_pnlClientesMousePressed
 
-    private void chbInventario3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventario3ActionPerformed
+    private void chbRolesVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesVerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chbInventario3ActionPerformed
+    }//GEN-LAST:event_chbRolesVerActionPerformed
 
-    private void jCheckBox14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox14ActionPerformed
+    private void chbRolesAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesAgregarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox14ActionPerformed
+    }//GEN-LAST:event_chbRolesAgregarActionPerformed
 
-    private void jCheckBox15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox15ActionPerformed
+    private void chbRolesEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox15ActionPerformed
+    }//GEN-LAST:event_chbRolesEditarActionPerformed
 
-    private void jCheckBox16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox16ActionPerformed
+    private void chbRolesEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox16ActionPerformed
+    }//GEN-LAST:event_chbRolesEliminarActionPerformed
 
-    private void jCheckBox17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox17ActionPerformed
+    private void chbRolesMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesMostrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox17ActionPerformed
+    }//GEN-LAST:event_chbRolesMostrarActionPerformed
 
-    private void pnlVerUsurios3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsurios3MousePressed
+    private void pnlRolesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlRolesMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_pnlVerUsurios3MousePressed
+    }//GEN-LAST:event_pnlRolesMousePressed
 
-    private void chbInventario4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventario4ActionPerformed
+    private void chbProveedoresVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresVerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chbInventario4ActionPerformed
+    }//GEN-LAST:event_chbProveedoresVerActionPerformed
 
-    private void jCheckBox18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox18ActionPerformed
+    private void chbProveedoresAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresAgregarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox18ActionPerformed
+    }//GEN-LAST:event_chbProveedoresAgregarActionPerformed
 
-    private void jCheckBox19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox19ActionPerformed
+    private void chbProveedoresEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox19ActionPerformed
+    }//GEN-LAST:event_chbProveedoresEditarActionPerformed
 
-    private void jCheckBox20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox20ActionPerformed
+    private void chbProveedoresEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox20ActionPerformed
+    }//GEN-LAST:event_chbProveedoresEliminarActionPerformed
 
-    private void jCheckBox21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox21ActionPerformed
+    private void chbProveedoresMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresMostrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox21ActionPerformed
+    }//GEN-LAST:event_chbProveedoresMostrarActionPerformed
 
-    private void pnlVerUsurios4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsurios4MousePressed
+    private void pnlProveedoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlProveedoresMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_pnlVerUsurios4MousePressed
+    }//GEN-LAST:event_pnlProveedoresMousePressed
 
-    private void chbInventario5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventario5ActionPerformed
+    private void chbInventarioVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioVerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chbInventario5ActionPerformed
+    }//GEN-LAST:event_chbInventarioVerActionPerformed
 
-    private void jCheckBox22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox22ActionPerformed
+    private void chbInventarioAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioAgregarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox22ActionPerformed
+    }//GEN-LAST:event_chbInventarioAgregarActionPerformed
 
-    private void jCheckBox23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox23ActionPerformed
+    private void chbInventarioEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox23ActionPerformed
+    }//GEN-LAST:event_chbInventarioEditarActionPerformed
 
-    private void jCheckBox24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox24ActionPerformed
+    private void chbInventarioEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox24ActionPerformed
+    }//GEN-LAST:event_chbInventarioEliminarActionPerformed
 
-    private void jCheckBox25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox25ActionPerformed
+    private void chbInventarioMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioMostrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox25ActionPerformed
+    }//GEN-LAST:event_chbInventarioMostrarActionPerformed
 
-    private void pnlVerUsurios5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsurios5MousePressed
+    private void pnlInventarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInventarioMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_pnlVerUsurios5MousePressed
+    }//GEN-LAST:event_pnlInventarioMousePressed
 
-    private void chbInventario7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventario7ActionPerformed
+    private void chbUsuariosVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosVerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chbInventario7ActionPerformed
+    }//GEN-LAST:event_chbUsuariosVerActionPerformed
 
-    private void jCheckBox30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox30ActionPerformed
+    private void chbUsuariosAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosAgregarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox30ActionPerformed
+    }//GEN-LAST:event_chbUsuariosAgregarActionPerformed
 
-    private void jCheckBox31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox31ActionPerformed
+    private void chbUsuariosEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox31ActionPerformed
+    }//GEN-LAST:event_chbUsuariosEditarActionPerformed
 
-    private void jCheckBox32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox32ActionPerformed
+    private void chbUsuariosEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox32ActionPerformed
+    }//GEN-LAST:event_chbUsuariosEliminarActionPerformed
 
-    private void jCheckBox33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox33ActionPerformed
+    private void chbUsuariosMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosMostrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox33ActionPerformed
+    }//GEN-LAST:event_chbUsuariosMostrarActionPerformed
 
-    private void pnlVerUsurios7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsurios7MousePressed
+    private void pnlUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlUsuariosMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_pnlVerUsurios7MousePressed
+    }//GEN-LAST:event_pnlUsuariosMousePressed
 
     private void txtNombreRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreRolActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreRolActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        confirmacionCancelacion();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        CrearRol();
+    }//GEN-LAST:event_btnCrearActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCrear;
     private javax.swing.JCheckBox chbClienteAgregar;
     private javax.swing.JCheckBox chbClienteEditar;
     private javax.swing.JCheckBox chbClienteEliminar;
     private javax.swing.JCheckBox chbClienteMostrar;
     private javax.swing.JCheckBox chbClienteVer;
-    private javax.swing.JCheckBox chbInventario3;
-    private javax.swing.JCheckBox chbInventario4;
-    private javax.swing.JCheckBox chbInventario5;
-    private javax.swing.JCheckBox chbInventario6;
-    private javax.swing.JCheckBox chbInventario7;
-    private javax.swing.JCheckBox jCheckBox14;
-    private javax.swing.JCheckBox jCheckBox15;
-    private javax.swing.JCheckBox jCheckBox16;
-    private javax.swing.JCheckBox jCheckBox17;
-    private javax.swing.JCheckBox jCheckBox18;
-    private javax.swing.JCheckBox jCheckBox19;
-    private javax.swing.JCheckBox jCheckBox20;
-    private javax.swing.JCheckBox jCheckBox21;
-    private javax.swing.JCheckBox jCheckBox22;
-    private javax.swing.JCheckBox jCheckBox23;
-    private javax.swing.JCheckBox jCheckBox24;
-    private javax.swing.JCheckBox jCheckBox25;
-    private javax.swing.JCheckBox jCheckBox26;
-    private javax.swing.JCheckBox jCheckBox27;
-    private javax.swing.JCheckBox jCheckBox28;
-    private javax.swing.JCheckBox jCheckBox29;
-    private javax.swing.JCheckBox jCheckBox30;
-    private javax.swing.JCheckBox jCheckBox31;
-    private javax.swing.JCheckBox jCheckBox32;
-    private javax.swing.JCheckBox jCheckBox33;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JCheckBox chbInventarioAgregar;
+    private javax.swing.JCheckBox chbInventarioEditar;
+    private javax.swing.JCheckBox chbInventarioEliminar;
+    private javax.swing.JCheckBox chbInventarioMostrar;
+    private javax.swing.JCheckBox chbInventarioVer;
+    private javax.swing.JCheckBox chbProveedoresAgregar;
+    private javax.swing.JCheckBox chbProveedoresEditar;
+    private javax.swing.JCheckBox chbProveedoresEliminar;
+    private javax.swing.JCheckBox chbProveedoresMostrar;
+    private javax.swing.JCheckBox chbProveedoresVer;
+    private javax.swing.JCheckBox chbRolesAgregar;
+    private javax.swing.JCheckBox chbRolesEditar;
+    private javax.swing.JCheckBox chbRolesEliminar;
+    private javax.swing.JCheckBox chbRolesMostrar;
+    private javax.swing.JCheckBox chbRolesVer;
+    private javax.swing.JCheckBox chbUsuariosAgregar;
+    private javax.swing.JCheckBox chbUsuariosEditar;
+    private javax.swing.JCheckBox chbUsuariosEliminar;
+    private javax.swing.JCheckBox chbUsuariosMostrar;
+    private javax.swing.JCheckBox chbUsuariosVer;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -862,6 +1182,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -869,21 +1190,29 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JLabel lblAgregar;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblEditar;
+    private javax.swing.JLabel lblEliminar;
+    private javax.swing.JLabel lblInformacion;
+    private javax.swing.JLabel lblInformacion1;
+    private javax.swing.JLabel lblMostrar;
     private javax.swing.JLabel lblNombreRol;
-    private javax.swing.JLabel lblOpcionAgregar;
-    private javax.swing.JLabel lblOpcionEditar;
-    private javax.swing.JLabel lblOpcionVer;
-    private javax.swing.JLabel lblOpcionVer1;
-    private javax.swing.JLabel lblOpcionVer2;
+    private javax.swing.JLabel lblNombreRol1;
+    private javax.swing.JLabel lblPermisos;
     private javax.swing.JLabel lblTituloRol;
+    private javax.swing.JLabel lblVer;
     private componentes.PanelRound panelRound1;
-    private componentes.PanelRound panelRound4;
-    private componentes.PanelRound pnlVerUsurios2;
-    private componentes.PanelRound pnlVerUsurios3;
-    private componentes.PanelRound pnlVerUsurios4;
-    private componentes.PanelRound pnlVerUsurios5;
-    private componentes.PanelRound pnlVerUsurios6;
-    private componentes.PanelRound pnlVerUsurios7;
+    private componentes.PanelRound pnlClientes;
+    private componentes.PanelRound pnlInformacion;
+    private componentes.PanelRound pnlInformacion1;
+    private componentes.PanelRound pnlInventario;
+    private componentes.PanelRound pnlNombreRol;
+    private javax.swing.JPanel pnlOpciones;
+    private componentes.PanelRound pnlProveedores;
+    private componentes.PanelRound pnlRoles;
+    private componentes.PanelRound pnlUsuarios;
+    private javax.swing.JTextArea txaFunciones;
     private javax.swing.JTextField txtNombreRol;
     // End of variables declaration//GEN-END:variables
 }

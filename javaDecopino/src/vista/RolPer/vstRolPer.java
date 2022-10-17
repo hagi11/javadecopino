@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista.vistaRolPer;
+package vista.RolPer;
 
 import vista.RolPer.vstAgregarEditarRol;
 import vista.*;
@@ -27,7 +27,7 @@ public class vstRolPer extends javax.swing.JPanel {
     }
     
     public void nuevoUsuario(){
-        vstAgregarEditarRol panel = new vstAgregarEditarRol();
+        vstAgregarEditarRol panel = new vstAgregarEditarRol(1);
         vstMenu.panelContenedor(panel);
     }
     /**

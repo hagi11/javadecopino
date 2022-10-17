@@ -6,8 +6,8 @@
 package vista;
 
 import vista.Producto.vstProducto;
-import vista.vistaRolPer.vstRolPer;
-import vista.vistaUsuario.vstUsuario;
+import vista.RolPer.vstRolPer;
+import vista.Usuario.vstUsuario;
 import vista.Proveedor.vstProveedor;
 
 import vista.Cliente.vstVerCliente;

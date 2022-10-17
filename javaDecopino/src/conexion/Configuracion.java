@@ -41,17 +41,17 @@ public interface Configuracion {
 //    String PASSWORD = "agenda";
     
 //    String DRIVER = "com.mysql.jdbc.Driver";
-//    String DATA_BASE = "decoraci_decopino";
-//    String CONNECTION_URL = "jdbc:mysql://localhost:3306/"+DATA_BASE;    
-//    String USERNAME = "root";
-//    String PASSWORD = "";
-    
     String DRIVER = "com.mysql.cj.jdbc.Driver";
-    String DATA_BASE = "decoraci_decopino";
-//  String CONNECTION_URL = "jdbc:mysql://decoracioneslospinos.com:3306/" + DATA_BASE + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-//  String CONNECTION_URL = "jdbc:mysql://decoracioneslospinos.com:3306/"+DATA_BASE;
+    String DATA_BASE = "decoraci_decopino2";
     String CONNECTION_URL = "jdbc:mysql://localhost:3306/"+DATA_BASE;    
+    String USERNAME = "root";
+    String PASSWORD = "";
     
-    String USERNAME = "decoraci_adsi200";
-    String PASSWORD = "los20pinos";
+//    String DRIVER = "com.mysql.cj.jdbc.Driver";
+//    String DATA_BASE = "decoraci_decopino";
+//    String CONNECTION_URL = "jdbc:mysql://decoracioneslospinos.com:3306/" + DATA_BASE + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+//    String CONNECTION_URL = "jdbc:mysql://decoracioneslospinos.com:3306/"+DATA_BASE;
+//    String CONNECTION_URL = "jdbc:mysql://localhost:3306/"+DATA_BASE;     
+//    String USERNAME = "decoraci_adsi200";
+//    String PASSWORD = "los20pinos";
 }
