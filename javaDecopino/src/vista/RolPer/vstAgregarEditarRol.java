@@ -117,7 +117,9 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         ObtenerDatosRecursos();
         boolean subir = false;
         CtrRol Ctrr = new CtrRol();
+        System.out.println("crear");
         subir = Ctrr.crearRolPer(listaRolRecurso, rol);
+        System.out.println("creardo");
 
         if (subir == true) {
             JOptionPane.showMessageDialog(null, "Rol creado Exitosamente");

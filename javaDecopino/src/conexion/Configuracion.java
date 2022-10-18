@@ -41,11 +41,18 @@ public interface Configuracion {
 //    String PASSWORD = "agenda";
     
 //    String DRIVER = "com.mysql.jdbc.Driver";
+//    String DRIVER = "com.mysql.cj.jdbc.Driver";
+//    String DATA_BASE = "decoraci_decopino2";
+//    String CONNECTION_URL = "jdbc:mysql://localhost:3306/"+DATA_BASE;    
+//    String USERNAME = "root";
+//    String PASSWORD = "";
+    
+    
     String DRIVER = "com.mysql.cj.jdbc.Driver";
-    String DATA_BASE = "decoraci_decopino2";
-    String CONNECTION_URL = "jdbc:mysql://localhost:3306/"+DATA_BASE;    
-    String USERNAME = "root";
-    String PASSWORD = "";
+    String DATA_BASE = "decoraci_prueba";
+    String CONNECTION_URL = "jdbc:mysql://190.8.176.111:3306/"+DATA_BASE;    
+    String USERNAME = "decoraci_adsi200admin";
+    String PASSWORD = "aJZ[+&&3*,hX";
     
 //    String DRIVER = "com.mysql.cj.jdbc.Driver";
 //    String DATA_BASE = "decoraci_decopino";

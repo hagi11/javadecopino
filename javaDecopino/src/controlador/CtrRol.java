@@ -25,7 +25,6 @@ public class CtrRol {
         Conexion conectar = new Conexion();
         String sql = "SELECT * FROM `madroles` WHERE estado = 1";
         
-
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
@@ -43,7 +42,6 @@ public class CtrRol {
         } catch (Exception e) {
             System.out.println("Error en consultar Roles(controlador rol): " + e);
         }
-
         return listaRoles;
     }
 
