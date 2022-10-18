@@ -6,6 +6,7 @@
 package vista.RolPer;
 
 import controlador.CtrRol;
+import controlador.CtrValidador;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -54,49 +55,43 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }
 
     public void validarInformacionRol() {
-        boolean validadorNombre = false;
         boolean validadorFunciones = false;
 
-        validadorNombre = validarRolNombre();
-        
-        /// HAcer validacion para 
-        if (validadorNombre) {
-            boolean continuar = true;
+        if (validarRolNombre()) {
             if (txaFunciones.getText().isEmpty()) {
                 int opcion = JOptionPane.showConfirmDialog(null, "Esta apunto de crear el rol sin \nasignarle funciones desea continuar", "  Advertencia", 2);
-                if (!(opcion == 0)) {
-                    continuar = false;
-                    validadorFunciones = true;
+                if (opcion == 0) {
+                    //            CrearRol();
+                    System.err.println("Crear rol");
                 }
-            }else{
-                validadorFunciones = validarRolFunciones();
             }
-
-            if (continuar) {
-//            CrearRol();
-                System.err.println("Crear rol");
+            if (!txaFunciones.getText().isEmpty()) {
+                if (validarRolFunciones()) {
+                    //            CrearRol();
+                    System.err.println("Crear rol");
+                }
             }
         }
     }
 
     public boolean validarRolNombre() {
+        CtrValidador ctrv = new CtrValidador();
         boolean confirmar = false;
-        boolean valCaracteres = false;
         int validador = 0;
         String informacionError = "";
         CtrRol ctrr = new CtrRol();
-        if (txtNombreRol.getText().length() > 2 && !txtNombreRol.getText().isEmpty() && txtNombreRol.getText().length() < 31) {
-            valCaracteres = validarCaracteres(txtNombreRol.getText());
-            if (valCaracteres) {
+        if (ctrv.validarTamano(txtNombreRol.getText(), 2, 31)) {
+            if (ctrv.validarCaracteres(txtNombreRol.getText())) {
                 if (!ctrr.rolExiste(txtNombreRol.getText())) {
                     informacionError = informacionError + "Este rol ya a sido creado\n";
                     txtNombreRol.setForeground(Color.red);
                 } else {
+                    txtNombreRol.setForeground(Color.black);
                     confirmar = true;
                 }
-            }else{
+            } else {
                 txtNombreRol.setForeground(Color.red);
-                informacionError = informacionError + "EL nombre no debe contener \ncaracteres especiales ni números";       
+                informacionError = informacionError + "EL nombre no debe contener \ncaracteres especiales ni números";
             }
         } else {
             txtNombreRol.setForeground(Color.red);
@@ -108,27 +103,13 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         return confirmar;
     }
 
-    public boolean validarRolFunciones(){
+    public boolean validarRolFunciones() {
         boolean confirmar = false;
-        return confirmar;
-    }
-    public boolean validarCaracteres(String texto) {
-        boolean validar = true;
-        for (int x = 0; x < texto.length(); x++) {
-            if ((texto.charAt(x) > 63 && texto.charAt(x) < 65)) { // Cuenta laS arrobas
-                validar = false;
-            }
-            if ((texto.charAt(x) > 32 && texto.charAt(x) < 44)) { // Cuenta la cantidad signos
-                validar = false;
-            }
-            if ((texto.charAt(x) > 47 && texto.charAt(x) < 58)) { // Cuenta la cantidad de numero
-                validar = false;
-            }
-            if ((texto.charAt(x) > 64 && texto.charAt(x) < 91)) { // Cuenta la cantidad de mayuscula
-                validar = false;
-            }
+        CtrValidador validar = new CtrValidador();
+        if(validar.validarCaracteres(txaFunciones.getText()) && validar.validarTamano(txaFunciones.getText(),1,200)){
+            confirmar = true;
         }
-        return validar;
+        return confirmar;
     }
 
     public void CrearRol() {
