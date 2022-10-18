@@ -270,26 +270,17 @@
                   <Properties>
                     <Property name="selected" type="boolean" value="true"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbClienteVerActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbClienteAgregar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbClienteAgregarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbClienteEditar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbClienteEditarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbClienteEliminar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbClienteEliminarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbClienteMostrar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbClienteMostrarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator3">
                 </Component>
@@ -396,9 +387,6 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbRolesAgregar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbRolesAgregarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbRolesEditar">
                   <Events>
@@ -411,9 +399,6 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbRolesMostrar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbRolesMostrarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator4">
                 </Component>
@@ -520,24 +505,12 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbProveedoresAgregar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbProveedoresAgregarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbProveedoresEditar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbProveedoresEditarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbProveedoresEliminar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbProveedoresEliminarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbProveedoresMostrar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbProveedoresMostrarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator5">
                 </Component>
@@ -644,24 +617,12 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbInventarioAgregar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbInventarioAgregarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbInventarioEditar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbInventarioEditarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbInventarioEliminar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbInventarioEliminarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbInventarioMostrar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbInventarioMostrarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator6">
                 </Component>
@@ -768,14 +729,8 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbUsuariosAgregar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbUsuariosAgregarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbUsuariosEditar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbUsuariosEditarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbUsuariosEliminar">
                   <Events>
@@ -783,9 +738,6 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chbUsuariosMostrar">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbUsuariosMostrarActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator8">
                 </Component>

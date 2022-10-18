@@ -15,6 +15,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import componentes.TextPrompt;
+import controlador.CtrRol;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import modelo.MdlRol;
 import vista.vstMenu;
 
 /**
@@ -22,71 +26,152 @@ import vista.vstMenu;
  * @author hamme
  */
 public class vstVerRol extends javax.swing.JPanel {
-    
+
+    ArrayList<MdlRol> listaRol = new ArrayList();
+    MdlRol rolSeleccionado = new MdlRol();
+    boolean habilitar = false;
     private ImageIcon imagen;
     private Icon icon;
     private Color fondoInformacion = new Color(111, 111, 111);
     private Color fondoModificar = new Color(111, 111, 111);
     private Color fondoEliminar = new Color(111, 111, 111);
-    
+
     private Color fondoHoldInformacion = new Color(255, 255, 255);
     private Color fondoHoldModificar = new Color(255, 255, 255);
     private Color fondoHoldEliminar = new Color(255, 255, 255);
-    
-    
-    
-    
+
     public vstVerRol() {
         initComponents();
         configuracionVista();
+        inicio();
     }
-    
-    public void configuracionVista(){
+
+    public void inicio() {
+        llenarTabla();
+        paginas();
+    }
+
+    public void paginas() {
+        if (listaRol.size() <= 100) {
+            btnListaAnterios.setEnabled(false);
+            btnListaSiguiente.setEnabled(false);
+        }
+    }
+
+    public void llenarTabla() {
+        limpiarTabla();
+        CtrRol ctrr = new CtrRol();
+        listaRol = ctrr.consultar();
+        for (int posicion = 0; posicion < listaRol.size(); posicion++) {
+            tblRoles.setValueAt(posicion + 1, posicion, 0);
+            tblRoles.setValueAt(listaRol.get(posicion).getNombre(), posicion, 1);
+            tblRoles.setValueAt(listaRol.get(posicion).getCodigo(), posicion, 2);
+            tblRoles.setValueAt(listaRol.get(posicion).getFunciones(), posicion, 3);
+            tblRoles.setValueAt(listaRol.get(posicion).getFregistro().toString().substring(0, 11), posicion, 4);
+        }
+    }
+
+    public void limpiarTabla() {
+        for (int posicion = 0; posicion < listaRol.size(); posicion++) {
+            tblRoles.setValueAt("", posicion, 0);
+            tblRoles.setValueAt("", posicion, 1);
+            tblRoles.setValueAt("", posicion, 2);
+            tblRoles.setValueAt("", posicion, 3);
+            tblRoles.setValueAt("", posicion, 4);
+        }
+    }
+
+    public void seleccionarRol() {
+        for (int posicion = 0; posicion < listaRol.size(); posicion++) {
+            if (tblRoles.getSelectedRow() == posicion) {
+                rolSeleccionado = listaRol.get(posicion);
+                habilitar = true;
+                pnlInformacion.setBackground(new Color(250, 250, 170));
+                pnlModificar.setBackground(new Color(170, 225, 250));
+                pnlEliminar.setBackground(new Color(250, 200, 170));
+                
+                fondoInformacion = new Color(250, 250, 170);
+                fondoModificar = new Color(170, 225, 250);
+                fondoEliminar = new Color(250, 200, 170);
+            }
+        }
+        if (tblRoles.getSelectedRow() >= listaRol.size()) {
+            habilitar = false;
+            pnlInformacion.setBackground(new Color(111, 111, 111));
+            pnlModificar.setBackground(new Color(111, 111, 111));
+            pnlEliminar.setBackground(new Color(111, 111, 111));
+
+            fondoInformacion = new Color(111, 111, 111);
+            fondoModificar = new Color(111, 111, 111);
+            fondoEliminar = new Color(111, 111, 111);
+        }
+    }
+
+    public void configuracionVista() {
         String ruta = new String();
         ruta = "src/imagenes/icons/loupe.png";
-        this.pintarImagen(this.lblImgBuscador, ruta);        
-        
+        this.pintarImagen(this.lblImgBuscador, ruta);
         jScrollPane2.setVerticalScrollBar(new ScrollBar());
-        
         TextPrompt PlaceHolderBuscador = new TextPrompt("Buscador", txtBuscador);
-        
         pnlModificar.setBackground(fondoModificar);
         pnlEliminar.setBackground(fondoEliminar);
         pnlInformacion.setBackground(fondoInformacion);
-        
-    }    
-    
+    }
+
     private void pintarImagen(JLabel label, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icon = new ImageIcon(this.imagen.getImage());
         label.setIcon(icon);
         this.repaint();
     }
-        
-        public void MouseOnBoton(JPanel panel, Color color){
-            panel.setCursor(new Cursor(HAND_CURSOR));
-            panel.setBackground(color);
-        }
-        
-        public void MouseOutBoton(JPanel panel, Color color){
-            panel.setBackground(color);
-        }
 
-        public void PressBtnEliminar(){
-       
-            System.out.println("Esta Seguro de que quiere eliminar");
+    public void MouseOnBoton(JPanel panel, Color color) {
+        panel.setCursor(new Cursor(HAND_CURSOR));
+        if(habilitar){
+        panel.setBackground(color);
+        }
+    }
+
+    public void MouseOutBoton(JPanel panel, Color color) {
+        if(habilitar){
+        panel.setBackground(color);
+        }
     }
         
-        public void PressBtnModificar(){
-          
-    }
+
+    public void PressBtnEliminar() {
+        if(habilitar){
+        System.out.println("Esta Seguro de que quiere eliminar");
+        }else{
+            itemNoValido();
+        }
         
-        public void PressBtnInformacion(){
-        vstMostrarInformacionUsuario panel = new vstMostrarInformacionUsuario();
-        vstMenu.panelContenedor(panel);
+    }
+
+    public void PressBtnModificar() {
+        if(habilitar){
+            vstAgregarEditarRol panel = new vstAgregarEditarRol(rolSeleccionado.getId());
+            vstMenu.panelContenedor(panel);
+        }else{
+            itemNoValido();
+        }
+    }
+
+    public void PressBtnInformacion() {
+        if(habilitar){
+        System.out.println("Esta Seguro de que quiere informacion");
+        }else{
+            itemNoValido();
+        }
+        
+//        vstMostrarInformacionUsuario panel = new vstMostrarInformacionUsuario();
+//        vstMenu.panelContenedor(panel);
     }
     
-    
+    public void itemNoValido(){
+        JOptionPane.showMessageDialog(null, "Seleccione un rol", "Error", 1);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,11 +189,13 @@ public class vstVerRol extends javax.swing.JPanel {
         lblModificar = new javax.swing.JLabel();
         pnlTabla = new componentes.PanelRound();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblCliente = new componentes.Tabla();
+        tblRoles = new componentes.Tabla();
         pnlBuscador = new componentes.PanelRound();
         lblImgBuscador = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         txtBuscador = new javax.swing.JTextField();
+        btnListaAnterios = new javax.swing.JButton();
+        btnListaSiguiente = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -228,7 +315,7 @@ public class vstVerRol extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        add(pnlModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 570, 220, 40));
+        add(pnlModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 570, 220, 40));
 
         pnlTabla.setBackground(new java.awt.Color(255, 255, 255));
         pnlTabla.setRoundBottomLeft(30);
@@ -239,128 +326,139 @@ public class vstVerRol extends javax.swing.JPanel {
 
         jScrollPane2.setBorder(null);
 
-        tblCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tblRoles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "TI", "121212", "Hammer", "HAgi@gmail.com", "4203034"},
-                {"2", "CC", "131313", "Carlos", "Car@Gmail.com", "3153214343"},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "#", "TI", "Identificación", "Nombre", "Correo", "Telefono"
+                "               #", "         Nombre", "                Codigo", "               Funciones", "           Fecha de registro"
             }
-        ));
-        jScrollPane2.setViewportView(tblCliente);
-        if (tblCliente.getColumnModel().getColumnCount() > 0) {
-            tblCliente.getColumnModel().getColumn(0).setResizable(false);
-            tblCliente.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tblCliente.getColumnModel().getColumn(1).setResizable(false);
-            tblCliente.getColumnModel().getColumn(1).setPreferredWidth(10);
-            tblCliente.getColumnModel().getColumn(2).setResizable(false);
-            tblCliente.getColumnModel().getColumn(3).setResizable(false);
-            tblCliente.getColumnModel().getColumn(4).setResizable(false);
-            tblCliente.getColumnModel().getColumn(5).setResizable(false);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblRoles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRolesMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblRoles);
+        if (tblRoles.getColumnModel().getColumnCount() > 0) {
+            tblRoles.getColumnModel().getColumn(0).setResizable(false);
+            tblRoles.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tblRoles.getColumnModel().getColumn(1).setResizable(false);
+            tblRoles.getColumnModel().getColumn(1).setPreferredWidth(10);
+            tblRoles.getColumnModel().getColumn(2).setResizable(false);
+            tblRoles.getColumnModel().getColumn(3).setResizable(false);
+            tblRoles.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        pnlTabla.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 740, 470));
+        pnlTabla.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 740, 440));
 
-        add(pnlTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 760, 490));
+        add(pnlTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 760, 460));
 
         pnlBuscador.setBackground(new java.awt.Color(255, 255, 255));
         pnlBuscador.setRoundBottomLeft(30);
@@ -377,6 +475,12 @@ public class vstVerRol extends javax.swing.JPanel {
         pnlBuscador.add(txtBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 550, 30));
 
         add(pnlBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 760, 40));
+
+        btnListaAnterios.setText("<");
+        add(btnListaAnterios, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 540, 40, 20));
+
+        btnListaSiguiente.setText(">");
+        add(btnListaSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 540, 40, 20));
     }// </editor-fold>//GEN-END:initComponents
 
     private void pnlEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEliminarMousePressed
@@ -384,12 +488,12 @@ public class vstVerRol extends javax.swing.JPanel {
     }//GEN-LAST:event_pnlEliminarMousePressed
 
     private void pnlEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEliminarMouseEntered
-        MouseOnBoton(pnlEliminar,fondoHoldEliminar);
-        
+        MouseOnBoton(pnlEliminar, fondoHoldEliminar);
+
     }//GEN-LAST:event_pnlEliminarMouseEntered
 
     private void pnlModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlModificarMouseEntered
-       MouseOnBoton(pnlModificar,fondoHoldModificar);
+        MouseOnBoton(pnlModificar, fondoHoldModificar);
     }//GEN-LAST:event_pnlModificarMouseEntered
 
     private void pnlModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlModificarMousePressed
@@ -397,27 +501,33 @@ public class vstVerRol extends javax.swing.JPanel {
     }//GEN-LAST:event_pnlModificarMousePressed
 
     private void pnlInformacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInformacionMouseEntered
-         MouseOnBoton(pnlInformacion,fondoHoldInformacion);
+        MouseOnBoton(pnlInformacion, fondoHoldInformacion);
     }//GEN-LAST:event_pnlInformacionMouseEntered
 
     private void pnlInformacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInformacionMouseExited
-        MouseOutBoton(pnlInformacion,fondoInformacion);
+        MouseOutBoton(pnlInformacion, fondoInformacion);
     }//GEN-LAST:event_pnlInformacionMouseExited
 
     private void pnlModificarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlModificarMouseExited
-       MouseOutBoton(pnlModificar,fondoModificar);
+        MouseOutBoton(pnlModificar, fondoModificar);
     }//GEN-LAST:event_pnlModificarMouseExited
 
     private void pnlEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEliminarMouseExited
-        MouseOutBoton(pnlEliminar,fondoEliminar);
+        MouseOutBoton(pnlEliminar, fondoEliminar);
     }//GEN-LAST:event_pnlEliminarMouseExited
 
     private void pnlInformacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInformacionMousePressed
         PressBtnInformacion();
     }//GEN-LAST:event_pnlInformacionMousePressed
 
+    private void tblRolesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRolesMouseClicked
+        seleccionarRol();
+    }//GEN-LAST:event_tblRolesMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnListaAnterios;
+    private javax.swing.JButton btnListaSiguiente;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblEliminar;
@@ -429,7 +539,7 @@ public class vstVerRol extends javax.swing.JPanel {
     private componentes.PanelRound pnlInformacion;
     private componentes.PanelRound pnlModificar;
     private componentes.PanelRound pnlTabla;
-    private componentes.Tabla tblCliente;
+    private componentes.Tabla tblRoles;
     private javax.swing.JTextField txtBuscador;
     // End of variables declaration//GEN-END:variables
 }

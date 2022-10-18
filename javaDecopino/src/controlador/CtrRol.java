@@ -21,8 +21,11 @@ public class CtrRol {
 
     public ArrayList<MdlRol> consultar() {
         ArrayList<MdlRol> listaRoles = new ArrayList();
+
         Conexion conectar = new Conexion();
-        String sql = "SELECT * FROM madroles ";
+        String sql = "SELECT * FROM `madroles` WHERE estado = 1";
+        
+
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
@@ -169,7 +172,7 @@ public class CtrRol {
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
-            if (rs.next()) {                
+            if (rs.next()) {
                 if (rs.getString("numero").toString().equals("0")) {
                     validar = true;
                 }

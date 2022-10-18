@@ -27,7 +27,7 @@ public class vstRolPer extends javax.swing.JPanel {
     }
     
     public void nuevoUsuario(){
-        vstAgregarEditarRol panel = new vstAgregarEditarRol(1);
+        vstAgregarEditarRol panel = new vstAgregarEditarRol(0);
         vstMenu.panelContenedor(panel);
     }
     /**

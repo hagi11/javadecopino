@@ -30,12 +30,13 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     public vstAgregarEditarRol(int opcion) {
         initComponents();
 
-        if (opcion == 1) {
+        if (opcion == 0) {
             ModoAgregar();
+            inicio();
         } else {
             ModoEditar();
         }
-        inicio();
+
     }
 
     public void ModoAgregar() {
@@ -55,20 +56,16 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }
 
     public void validarInformacionRol() {
-        boolean validadorFunciones = false;
-
         if (validarRolNombre()) {
             if (txaFunciones.getText().isEmpty()) {
                 int opcion = JOptionPane.showConfirmDialog(null, "Esta apunto de crear el rol sin \nasignarle funciones desea continuar", "  Advertencia", 2);
                 if (opcion == 0) {
-                    //            CrearRol();
-                    System.err.println("Crear rol");
+                    CrearRol();
                 }
             }
             if (!txaFunciones.getText().isEmpty()) {
                 if (validarRolFunciones()) {
-                    //            CrearRol();
-                    System.err.println("Crear rol");
+                    CrearRol();
                 }
             }
         }
@@ -98,7 +95,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             informacionError = informacionError + "El nombre debe contener entre 3 y 30 carácter \n";
         }
         if (confirmar == false) {
-            JOptionPane.showMessageDialog(null, informacionError, "Error Creando el Rol", 1);
+            JOptionPane.showMessageDialog(null, informacionError, "Error en la creanción del rol", 1);
         }
         return confirmar;
     }
@@ -106,7 +103,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     public boolean validarRolFunciones() {
         boolean confirmar = false;
         CtrValidador validar = new CtrValidador();
-        if(validar.validarCaracteres(txaFunciones.getText()) && validar.validarTamano(txaFunciones.getText(),1,200)){
+        if (validar.validarCaracteres(txaFunciones.getText()) && validar.validarTamano(txaFunciones.getText(), 1, 200)) {
             confirmar = true;
         }
         return confirmar;
@@ -283,6 +280,61 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         }
     }
 
+    public void condicionVerCliente(){
+        if(!chbClienteVer.isSelected()){
+            chbClienteMostrar.setEnabled(false);
+            chbClienteEditar.setEnabled(false);
+            chbClienteEliminar.setEnabled(false);
+        }else{
+            chbClienteMostrar.setEnabled(true);
+            chbClienteEditar.setEnabled(true);
+            chbClienteEliminar.setEnabled(true);
+        }
+    }
+    public void condicionVerInventario(){
+        if(!chbInventarioVer.isSelected()){
+            chbInventarioMostrar.setEnabled(false);
+            chbInventarioEditar.setEnabled(false);
+            chbInventarioEliminar.setEnabled(false);
+        }else{
+            chbInventarioMostrar.setEnabled(true);
+            chbInventarioEditar.setEnabled(true);
+            chbInventarioEliminar.setEnabled(true);
+        }
+    }
+    public void condicionVerRoles(){
+        if(!chbRolesVer.isSelected()){
+            chbRolesMostrar.setEnabled(false);
+            chbRolesEditar.setEnabled(false);
+            chbRolesEliminar.setEnabled(false);
+        }else{
+            chbRolesMostrar.setEnabled(true);
+            chbRolesEditar.setEnabled(true);
+            chbRolesEliminar.setEnabled(true);
+        }
+    }
+    public void condicionVerProveedor(){
+        if(!chbProveedoresVer.isSelected()){
+            chbProveedoresMostrar.setEnabled(false);
+            chbProveedoresEditar.setEnabled(false);
+            chbProveedoresEliminar.setEnabled(false);
+        }else{
+            chbProveedoresMostrar.setEnabled(true);
+            chbProveedoresEditar.setEnabled(true);
+            chbProveedoresEliminar.setEnabled(true);
+        }
+    }
+    public void condicionVerUsuario(){
+        if(!chbUsuariosVer.isSelected()){
+            chbUsuariosMostrar.setEnabled(false);
+            chbUsuariosEditar.setEnabled(false);
+            chbUsuariosEliminar.setEnabled(false);
+        }else{
+            chbUsuariosMostrar.setEnabled(true);
+            chbUsuariosEditar.setEnabled(true);
+            chbUsuariosEliminar.setEnabled(true);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -439,28 +491,9 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         });
 
         chbClienteVer.setSelected(true);
-
-        chbClienteAgregar.addActionListener(new java.awt.event.ActionListener() {
+        chbClienteVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbClienteAgregarActionPerformed(evt);
-            }
-        });
-
-        chbClienteEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbClienteEditarActionPerformed(evt);
-            }
-        });
-
-        chbClienteEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbClienteEliminarActionPerformed(evt);
-            }
-        });
-
-        chbClienteMostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbClienteMostrarActionPerformed(evt);
+                chbClienteVerActionPerformed(evt);
             }
         });
 
@@ -537,12 +570,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             }
         });
 
-        chbRolesAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbRolesAgregarActionPerformed(evt);
-            }
-        });
-
         chbRolesEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chbRolesEditarActionPerformed(evt);
@@ -552,12 +579,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         chbRolesEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chbRolesEliminarActionPerformed(evt);
-            }
-        });
-
-        chbRolesMostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbRolesMostrarActionPerformed(evt);
             }
         });
 
@@ -634,30 +655,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             }
         });
 
-        chbProveedoresAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbProveedoresAgregarActionPerformed(evt);
-            }
-        });
-
-        chbProveedoresEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbProveedoresEditarActionPerformed(evt);
-            }
-        });
-
-        chbProveedoresEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbProveedoresEliminarActionPerformed(evt);
-            }
-        });
-
-        chbProveedoresMostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbProveedoresMostrarActionPerformed(evt);
-            }
-        });
-
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -728,30 +725,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         chbInventarioVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chbInventarioVerActionPerformed(evt);
-            }
-        });
-
-        chbInventarioAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbInventarioAgregarActionPerformed(evt);
-            }
-        });
-
-        chbInventarioEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbInventarioEditarActionPerformed(evt);
-            }
-        });
-
-        chbInventarioEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbInventarioEliminarActionPerformed(evt);
-            }
-        });
-
-        chbInventarioMostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbInventarioMostrarActionPerformed(evt);
             }
         });
 
@@ -828,27 +801,9 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             }
         });
 
-        chbUsuariosAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbUsuariosAgregarActionPerformed(evt);
-            }
-        });
-
-        chbUsuariosEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbUsuariosEditarActionPerformed(evt);
-            }
-        });
-
         chbUsuariosEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chbUsuariosEliminarActionPerformed(evt);
-            }
-        });
-
-        chbUsuariosMostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbUsuariosMostrarActionPerformed(evt);
             }
         });
 
@@ -1064,33 +1019,9 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void chbClienteAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteAgregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbClienteAgregarActionPerformed
-
-    private void chbClienteEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbClienteEditarActionPerformed
-
-    private void chbClienteEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbClienteEliminarActionPerformed
-
-    private void chbClienteMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteMostrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbClienteMostrarActionPerformed
-
     private void pnlClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlClientesMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlClientesMousePressed
-
-    private void chbRolesVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesVerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbRolesVerActionPerformed
-
-    private void chbRolesAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesAgregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbRolesAgregarActionPerformed
 
     private void chbRolesEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesEditarActionPerformed
         // TODO add your handling code here:
@@ -1100,81 +1031,21 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_chbRolesEliminarActionPerformed
 
-    private void chbRolesMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesMostrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbRolesMostrarActionPerformed
-
     private void pnlRolesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlRolesMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlRolesMousePressed
-
-    private void chbProveedoresVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresVerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbProveedoresVerActionPerformed
-
-    private void chbProveedoresAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresAgregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbProveedoresAgregarActionPerformed
-
-    private void chbProveedoresEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbProveedoresEditarActionPerformed
-
-    private void chbProveedoresEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbProveedoresEliminarActionPerformed
-
-    private void chbProveedoresMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresMostrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbProveedoresMostrarActionPerformed
 
     private void pnlProveedoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlProveedoresMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlProveedoresMousePressed
 
-    private void chbInventarioVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioVerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbInventarioVerActionPerformed
-
-    private void chbInventarioAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioAgregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbInventarioAgregarActionPerformed
-
-    private void chbInventarioEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbInventarioEditarActionPerformed
-
-    private void chbInventarioEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbInventarioEliminarActionPerformed
-
-    private void chbInventarioMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioMostrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbInventarioMostrarActionPerformed
-
     private void pnlInventarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInventarioMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlInventarioMousePressed
 
-    private void chbUsuariosVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosVerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbUsuariosVerActionPerformed
-
-    private void chbUsuariosAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosAgregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbUsuariosAgregarActionPerformed
-
-    private void chbUsuariosEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbUsuariosEditarActionPerformed
-
     private void chbUsuariosEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosEliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chbUsuariosEliminarActionPerformed
-
-    private void chbUsuariosMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosMostrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbUsuariosMostrarActionPerformed
 
     private void pnlUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlUsuariosMousePressed
         // TODO add your handling code here:
@@ -1196,6 +1067,26 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         validarInformacionRol();
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void chbClienteVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteVerActionPerformed
+        condicionVerCliente();
+    }//GEN-LAST:event_chbClienteVerActionPerformed
+
+    private void chbInventarioVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioVerActionPerformed
+        condicionVerInventario();
+    }//GEN-LAST:event_chbInventarioVerActionPerformed
+
+    private void chbRolesVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesVerActionPerformed
+        condicionVerRoles();
+    }//GEN-LAST:event_chbRolesVerActionPerformed
+
+    private void chbProveedoresVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresVerActionPerformed
+        condicionVerProveedor();
+    }//GEN-LAST:event_chbProveedoresVerActionPerformed
+
+    private void chbUsuariosVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosVerActionPerformed
+        condicionVerUsuario();
+    }//GEN-LAST:event_chbUsuariosVerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1251,8 +1142,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblEliminar;
-    private javax.swing.JLabel lblInformacion;
-    private javax.swing.JLabel lblInformacion1;
     private javax.swing.JLabel lblMostrar;
     private javax.swing.JLabel lblNombreRol;
     private javax.swing.JLabel lblNombreRol1;
@@ -1261,8 +1150,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private javax.swing.JLabel lblVer;
     private componentes.PanelRound panelRound1;
     private componentes.PanelRound pnlClientes;
-    private componentes.PanelRound pnlInformacion;
-    private componentes.PanelRound pnlInformacion1;
     private componentes.PanelRound pnlInventario;
     private componentes.PanelRound pnlNombreRol;
     private javax.swing.JPanel pnlOpciones;
