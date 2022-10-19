@@ -48,11 +48,17 @@ public interface Configuracion {
 //    String PASSWORD = "";
     
     
-    String DRIVER = "com.mysql.cj.jdbc.Driver";
-    String DATA_BASE = "decoraci_prueba";
+//    String DRIVER = "com.mysql.cj.jdbc.Driver";
+//    String DATA_BASE = "decoraci_prueba";
+//    String CONNECTION_URL = "jdbc:mysql://190.8.176.111:3306/"+DATA_BASE;    
+//    String USERNAME = "decoraci_adsi200admin";
+//    String PASSWORD = "aJZ[+&&3*,hX";
+    
+        String DRIVER = "com.mysql.cj.jdbc.Driver";
+    String DATA_BASE = "decoraci_decopino";
     String CONNECTION_URL = "jdbc:mysql://190.8.176.111:3306/"+DATA_BASE;    
-    String USERNAME = "decoraci_adsi200admin";
-    String PASSWORD = "aJZ[+&&3*,hX";
+    String USERNAME = "decoraci_adsi200";
+    String PASSWORD = "los20pinos";
     
 //    String DRIVER = "com.mysql.cj.jdbc.Driver";
 //    String DATA_BASE = "decoraci_decopino";

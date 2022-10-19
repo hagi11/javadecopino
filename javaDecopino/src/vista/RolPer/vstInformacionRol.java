@@ -19,7 +19,7 @@ import vista.vstMenu;
  *
  * @author hamme
  */
-public class vstAgregarEditarRol extends javax.swing.JPanel {
+public class vstInformacionRol extends javax.swing.JPanel {
 
     ArrayList<MdlRolRecurso> listaRolRecurso = new ArrayList();
     MdlRol direccion = new MdlRol();
@@ -27,14 +27,14 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     /**
      * Creates new form pnlInicio
      */
-    public vstAgregarEditarRol(int id) {
+    public vstInformacionRol(int opcion) {
         initComponents();
-            inicio();
-        if (id == 0) {
-            ModoAgregar();
 
+        if (opcion == 0) {
+            ModoAgregar();
+            inicio();
         } else {
-            ModoEditar(id);
+            ModoEditar();
         }
 
     }
@@ -44,38 +44,15 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         btnActualizar.setVisible(false);
     }
 
-    public void ModoEditar(int id) {
+    public void ModoEditar() {
         lblTituloRol.setText("Modificar Rol");
         btnCrear.setVisible(false);
-        CtrRol ctrr = new CtrRol();
-        MdlRol rol = new MdlRol();
-        rol = ctrr.mostrarRol(id);
-        llenarRol(rol);
-        llenarPermisos(rol);
-    }
-
-    public void llenarRol(MdlRol rol) {
-        txtNombreRol.setText(rol.getNombre());
-        txaFunciones.setText(rol.getFunciones());
-    }
-
-    public void llenarPermisos(MdlRol rol) {
-        CtrRol ctrr = new CtrRol();
-        listaRolRecurso = ctrr.mostrarRolRec(rol);
-        asignaRolRecursoInventario(listaRolRecurso.get(0));
-        asignaRolRecursoProveedor(listaRolRecurso.get(1));
-        asignaRolRecursoCliente(listaRolRecurso.get(2));
-        
-        asignaRolRecursoRol(listaRolRecurso.get(3));
-        asignaRolRecursoUsuario(listaRolRecurso.get(4));
-        asignaRolRecursoDespacho(listaRolRecurso.get(5));
-        asignaRolRecursoFactura(listaRolRecurso.get(6));
-
     }
 
     public void inicio() {
         chbClienteAgregar.setEnabled(false);
         chbDespachosAgregar.setEnabled(false);
+        chbInventarioEliminar.setEnabled(false);
         chbFacturasAgregar.setEnabled(false);
         chbFacturasEditar.setEnabled(false);
 
@@ -159,10 +136,14 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         CtrRol Ctrr = new CtrRol();
 
         listaRecursos = Ctrr.consultarRecursos();
+        
+        for (int i = 0; i < listaRecursos.size(); i++) {
+            System.out.println(listaRecursos.get(i).getNombre());
+        }
 
-        rolRecursoInventario(listaRecursos.get(0));
-        rolRecursoProveedores(listaRecursos.get(1));
-        rolRecursoCliente(listaRecursos.get(2));
+        rolRecursoCliente(listaRecursos.get(0));
+        rolRecursoInventario(listaRecursos.get(1));
+        rolRecursoProveedores(listaRecursos.get(2));
         rolRecursoRoles(listaRecursos.get(3));
         rolRecursoUsuarios(listaRecursos.get(4));
         rolRecursoDespachos(listaRecursos.get(5));
@@ -352,183 +333,10 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         listaRolRecurso.add(RolRecurso);
     }
 
-    public void asignaRolRecursoCliente(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
-        chbClienteAgregar.setSelected(false);
-        chbClienteEditar.setSelected(false);
-        chbClienteEliminar.setSelected(false);
-        chbClienteMostrar.setSelected(false);
-        chbClienteVer.setSelected(false);
-
-        if (RolRecurso.getCrear() == 1) {
-            chbClienteAgregar.setSelected(true);
-        }
-        if (RolRecurso.getEditar() == 1) {
-            chbClienteEditar.setSelected(true);
-        }
-        if (RolRecurso.getEliminar() == 1) {
-            chbClienteEliminar.setSelected(true);
-        }
-        if (RolRecurso.getMostrar() == 1) {
-            chbClienteMostrar.setSelected(true);
-        }
-        if (RolRecurso.getLeer() == 1) {
-            chbClienteVer.setSelected(true);
-        }
-    }
-
-    public void asignaRolRecursoInventario(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
-        chbInventarioAgregar.setSelected(false);
-        chbInventarioEditar.setSelected(false);
-        chbInventarioEliminar.setSelected(false);
-        chbInventarioMostrar.setSelected(false);
-        chbInventarioVer.setSelected(false);
-
-        if (RolRecurso.getCrear() == 1) {
-            chbInventarioAgregar.setSelected(true);
-        }
-        if (RolRecurso.getEditar() == 1) {
-            chbInventarioEditar.setSelected(true);
-        }
-        if (RolRecurso.getEliminar() == 1) {
-            chbInventarioEliminar.setSelected(true);
-        }
-        if (RolRecurso.getMostrar() == 1) {
-            chbInventarioMostrar.setSelected(true);
-        }
-        if (RolRecurso.getLeer() == 1) {
-            chbInventarioVer.setSelected(true);
-        }
-    }
-
-    public void asignaRolRecursoRol(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
-        chbRolesAgregar.setSelected(false);
-        chbRolesEditar.setSelected(false);
-        chbRolesEliminar.setSelected(false);
-        chbRolesMostrar.setSelected(false);
-        chbRolesVer.setSelected(false);
-
-        if (RolRecurso.getCrear() == 1) {
-            chbRolesAgregar.setSelected(true);
-        }
-        if (RolRecurso.getEditar() == 1) {
-            chbRolesEditar.setSelected(true);
-        }
-        if (RolRecurso.getEliminar() == 1) {
-            chbRolesEliminar.setSelected(true);
-        }
-        if (RolRecurso.getMostrar() == 1) {
-            chbRolesMostrar.setSelected(true);
-        }
-        if (RolRecurso.getLeer() == 1) {
-            chbRolesVer.setSelected(true);
-        }
-    }
-
-    public void asignaRolRecursoProveedor(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
-        chbProveedoresAgregar.setSelected(false);
-        chbProveedoresEditar.setSelected(false);
-        chbProveedoresEliminar.setSelected(false);
-        chbProveedoresMostrar.setSelected(false);
-        chbProveedoresVer.setSelected(false);
-
-        if (RolRecurso.getCrear() == 1) {
-            chbProveedoresAgregar.setSelected(true);
-        }
-        if (RolRecurso.getEditar() == 1) {
-            chbProveedoresEditar.setSelected(true);
-        }
-        if (RolRecurso.getEliminar() == 1) {
-            chbProveedoresEliminar.setSelected(true);
-        }
-        if (RolRecurso.getMostrar() == 1) {
-            chbProveedoresMostrar.setSelected(true);
-        }
-        if (RolRecurso.getLeer() == 1) {
-            chbProveedoresVer.setSelected(true);
-        }
-    }
-
-    public void asignaRolRecursoUsuario(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
-        chbUsuariosAgregar.setSelected(false);
-        chbUsuariosEditar.setSelected(false);
-        chbUsuariosEliminar.setSelected(false);
-        chbUsuariosMostrar.setSelected(false);
-        chbUsuariosVer.setSelected(false);
-
-        if (RolRecurso.getCrear() == 1) {
-            chbUsuariosAgregar.setSelected(true);
-        }
-        if (RolRecurso.getEditar() == 1) {
-            chbUsuariosEditar.setSelected(true);
-        }
-        if (RolRecurso.getEliminar() == 1) {
-            chbUsuariosEliminar.setSelected(true);
-        }
-        if (RolRecurso.getMostrar() == 1) {
-            chbUsuariosMostrar.setSelected(true);
-        }
-        if (RolRecurso.getLeer() == 1) {
-            chbUsuariosVer.setSelected(true);
-        }
-    }
-
-    public void asignaRolRecursoDespacho(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
-        chbDespachosAgregar.setSelected(false);
-        chbDespachosEditar.setSelected(false);
-        chbDespachosEliminar.setSelected(false);
-        chbDespachosMostrar.setSelected(false);
-        chbDespachosVer.setSelected(false);
-
-        if (RolRecurso.getCrear() == 1) {
-            chbDespachosAgregar.setSelected(true);
-        }
-        if (RolRecurso.getEditar() == 1) {
-            chbDespachosEditar.setSelected(true);
-        }
-        if (RolRecurso.getEliminar() == 1) {
-            chbDespachosEliminar.setSelected(true);
-        }
-        if (RolRecurso.getMostrar() == 1) {
-            chbDespachosMostrar.setSelected(true);
-        }
-        if (RolRecurso.getLeer() == 1) {
-            chbDespachosVer.setSelected(true);
-        }
-    }
-
-    public void asignaRolRecursoFactura(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
-        chbFacturasAgregar.setSelected(false);
-        chbFacturasEditar.setSelected(false);
-        chbFacturasEliminar.setSelected(false);
-        chbFacturasMostrar.setSelected(false);
-        chbFacturasVer.setSelected(false);
-
-        if (RolRecurso.getCrear() == 1) {
-            chbFacturasAgregar.setSelected(true);
-        }
-        if (RolRecurso.getEditar() == 1) {
-            chbFacturasEditar.setSelected(true);
-        }
-        if (RolRecurso.getEliminar() == 1) {
-            chbFacturasEliminar.setSelected(true);
-        }
-        if (RolRecurso.getMostrar() == 1) {
-            chbFacturasMostrar.setSelected(true);
-        }
-        if (RolRecurso.getLeer() == 1) {
-            chbFacturasVer.setSelected(true);
-        }
-    }
-
     public void confirmacionCancelacion() {
-
+        for (int posicion = 0; posicion < listaRolRecurso.size(); posicion++) {
+            System.out.println(listaRolRecurso.get(posicion));
+        }
         int result = JOptionPane.showConfirmDialog(panelRound1, "Seguro que desea salir", "Cancelar", 2);
         if (result == 0) {
             vstRolPer panel = new vstRolPer();
@@ -686,7 +494,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         btnCrear = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        btnVolver = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         lblNombreRol1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -1390,29 +1197,18 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             }
         });
 
-        btnVolver.setBackground(new java.awt.Color(204, 204, 204));
-        btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlOpcionesLayout = new javax.swing.GroupLayout(pnlOpciones);
         pnlOpciones.setLayout(pnlOpcionesLayout);
         pnlOpcionesLayout.setHorizontalGroup(
             pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOpcionesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVolver)
-                .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(btnActualizar)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(btnCrear)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlOpcionesLayout.setVerticalGroup(
             pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1421,12 +1217,11 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
                 .addGroup(pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActualizar)
                     .addComponent(btnCancelar)
-                    .addComponent(btnCrear)
-                    .addComponent(btnVolver))
+                    .addComponent(btnCrear))
                 .addContainerGap())
         );
 
-        panelRound1.add(pnlOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 570, 410, 40));
+        panelRound1.add(pnlOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 570, 320, 40));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1563,16 +1358,11 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlUsuarios3MousePressed
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVolverActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCrear;
-    private javax.swing.JButton btnVolver;
     private javax.swing.JCheckBox chbClienteAgregar;
     private javax.swing.JCheckBox chbClienteEditar;
     private javax.swing.JCheckBox chbClienteEliminar;
@@ -1604,17 +1394,11 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private javax.swing.JCheckBox chbRolesMostrar;
     private javax.swing.JCheckBox chbRolesVer;
     private javax.swing.JCheckBox chbUsuariosAgregar;
-    private javax.swing.JCheckBox chbUsuariosAgregar1;
     private javax.swing.JCheckBox chbUsuariosEditar;
-    private javax.swing.JCheckBox chbUsuariosEditar1;
     private javax.swing.JCheckBox chbUsuariosEliminar;
-    private javax.swing.JCheckBox chbUsuariosEliminar1;
     private javax.swing.JCheckBox chbUsuariosMostrar;
-    private javax.swing.JCheckBox chbUsuariosMostrar1;
     private javax.swing.JCheckBox chbUsuariosVer;
-    private javax.swing.JCheckBox chbUsuariosVer1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel7;
@@ -1630,7 +1414,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -1641,7 +1424,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel lblAgregar;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblEditar;
@@ -1660,7 +1442,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private componentes.PanelRound pnlProveedores;
     private componentes.PanelRound pnlRoles;
     private componentes.PanelRound pnlUsuarios;
-    private componentes.PanelRound pnlUsuarios1;
     private componentes.PanelRound pnlUsuarios2;
     private componentes.PanelRound pnlUsuarios3;
     private javax.swing.JTextArea txaFunciones;

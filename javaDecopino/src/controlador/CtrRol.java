@@ -24,7 +24,7 @@ public class CtrRol {
 
         Conexion conectar = new Conexion();
         String sql = "SELECT * FROM `madroles` WHERE estado = 1";
-        
+
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
@@ -48,10 +48,11 @@ public class CtrRol {
     public ArrayList<MdlRecursos> consultarRecursos() {
         ArrayList<MdlRecursos> listaRecursos = new ArrayList();
         Conexion conectar = new Conexion();
-        String sql = "SELECT * FROM madrecursos where estado=1";
+        String sql = "SELECT * FROM `madrecursos` WHERE estado = 1 ORDER BY id ASC";
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
+            
             while (rs.next()) {
                 MdlRecursos recurso = new MdlRecursos();
                 recurso.setId(rs.getInt("id"));
@@ -98,9 +99,7 @@ public class CtrRol {
                 }
             }
         }
-
-        System.out.println(confirmacion);
-        if (confirmacion == 5) {
+        if (confirmacion == 7) {
             validar = true;
         }
         return validar;
@@ -144,6 +143,60 @@ public class CtrRol {
         }
 
         return rol;
+    }
+
+    public MdlRecursos mostrarRecurso(int id) {
+        MdlRecursos recurso = new MdlRecursos();
+        Conexion conectar = new Conexion();
+        String sql = "SELECT * FROM `madrecursos` WHERE `id` =" + id;
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            
+            if (rs.next()) {
+                recurso.setId(rs.getInt("id"));
+                recurso.setNombre(rs.getString("nombre"));
+                recurso.setCodigo(rs.getString("codigo"));
+                recurso.setDescripcion(rs.getString("descripcion"));
+                recurso.setRuta(rs.getString("ruta"));
+                recurso.setEstado(rs.getInt("estado"));
+                recurso.setFregistro(rs.getTimestamp("fregistro"));
+                recurso.setFactualizado(rs.getTimestamp("factualizado"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en consultar Recursos(controlador rol): " + e);
+        }
+
+        return recurso;
+    }
+
+    public ArrayList<MdlRolRecurso> mostrarRolRec(MdlRol rol) {
+        ArrayList<MdlRolRecurso> listaRolPer = new ArrayList();
+        Conexion conectar = new Conexion();
+        String sql = "SELECT * FROM `madrolrecursos` WHERE `rol`="+rol.getId();
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            
+            while (rs.next()) {
+                MdlRolRecurso rolRecurso = new MdlRolRecurso();
+                rolRecurso.setId(rs.getInt("id"));
+                rolRecurso.setRecurso(mostrarRecurso(rs.getInt("recurso")));
+                rolRecurso.setCrear(rs.getInt("crear"));
+                rolRecurso.setLeer(rs.getInt("leer"));
+                rolRecurso.setEditar(rs.getInt("editar"));
+                rolRecurso.setEliminar(rs.getInt("eliminar"));
+                rolRecurso.setMostrar(rs.getInt("mostrar"));
+
+                rolRecurso.setEstado(rs.getInt("estado"));
+                rolRecurso.setFregistro(rs.getTimestamp("fregistro"));
+                rolRecurso.setFactualizado(rs.getTimestamp("factualizado"));
+                listaRolPer.add(rolRecurso);
+            }
+        } catch (Exception e) {
+            System.out.println("Error en consultar Recursos(controlador rol): " + e);
+        }
+        return listaRolPer;
     }
 
     public int generarId(String peticion) {
