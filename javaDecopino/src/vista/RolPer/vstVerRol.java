@@ -89,7 +89,7 @@ public class vstVerRol extends javax.swing.JPanel {
                 pnlInformacion.setBackground(new Color(250, 250, 170));
                 pnlModificar.setBackground(new Color(170, 225, 250));
                 pnlEliminar.setBackground(new Color(250, 200, 170));
-                
+
                 fondoInformacion = new Color(250, 250, 170);
                 fondoModificar = new Color(170, 225, 250);
                 fondoEliminar = new Color(250, 200, 170);
@@ -127,48 +127,55 @@ public class vstVerRol extends javax.swing.JPanel {
 
     public void MouseOnBoton(JPanel panel, Color color) {
         panel.setCursor(new Cursor(HAND_CURSOR));
-        if(habilitar){
-        panel.setBackground(color);
+        if (habilitar) {
+            panel.setBackground(color);
         }
     }
 
     public void MouseOutBoton(JPanel panel, Color color) {
-        if(habilitar){
-        panel.setBackground(color);
+        if (habilitar) {
+            panel.setBackground(color);
         }
     }
-        
 
     public void PressBtnEliminar() {
-        if(habilitar){
-        System.out.println("Esta Seguro de que quiere eliminar");
-        }else{
+        if (habilitar) {
+            CtrRol ctrr = new CtrRol();
+            boolean borrar = ctrr.validarEliminarRol(rolSeleccionado.getId());
+            if (borrar == true) {
+                JOptionPane.showMessageDialog(null, "Rol borrado Correctamente", "Información", 1);
+                llenarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "Él rol no pudo ser eliminado debido\na que hay usuario con este rol.", "Información", 1);
+            }
+        } else {
             itemNoValido();
         }
-        
+
     }
 
     public void PressBtnModificar() {
-        if(habilitar){
+        if (habilitar) {
             vstAgregarEditarRol panel = new vstAgregarEditarRol(rolSeleccionado.getId());
             vstMenu.panelContenedor(panel);
-        }else{
+        } else {
             itemNoValido();
         }
     }
 
     public void PressBtnInformacion() {
-        if(habilitar){
-        System.out.println("Esta Seguro de que quiere informacion");
-        }else{
+        if (habilitar) {
+            vstInformacionRol panel = new vstInformacionRol(rolSeleccionado);
+            vstMenu.panelContenedor(panel);
+        } else {
             itemNoValido();
         }
-        
+
 //        vstMostrarInformacionUsuario panel = new vstMostrarInformacionUsuario();
 //        vstMenu.panelContenedor(panel);
     }
-    
-    public void itemNoValido(){
+
+    public void itemNoValido() {
         JOptionPane.showMessageDialog(null, "Seleccione un rol", "Error", 1);
     }
 

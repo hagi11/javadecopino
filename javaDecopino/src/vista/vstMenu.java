@@ -341,7 +341,7 @@ public class vstMenu extends javax.swing.JFrame {
 
         lblItemRolPer.setFont(new java.awt.Font("Poor Richard", 1, 20)); // NOI18N
         lblItemRolPer.setForeground(new java.awt.Color(255, 255, 255));
-        lblItemRolPer.setText("Roles y Permisos");
+        lblItemRolPer.setText("Roles");
         pnlItemRolPer.add(lblItemRolPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 140, 20));
 
         pnlMenu4.add(pnlItemRolPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 220, 30));

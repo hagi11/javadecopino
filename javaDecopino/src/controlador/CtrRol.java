@@ -52,7 +52,7 @@ public class CtrRol {
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
-            
+
             while (rs.next()) {
                 MdlRecursos recurso = new MdlRecursos();
                 recurso.setId(rs.getInt("id"));
@@ -76,10 +76,14 @@ public class CtrRol {
         int confirmacion = 0;
         boolean validar = false;
         boolean validar2 = false;
+
         rol.setId(generarId("madroles") + 1);
         rol.setCodigo(rol.getNombre().substring(0, 3).toUpperCase() + rol.getId() + "00");
+
         validar2 = crearRol(rol);
+
         rol = mostrarRol(rol.getId());
+
         if (validar2 == true) {
             for (int posicion = 0; posicion < listaRolRecurso.size(); posicion++) {
                 listaRolRecurso.get(posicion).setRol(rol);
@@ -91,7 +95,7 @@ public class CtrRol {
                         + "','" + listaRolRecurso.get(posicion).getEliminar() + "','1')";
                 try {
                     if (conectar.ejecutar(sqlt)) {
-                        System.out.println("Permisos asignados al Rol exitosamente");
+
                         confirmacion += 1;
                     }
                 } catch (Exception e) {
@@ -125,7 +129,7 @@ public class CtrRol {
     public MdlRol mostrarRol(int id) {
         MdlRol rol = new MdlRol();
         Conexion conectar = new Conexion();
-        String sql = "SELECT * FROM madroles where id =" + id;
+        String sql = "SELECT * FROM madroles where estado = 1 && id =" + id;
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
@@ -152,7 +156,7 @@ public class CtrRol {
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
-            
+
             if (rs.next()) {
                 recurso.setId(rs.getInt("id"));
                 recurso.setNombre(rs.getString("nombre"));
@@ -173,11 +177,11 @@ public class CtrRol {
     public ArrayList<MdlRolRecurso> mostrarRolRec(MdlRol rol) {
         ArrayList<MdlRolRecurso> listaRolPer = new ArrayList();
         Conexion conectar = new Conexion();
-        String sql = "SELECT * FROM `madrolrecursos` WHERE `rol`="+rol.getId();
+        String sql = "SELECT * FROM `madrolrecursos` WHERE estado = 1 &&`rol`=" + rol.getId();
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
-            
+
             while (rs.next()) {
                 MdlRolRecurso rolRecurso = new MdlRolRecurso();
                 rolRecurso.setId(rs.getInt("id"));
@@ -197,6 +201,105 @@ public class CtrRol {
             System.out.println("Error en consultar Recursos(controlador rol): " + e);
         }
         return listaRolPer;
+    }
+
+    public boolean actualizarRolPer(ArrayList<MdlRolRecurso> listaRolRecurso, MdlRol rol) {
+        boolean confirmacion = false;
+        boolean validar1 = actualizarRol(rol);
+        int validar2 = 0;
+        if (validar1) {
+            CtrUtilitario ctru = new CtrUtilitario();
+            String fecha_actualizado = ctru.fechaHoy() + " " + ctru.horaHoy();
+
+            for (int posicion = 0; posicion < listaRolRecurso.size(); posicion++) {
+
+                Conexion conectar = new Conexion();
+                String sqlt;
+                sqlt = "UPDATE `madrolrecursos` SET `crear`='" + listaRolRecurso.get(posicion).getCrear() + "',`leer`='" + listaRolRecurso.get(posicion).getLeer() + "',`editar`='" + listaRolRecurso.get(posicion).getEditar() + "'"
+                        + ",`mostrar`='" + listaRolRecurso.get(posicion).getMostrar() + "',`eliminar`='" + listaRolRecurso.get(posicion).getEliminar() + "',`factualizado`='" + fecha_actualizado + "' WHERE recurso='" + listaRolRecurso.get(posicion).getRecurso().getId() + "' && rol=" + rol.getId();
+                try {
+                    if (conectar.ejecutar(sqlt)) {
+                        validar2 += 1;
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error en Guardado del Rol(controlador): " + e);
+                }
+            }
+            if (validar2 == 7) {
+                confirmacion = true;
+            }
+        }
+        return confirmacion;
+
+    }
+
+    public boolean actualizarRol(MdlRol rol) {
+        boolean confirmacion = false;
+        Conexion conectar = new Conexion();
+        rol.setCodigo(rol.getNombre().substring(0, 3).toUpperCase() + rol.getId() + "00");
+        CtrUtilitario ctru = new CtrUtilitario();
+        String fecha_actualizado = ctru.fechaHoy() + " " + ctru.horaHoy();
+        String sqlt;
+
+        sqlt = "UPDATE `madroles` SET `nombre`='" + rol.getNombre() + "',`codigo`='" + rol.getCodigo() + "',`funciones`='" + rol.getFunciones() + "',`factualizado`='" + fecha_actualizado + "' WHERE `id` =" + rol.getId();
+        try {
+            if (conectar.ejecutar(sqlt)) {
+                System.out.println("Rol Actualizado");
+                confirmacion = true;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en Guardado del Rol(controlador): " + e);
+        }
+        return confirmacion;
+    }
+
+    public boolean validarEliminarRol(int id) {
+        boolean confirmar = false;
+        Conexion conectar = new Conexion();
+
+        String sql = "SELECT count(*) as numero FROM `madusuarioroles` WHERE `rol`="+id;
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            if (rs.next()) {
+                if (rs.getString("numero").toString().equals("0")) {
+                    confirmar = eliminarRol(id);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error en validarEliminarRol (controlador rol): " + e);
+        }
+
+        return confirmar;
+    }
+
+    public boolean eliminarRol(int id) {
+        boolean confirmar = false;
+        boolean validar = false;
+        CtrUtilitario ctru = new CtrUtilitario();
+        String fecha_actualizado = ctru.fechaHoy() + " " + ctru.horaHoy();
+        Conexion conectar = new Conexion();
+        String sqlt;
+        sqlt = "UPDATE `madrolrecursos` SET `crear`=0,`leer`=0,`editar`=0"
+                + ",`mostrar`=0,`eliminar`=0,`estado`=0, `factualizado`='" + fecha_actualizado + "' WHERE  rol=" + id;
+        try {
+            if (conectar.ejecutar(sqlt)) {
+                validar = true;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en Guardado del Rol(controlador): " + e);
+        }
+        if (validar) {
+            sqlt = "UPDATE `madroles` SET `estado`=0 WHERE  id=" + id;
+            try {
+                if (conectar.ejecutar(sqlt)) {
+                    confirmar = true;
+                }
+            } catch (Exception e) {
+                System.out.println("Error en Guardado del Rol(controlador): " + e);
+            }
+        }
+        return confirmar;
     }
 
     public int generarId(String peticion) {

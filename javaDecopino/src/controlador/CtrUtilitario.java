@@ -15,7 +15,7 @@ public class CtrUtilitario {
 
     public String fechaHoy() {
         Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(date);
     }
     

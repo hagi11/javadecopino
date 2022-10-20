@@ -22,21 +22,23 @@ import vista.vstMenu;
 public class vstAgregarEditarRol extends javax.swing.JPanel {
 
     ArrayList<MdlRolRecurso> listaRolRecurso = new ArrayList();
-    MdlRol direccion = new MdlRol();
+    ArrayList<MdlRolRecurso> agregarRolRecurso = new ArrayList();
+    MdlRol rolModificar = new MdlRol();
+    int id = 0;
 
     /**
      * Creates new form pnlInicio
      */
     public vstAgregarEditarRol(int id) {
         initComponents();
-            inicio();
+        inicio();
+        this.id = id;
         if (id == 0) {
             ModoAgregar();
 
         } else {
             ModoEditar(id);
         }
-
     }
 
     public void ModoAgregar() {
@@ -48,10 +50,16 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         lblTituloRol.setText("Modificar Rol");
         btnCrear.setVisible(false);
         CtrRol ctrr = new CtrRol();
-        MdlRol rol = new MdlRol();
-        rol = ctrr.mostrarRol(id);
-        llenarRol(rol);
-        llenarPermisos(rol);
+        rolModificar = ctrr.mostrarRol(id);
+        llenarRol(rolModificar);
+        llenarPermisos(rolModificar);
+        condicionVerCliente();
+        condicionVerInventario();
+        condicionVerProveedor();
+        condicionVerRoles();
+        condicionVerUsuario();
+        
+        
     }
 
     public void llenarRol(MdlRol rol) {
@@ -62,15 +70,14 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     public void llenarPermisos(MdlRol rol) {
         CtrRol ctrr = new CtrRol();
         listaRolRecurso = ctrr.mostrarRolRec(rol);
+
         asignaRolRecursoInventario(listaRolRecurso.get(0));
         asignaRolRecursoProveedor(listaRolRecurso.get(1));
         asignaRolRecursoCliente(listaRolRecurso.get(2));
-        
         asignaRolRecursoRol(listaRolRecurso.get(3));
         asignaRolRecursoUsuario(listaRolRecurso.get(4));
         asignaRolRecursoDespacho(listaRolRecurso.get(5));
         asignaRolRecursoFactura(listaRolRecurso.get(6));
-
     }
 
     public void inicio() {
@@ -86,13 +93,22 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             if (txaFunciones.getText().isEmpty()) {
                 int opcion = JOptionPane.showConfirmDialog(null, "Esta apunto de crear el rol sin \nasignarle funciones desea continuar", "  Advertencia", 2);
                 if (opcion == 0) {
-                    CrearRol();
+                    if (id == 0) {
+                        crearRol();
+                    }
+                    if (!(id == 0)) {
+                        modificarRol();
+                    }
                 }
             }
             if (!txaFunciones.getText().isEmpty()) {
                 if (validarRolFunciones()) {
-                    CrearRol();
-
+                    if (id == 0) {
+                        crearRol();
+                    }
+                    if (!(id == 0)) {
+                        modificarRol();
+                    }
                 }
             }
         }
@@ -106,11 +122,15 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         CtrRol ctrr = new CtrRol();
         if (ctrv.validarTamano(txtNombreRol.getText().toLowerCase(), 2, 31)) {
             if (ctrv.validarCaracteres(txtNombreRol.getText().toLowerCase())) {
-                if (!ctrr.rolExiste(txtNombreRol.getText().toLowerCase())) {
-                    informacionError = informacionError + "Este rol ya a sido creado\n";
-                    txtNombreRol.setForeground(Color.red);
+                if (id == 0) {
+                    if (!ctrr.rolExiste(txtNombreRol.getText().toLowerCase())) {
+                        informacionError = informacionError + "Este rol ya a sido creado\n";
+                        txtNombreRol.setForeground(Color.red);
+                    } else {
+                        txtNombreRol.setForeground(Color.black);
+                        confirmar = true;
+                    }
                 } else {
-                    txtNombreRol.setForeground(Color.black);
                     confirmar = true;
                 }
             } else {
@@ -136,7 +156,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         return confirmar;
     }
 
-    public void CrearRol() {
+    public void crearRol() {
 
         MdlRol rol = new MdlRol();
         rol.setFunciones(txaFunciones.getText().toLowerCase());
@@ -145,10 +165,28 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         ObtenerDatosRecursos();
         boolean subir = false;
         CtrRol Ctrr = new CtrRol();
-        subir = Ctrr.crearRolPer(listaRolRecurso, rol);
+        subir = Ctrr.crearRolPer(agregarRolRecurso, rol);
 
         if (subir == true) {
             JOptionPane.showMessageDialog(null, "Rol creado Exitosamente");
+            vstVerRol panel = new vstVerRol();
+            vstMenu.panelContenedor(panel);
+        }
+    }
+
+    public void modificarRol() {
+
+        rolModificar.setFunciones(txaFunciones.getText().toLowerCase());
+        rolModificar.setNombre(txtNombreRol.getText().toLowerCase());
+
+        ObtenerDatosRecursos();
+        boolean subir = false;
+        CtrRol Ctrr = new CtrRol();
+        
+        subir = Ctrr.actualizarRolPer(agregarRolRecurso, rolModificar);
+
+        if (subir == true) {
+            JOptionPane.showMessageDialog(null, "rol Modificado Exitosamente");
             vstVerRol panel = new vstVerRol();
             vstMenu.panelContenedor(panel);
         }
@@ -193,7 +231,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         if (chbClienteMostrar.isSelected() == true) {
             RolRecurso.setMostrar(1);
         }
-        listaRolRecurso.add(RolRecurso);
+        agregarRolRecurso.add(RolRecurso);
     }
 
     public void rolRecursoInventario(MdlRecursos recurso) {
@@ -219,7 +257,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         if (chbInventarioMostrar.isSelected() == true) {
             RolRecurso.setMostrar(1);
         }
-        listaRolRecurso.add(RolRecurso);
+        agregarRolRecurso.add(RolRecurso);
     }
 
     public void rolRecursoRoles(MdlRecursos recurso) {
@@ -245,7 +283,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         if (chbRolesMostrar.isSelected() == true) {
             RolRecurso.setMostrar(1);
         }
-        listaRolRecurso.add(RolRecurso);
+        agregarRolRecurso.add(RolRecurso);
     }
 
     public void rolRecursoProveedores(MdlRecursos recurso) {
@@ -271,7 +309,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         if (chbProveedoresMostrar.isSelected() == true) {
             RolRecurso.setMostrar(1);
         }
-        listaRolRecurso.add(RolRecurso);
+        agregarRolRecurso.add(RolRecurso);
     }
 
     public void rolRecursoUsuarios(MdlRecursos recurso) {
@@ -297,7 +335,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         if (chbUsuariosMostrar.isSelected() == true) {
             RolRecurso.setMostrar(1);
         }
-        listaRolRecurso.add(RolRecurso);
+        agregarRolRecurso.add(RolRecurso);
     }
 
     public void rolRecursoDespachos(MdlRecursos recurso) {
@@ -323,7 +361,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         if (chbDespachosMostrar.isSelected() == true) {
             RolRecurso.setMostrar(1);
         }
-        listaRolRecurso.add(RolRecurso);
+        agregarRolRecurso.add(RolRecurso);
     }
 
     public void rolRecursoFacturas(MdlRecursos recurso) {
@@ -349,11 +387,11 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         if (chbFacturasMostrar.isSelected() == true) {
             RolRecurso.setMostrar(1);
         }
-        listaRolRecurso.add(RolRecurso);
+        agregarRolRecurso.add(RolRecurso);
     }
 
     public void asignaRolRecursoCliente(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
+
         chbClienteAgregar.setSelected(false);
         chbClienteEditar.setSelected(false);
         chbClienteEliminar.setSelected(false);
@@ -378,7 +416,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }
 
     public void asignaRolRecursoInventario(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
+
         chbInventarioAgregar.setSelected(false);
         chbInventarioEditar.setSelected(false);
         chbInventarioEliminar.setSelected(false);
@@ -403,7 +441,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }
 
     public void asignaRolRecursoRol(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
+
         chbRolesAgregar.setSelected(false);
         chbRolesEditar.setSelected(false);
         chbRolesEliminar.setSelected(false);
@@ -428,7 +466,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }
 
     public void asignaRolRecursoProveedor(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
+
         chbProveedoresAgregar.setSelected(false);
         chbProveedoresEditar.setSelected(false);
         chbProveedoresEliminar.setSelected(false);
@@ -453,7 +491,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }
 
     public void asignaRolRecursoUsuario(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
+
         chbUsuariosAgregar.setSelected(false);
         chbUsuariosEditar.setSelected(false);
         chbUsuariosEliminar.setSelected(false);
@@ -478,7 +516,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }
 
     public void asignaRolRecursoDespacho(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
+
         chbDespachosAgregar.setSelected(false);
         chbDespachosEditar.setSelected(false);
         chbDespachosEliminar.setSelected(false);
@@ -503,7 +541,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }
 
     public void asignaRolRecursoFactura(MdlRolRecurso RolRecurso) {
-        System.out.println(RolRecurso.getRecurso().getNombre());
+
         chbFacturasAgregar.setSelected(false);
         chbFacturasEditar.setSelected(false);
         chbFacturasEliminar.setSelected(false);
@@ -530,8 +568,12 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     public void confirmacionCancelacion() {
 
         int result = JOptionPane.showConfirmDialog(panelRound1, "Seguro que desea salir", "Cancelar", 2);
-        if (result == 0) {
+        if (result == 0 && id == 0) {
             vstRolPer panel = new vstRolPer();
+            vstMenu.panelContenedor(panel);
+        }
+        if (result == 0 && !(id == 0)) {
+            vstVerRol panel = new vstVerRol();
             vstMenu.panelContenedor(panel);
         }
     }
@@ -541,6 +583,10 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             chbClienteMostrar.setEnabled(false);
             chbClienteEditar.setEnabled(false);
             chbClienteEliminar.setEnabled(false);
+
+            chbClienteMostrar.setSelected(false);
+            chbClienteEditar.setSelected(false);
+            chbClienteEliminar.setSelected(false);
         } else {
             chbClienteMostrar.setEnabled(true);
             chbClienteEditar.setEnabled(true);
@@ -553,6 +599,11 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             chbInventarioMostrar.setEnabled(false);
             chbInventarioEditar.setEnabled(false);
             chbInventarioEliminar.setEnabled(false);
+
+            chbInventarioMostrar.setSelected(false);
+            chbInventarioEditar.setSelected(false);
+            chbInventarioEliminar.setSelected(false);
+
         } else {
             chbInventarioMostrar.setEnabled(true);
             chbInventarioEditar.setEnabled(true);
@@ -565,6 +616,11 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             chbRolesMostrar.setEnabled(false);
             chbRolesEditar.setEnabled(false);
             chbRolesEliminar.setEnabled(false);
+
+            chbRolesMostrar.setSelected(false);
+            chbRolesEditar.setSelected(false);
+            chbRolesEliminar.setSelected(false);
+
         } else {
             chbRolesMostrar.setEnabled(true);
             chbRolesEditar.setEnabled(true);
@@ -577,6 +633,10 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             chbProveedoresMostrar.setEnabled(false);
             chbProveedoresEditar.setEnabled(false);
             chbProveedoresEliminar.setEnabled(false);
+
+            chbProveedoresMostrar.setSelected(false);
+            chbProveedoresEditar.setSelected(false);
+            chbProveedoresEliminar.setSelected(false);
         } else {
             chbProveedoresMostrar.setEnabled(true);
             chbProveedoresEditar.setEnabled(true);
@@ -589,6 +649,10 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             chbUsuariosMostrar.setEnabled(false);
             chbUsuariosEditar.setEnabled(false);
             chbUsuariosEliminar.setEnabled(false);
+
+            chbUsuariosMostrar.setSelected(false);
+            chbUsuariosEditar.setSelected(false);
+            chbUsuariosEliminar.setSelected(false);
         } else {
             chbUsuariosMostrar.setEnabled(true);
             chbUsuariosEditar.setEnabled(true);
@@ -686,7 +750,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         btnCrear = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        btnVolver = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         lblNombreRol1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -1372,7 +1435,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             }
         });
 
-        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCancelar.setBackground(new java.awt.Color(255, 102, 102));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -1390,23 +1453,12 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
             }
         });
 
-        btnVolver.setBackground(new java.awt.Color(204, 204, 204));
-        btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlOpcionesLayout = new javax.swing.GroupLayout(pnlOpciones);
         pnlOpciones.setLayout(pnlOpcionesLayout);
         pnlOpcionesLayout.setHorizontalGroup(
             pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOpcionesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVolver)
-                .addGap(18, 18, 18)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(btnActualizar)
@@ -1421,12 +1473,11 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
                 .addGroup(pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActualizar)
                     .addComponent(btnCancelar)
-                    .addComponent(btnCrear)
-                    .addComponent(btnVolver))
+                    .addComponent(btnCrear))
                 .addContainerGap())
         );
 
-        panelRound1.add(pnlOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 570, 410, 40));
+        panelRound1.add(pnlOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 570, 320, 40));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1507,7 +1558,7 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNombreRolActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+        validarInformacionRol();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -1563,16 +1614,11 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlUsuarios3MousePressed
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVolverActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCrear;
-    private javax.swing.JButton btnVolver;
     private javax.swing.JCheckBox chbClienteAgregar;
     private javax.swing.JCheckBox chbClienteEditar;
     private javax.swing.JCheckBox chbClienteEliminar;
@@ -1604,17 +1650,11 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private javax.swing.JCheckBox chbRolesMostrar;
     private javax.swing.JCheckBox chbRolesVer;
     private javax.swing.JCheckBox chbUsuariosAgregar;
-    private javax.swing.JCheckBox chbUsuariosAgregar1;
     private javax.swing.JCheckBox chbUsuariosEditar;
-    private javax.swing.JCheckBox chbUsuariosEditar1;
     private javax.swing.JCheckBox chbUsuariosEliminar;
-    private javax.swing.JCheckBox chbUsuariosEliminar1;
     private javax.swing.JCheckBox chbUsuariosMostrar;
-    private javax.swing.JCheckBox chbUsuariosMostrar1;
     private javax.swing.JCheckBox chbUsuariosVer;
-    private javax.swing.JCheckBox chbUsuariosVer1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel7;
@@ -1630,7 +1670,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -1641,7 +1680,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel lblAgregar;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblEditar;
@@ -1660,7 +1698,6 @@ public class vstAgregarEditarRol extends javax.swing.JPanel {
     private componentes.PanelRound pnlProveedores;
     private componentes.PanelRound pnlRoles;
     private componentes.PanelRound pnlUsuarios;
-    private componentes.PanelRound pnlUsuarios1;
     private componentes.PanelRound pnlUsuarios2;
     private componentes.PanelRound pnlUsuarios3;
     private javax.swing.JTextArea txaFunciones;

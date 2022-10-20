@@ -22,386 +22,275 @@ import vista.vstMenu;
 public class vstInformacionRol extends javax.swing.JPanel {
 
     ArrayList<MdlRolRecurso> listaRolRecurso = new ArrayList();
-    MdlRol direccion = new MdlRol();
+    MdlRol rolInfo = new MdlRol();
 
     /**
      * Creates new form pnlInicio
      */
-    public vstInformacionRol(int opcion) {
+    public vstInformacionRol(MdlRol rol) {
         initComponents();
+        inicio(rol);
+    }
+    
+    public void inicio(MdlRol rol){
+        lblTituloRol.setText("Información Rol");
+        
+        rolInfo = rol;
+        txtNombreRol.setText(rolInfo.getNombre());
+        txaFunciones.setText(rolInfo.getFunciones());
+        llenarPermisos(rolInfo);
+        
+        inhabilitar();
+    }
+    
+    public void llenarPermisos(MdlRol rol) {
+        CtrRol ctrr = new CtrRol();
+        listaRolRecurso = ctrr.mostrarRolRec(rol);
+        asignaRolRecursoInventario(listaRolRecurso.get(0));
+        asignaRolRecursoProveedor(listaRolRecurso.get(1));
+        asignaRolRecursoCliente(listaRolRecurso.get(2));
 
-        if (opcion == 0) {
-            ModoAgregar();
-            inicio();
-        } else {
-            ModoEditar();
+        asignaRolRecursoRol(listaRolRecurso.get(3));
+        asignaRolRecursoUsuario(listaRolRecurso.get(4));
+        asignaRolRecursoDespacho(listaRolRecurso.get(5));
+        asignaRolRecursoFactura(listaRolRecurso.get(6));
+
+    }
+    
+    public void asignaRolRecursoCliente(MdlRolRecurso RolRecurso) {
+
+        chbClienteAgregar.setSelected(false);
+        chbClienteEditar.setSelected(false);
+        chbClienteEliminar.setSelected(false);
+        chbClienteMostrar.setSelected(false);
+        chbClienteVer.setSelected(false);
+
+        if (RolRecurso.getCrear() == 1) {
+            chbClienteAgregar.setSelected(true);
         }
-
+        if (RolRecurso.getEditar() == 1) {
+            chbClienteEditar.setSelected(true);
+        }
+        if (RolRecurso.getEliminar() == 1) {
+            chbClienteEliminar.setSelected(true);
+        }
+        if (RolRecurso.getMostrar() == 1) {
+            chbClienteMostrar.setSelected(true);
+        }
+        if (RolRecurso.getLeer() == 1) {
+            chbClienteVer.setSelected(true);
+        }
     }
 
-    public void ModoAgregar() {
-        lblTituloRol.setText("Agregar Rol");
-        btnActualizar.setVisible(false);
+    public void asignaRolRecursoInventario(MdlRolRecurso RolRecurso) {
+
+        chbInventarioAgregar.setSelected(false);
+        chbInventarioEditar.setSelected(false);
+        chbInventarioEliminar.setSelected(false);
+        chbInventarioMostrar.setSelected(false);
+        chbInventarioVer.setSelected(false);
+
+        if (RolRecurso.getCrear() == 1) {
+            chbInventarioAgregar.setSelected(true);
+        }
+        if (RolRecurso.getEditar() == 1) {
+            chbInventarioEditar.setSelected(true);
+        }
+        if (RolRecurso.getEliminar() == 1) {
+            chbInventarioEliminar.setSelected(true);
+        }
+        if (RolRecurso.getMostrar() == 1) {
+            chbInventarioMostrar.setSelected(true);
+        }
+        if (RolRecurso.getLeer() == 1) {
+            chbInventarioVer.setSelected(true);
+        }
     }
 
-    public void ModoEditar() {
-        lblTituloRol.setText("Modificar Rol");
-        btnCrear.setVisible(false);
+    public void asignaRolRecursoRol(MdlRolRecurso RolRecurso) {
+
+        chbRolesAgregar.setSelected(false);
+        chbRolesEditar.setSelected(false);
+        chbRolesEliminar.setSelected(false);
+        chbRolesMostrar.setSelected(false);
+        chbRolesVer.setSelected(false);
+
+        if (RolRecurso.getCrear() == 1) {
+            chbRolesAgregar.setSelected(true);
+        }
+        if (RolRecurso.getEditar() == 1) {
+            chbRolesEditar.setSelected(true);
+        }
+        if (RolRecurso.getEliminar() == 1) {
+            chbRolesEliminar.setSelected(true);
+        }
+        if (RolRecurso.getMostrar() == 1) {
+            chbRolesMostrar.setSelected(true);
+        }
+        if (RolRecurso.getLeer() == 1) {
+            chbRolesVer.setSelected(true);
+        }
     }
 
-    public void inicio() {
+    public void asignaRolRecursoProveedor(MdlRolRecurso RolRecurso) {
+
+        chbProveedoresAgregar.setSelected(false);
+        chbProveedoresEditar.setSelected(false);
+        chbProveedoresEliminar.setSelected(false);
+        chbProveedoresMostrar.setSelected(false);
+        chbProveedoresVer.setSelected(false);
+
+        if (RolRecurso.getCrear() == 1) {
+            chbProveedoresAgregar.setSelected(true);
+        }
+        if (RolRecurso.getEditar() == 1) {
+            chbProveedoresEditar.setSelected(true);
+        }
+        if (RolRecurso.getEliminar() == 1) {
+            chbProveedoresEliminar.setSelected(true);
+        }
+        if (RolRecurso.getMostrar() == 1) {
+            chbProveedoresMostrar.setSelected(true);
+        }
+        if (RolRecurso.getLeer() == 1) {
+            chbProveedoresVer.setSelected(true);
+        }
+    }
+
+    public void asignaRolRecursoUsuario(MdlRolRecurso RolRecurso) {
+
+        chbUsuariosAgregar.setSelected(false);
+        chbUsuariosEditar.setSelected(false);
+        chbUsuariosEliminar.setSelected(false);
+        chbUsuariosMostrar.setSelected(false);
+        chbUsuariosVer.setSelected(false);
+
+        if (RolRecurso.getCrear() == 1) {
+            chbUsuariosAgregar.setSelected(true);
+        }
+        if (RolRecurso.getEditar() == 1) {
+            chbUsuariosEditar.setSelected(true);
+        }
+        if (RolRecurso.getEliminar() == 1) {
+            chbUsuariosEliminar.setSelected(true);
+        }
+        if (RolRecurso.getMostrar() == 1) {
+            chbUsuariosMostrar.setSelected(true);
+        }
+        if (RolRecurso.getLeer() == 1) {
+            chbUsuariosVer.setSelected(true);
+        }
+    }
+
+    public void asignaRolRecursoDespacho(MdlRolRecurso RolRecurso) {
+
+        chbDespachosAgregar.setSelected(false);
+        chbDespachosEditar.setSelected(false);
+        chbDespachosEliminar.setSelected(false);
+        chbDespachosMostrar.setSelected(false);
+        chbDespachosVer.setSelected(false);
+
+        if (RolRecurso.getCrear() == 1) {
+            chbDespachosAgregar.setSelected(true);
+        }
+        if (RolRecurso.getEditar() == 1) {
+            chbDespachosEditar.setSelected(true);
+        }
+        if (RolRecurso.getEliminar() == 1) {
+            chbDespachosEliminar.setSelected(true);
+        }
+        if (RolRecurso.getMostrar() == 1) {
+            chbDespachosMostrar.setSelected(true);
+        }
+        if (RolRecurso.getLeer() == 1) {
+            chbDespachosVer.setSelected(true);
+        }
+    }
+
+    public void asignaRolRecursoFactura(MdlRolRecurso RolRecurso) {
+
+        chbFacturasAgregar.setSelected(false);
+        chbFacturasEditar.setSelected(false);
+        chbFacturasEliminar.setSelected(false);
+        chbFacturasMostrar.setSelected(false);
+        chbFacturasVer.setSelected(false);
+
+        if (RolRecurso.getCrear() == 1) {
+            chbFacturasAgregar.setSelected(true);
+        }
+        if (RolRecurso.getEditar() == 1) {
+            chbFacturasEditar.setSelected(true);
+        }
+        if (RolRecurso.getEliminar() == 1) {
+            chbFacturasEliminar.setSelected(true);
+        }
+        if (RolRecurso.getMostrar() == 1) {
+            chbFacturasMostrar.setSelected(true);
+        }
+        if (RolRecurso.getLeer() == 1) {
+            chbFacturasVer.setSelected(true);
+        }
+    }
+
+    public void inhabilitar(){
+        txtNombreRol.setEditable(false);
+        txaFunciones.setEditable(false);
+        
         chbClienteAgregar.setEnabled(false);
-        chbDespachosAgregar.setEnabled(false);
-        chbInventarioEliminar.setEnabled(false);
+        chbClienteEditar.setEnabled(false);
+        chbClienteEliminar.setEnabled(false);
+        chbClienteMostrar.setEnabled(false);
+        chbClienteVer.setEnabled(false);
+        
+        chbRolesAgregar.setEnabled(false);
+        chbRolesEditar.setEnabled(false);
+        chbRolesEliminar.setEnabled(false);
+        chbRolesMostrar.setEnabled(false);
+        chbRolesVer.setEnabled(false);
+        
+        chbUsuariosAgregar.setEnabled(false);
+        chbUsuariosEditar.setEnabled(false);
+        chbUsuariosEliminar.setEnabled(false);
+        chbUsuariosMostrar.setEnabled(false);
+        chbUsuariosVer.setEnabled(false);
+        
+        chbProveedoresAgregar.setEnabled(false);
+        chbProveedoresEditar.setEnabled(false);
+        chbProveedoresEliminar.setEnabled(false);
+        chbProveedoresMostrar.setEnabled(false);
+        chbProveedoresVer.setEnabled(false);
+        
         chbFacturasAgregar.setEnabled(false);
         chbFacturasEditar.setEnabled(false);
-
+        chbFacturasEliminar.setEnabled(false);
+        chbFacturasMostrar.setEnabled(false);
+        chbFacturasVer.setEnabled(false);
+        
+        chbDespachosAgregar.setEnabled(false);
+        chbDespachosEditar.setEnabled(false);
+        chbDespachosEliminar.setEnabled(false);
+        chbDespachosMostrar.setEnabled(false);
+        chbDespachosVer.setEnabled(false);
+        
+        chbInventarioAgregar.setEnabled(false);
+        chbInventarioEditar.setEnabled(false);
+        chbInventarioEliminar.setEnabled(false);
+        chbInventarioMostrar.setEnabled(false);
+        chbInventarioVer.setEnabled(false);
+        
+        
+        
     }
+        
 
-    public void validarInformacionRol() {
-        if (validarRolNombre()) {
-            if (txaFunciones.getText().isEmpty()) {
-                int opcion = JOptionPane.showConfirmDialog(null, "Esta apunto de crear el rol sin \nasignarle funciones desea continuar", "  Advertencia", 2);
-                if (opcion == 0) {
-                    CrearRol();
-                }
-            }
-            if (!txaFunciones.getText().isEmpty()) {
-                if (validarRolFunciones()) {
-                    CrearRol();
-
-                }
-            }
-        }
-    }
-
-    public boolean validarRolNombre() {
-        CtrValidador ctrv = new CtrValidador();
-        boolean confirmar = false;
-        int validador = 0;
-        String informacionError = "";
-        CtrRol ctrr = new CtrRol();
-        if (ctrv.validarTamano(txtNombreRol.getText().toLowerCase(), 2, 31)) {
-            if (ctrv.validarCaracteres(txtNombreRol.getText().toLowerCase())) {
-                if (!ctrr.rolExiste(txtNombreRol.getText().toLowerCase())) {
-                    informacionError = informacionError + "Este rol ya a sido creado\n";
-                    txtNombreRol.setForeground(Color.red);
-                } else {
-                    txtNombreRol.setForeground(Color.black);
-                    confirmar = true;
-                }
-            } else {
-                txtNombreRol.setForeground(Color.red);
-                informacionError = informacionError + "EL nombre no debe contener \ncaracteres especiales ni números";
-            }
-        } else {
-            txtNombreRol.setForeground(Color.red);
-            informacionError = informacionError + "El nombre debe contener entre 3 y 30 carácter \n";
-        }
-        if (confirmar == false) {
-            JOptionPane.showMessageDialog(null, informacionError, "Error en la creanción del rol", 1);
-        }
-        return confirmar;
-    }
-
-    public boolean validarRolFunciones() {
-        boolean confirmar = false;
-        CtrValidador validar = new CtrValidador();
-        if (validar.validarCaracteres(txaFunciones.getText().toLowerCase()) && validar.validarTamano(txaFunciones.getText().toLowerCase(), 1, 200)) {
-            confirmar = true;
-        }
-        return confirmar;
-    }
-
-    public void CrearRol() {
-
-        MdlRol rol = new MdlRol();
-        rol.setFunciones(txaFunciones.getText().toLowerCase());
-        rol.setNombre(txtNombreRol.getText().toLowerCase());
-
-        ObtenerDatosRecursos();
-        boolean subir = false;
-        CtrRol Ctrr = new CtrRol();
-        subir = Ctrr.crearRolPer(listaRolRecurso, rol);
-
-        if (subir == true) {
-            JOptionPane.showMessageDialog(null, "Rol creado Exitosamente");
+    public void volver() {
             vstVerRol panel = new vstVerRol();
             vstMenu.panelContenedor(panel);
-        }
     }
-
-    public void ObtenerDatosRecursos() {
-        ArrayList<MdlRecursos> listaRecursos = new ArrayList();
-        CtrRol Ctrr = new CtrRol();
-
-        listaRecursos = Ctrr.consultarRecursos();
-        
-        for (int i = 0; i < listaRecursos.size(); i++) {
-            System.out.println(listaRecursos.get(i).getNombre());
-        }
-
-        rolRecursoCliente(listaRecursos.get(0));
-        rolRecursoInventario(listaRecursos.get(1));
-        rolRecursoProveedores(listaRecursos.get(2));
-        rolRecursoRoles(listaRecursos.get(3));
-        rolRecursoUsuarios(listaRecursos.get(4));
-        rolRecursoDespachos(listaRecursos.get(5));
-        rolRecursoFacturas(listaRecursos.get(6));
-
-    }
-
-    public void rolRecursoCliente(MdlRecursos recurso) {
-        MdlRolRecurso RolRecurso = new MdlRolRecurso();
-        RolRecurso.setRecurso(recurso);
-        RolRecurso.setCrear(0);
-        RolRecurso.setEditar(0);
-        RolRecurso.setLeer(0);
-        RolRecurso.setMostrar(0);
-        RolRecurso.setEliminar(0);
-        if (chbClienteAgregar.isSelected() == true) {
-            RolRecurso.setCrear(1);
-        }
-        if (chbClienteEditar.isSelected() == true) {
-            RolRecurso.setEditar(1);
-        }
-        if (chbClienteEliminar.isSelected() == true) {
-            RolRecurso.setEliminar(1);
-        }
-        if (chbClienteVer.isSelected() == true) {
-            RolRecurso.setLeer(1);
-        }
-        if (chbClienteMostrar.isSelected() == true) {
-            RolRecurso.setMostrar(1);
-        }
-        listaRolRecurso.add(RolRecurso);
-    }
-
-    public void rolRecursoInventario(MdlRecursos recurso) {
-        MdlRolRecurso RolRecurso = new MdlRolRecurso();
-        RolRecurso.setRecurso(recurso);
-        RolRecurso.setCrear(0);
-        RolRecurso.setEditar(0);
-        RolRecurso.setLeer(0);
-        RolRecurso.setMostrar(0);
-        RolRecurso.setEliminar(0);
-        if (chbInventarioAgregar.isSelected() == true) {
-            RolRecurso.setCrear(1);
-        }
-        if (chbInventarioEditar.isSelected() == true) {
-            RolRecurso.setEditar(1);
-        }
-        if (chbInventarioEliminar.isSelected() == true) {
-            RolRecurso.setEliminar(1);
-        }
-        if (chbInventarioVer.isSelected() == true) {
-            RolRecurso.setLeer(1);
-        }
-        if (chbInventarioMostrar.isSelected() == true) {
-            RolRecurso.setMostrar(1);
-        }
-        listaRolRecurso.add(RolRecurso);
-    }
-
-    public void rolRecursoRoles(MdlRecursos recurso) {
-        MdlRolRecurso RolRecurso = new MdlRolRecurso();
-        RolRecurso.setRecurso(recurso);
-        RolRecurso.setCrear(0);
-        RolRecurso.setEditar(0);
-        RolRecurso.setLeer(0);
-        RolRecurso.setMostrar(0);
-        RolRecurso.setEliminar(0);
-        if (chbRolesAgregar.isSelected() == true) {
-            RolRecurso.setCrear(1);
-        }
-        if (chbRolesEditar.isSelected() == true) {
-            RolRecurso.setEditar(1);
-        }
-        if (chbRolesEliminar.isSelected() == true) {
-            RolRecurso.setEliminar(1);
-        }
-        if (chbRolesVer.isSelected() == true) {
-            RolRecurso.setLeer(1);
-        }
-        if (chbRolesMostrar.isSelected() == true) {
-            RolRecurso.setMostrar(1);
-        }
-        listaRolRecurso.add(RolRecurso);
-    }
-
-    public void rolRecursoProveedores(MdlRecursos recurso) {
-        MdlRolRecurso RolRecurso = new MdlRolRecurso();
-        RolRecurso.setRecurso(recurso);
-        RolRecurso.setCrear(0);
-        RolRecurso.setEditar(0);
-        RolRecurso.setLeer(0);
-        RolRecurso.setMostrar(0);
-        RolRecurso.setEliminar(0);
-        if (chbProveedoresAgregar.isSelected() == true) {
-            RolRecurso.setCrear(1);
-        }
-        if (chbProveedoresEditar.isSelected() == true) {
-            RolRecurso.setEditar(1);
-        }
-        if (chbProveedoresEliminar.isSelected() == true) {
-            RolRecurso.setEliminar(1);
-        }
-        if (chbProveedoresVer.isSelected() == true) {
-            RolRecurso.setLeer(1);
-        }
-        if (chbProveedoresMostrar.isSelected() == true) {
-            RolRecurso.setMostrar(1);
-        }
-        listaRolRecurso.add(RolRecurso);
-    }
-
-    public void rolRecursoUsuarios(MdlRecursos recurso) {
-        MdlRolRecurso RolRecurso = new MdlRolRecurso();
-        RolRecurso.setRecurso(recurso);
-        RolRecurso.setCrear(0);
-        RolRecurso.setEditar(0);
-        RolRecurso.setLeer(0);
-        RolRecurso.setMostrar(0);
-        RolRecurso.setEliminar(0);
-        if (chbUsuariosAgregar.isSelected() == true) {
-            RolRecurso.setCrear(1);
-        }
-        if (chbUsuariosEditar.isSelected() == true) {
-            RolRecurso.setEditar(1);
-        }
-        if (chbUsuariosEliminar.isSelected() == true) {
-            RolRecurso.setEliminar(1);
-        }
-        if (chbUsuariosVer.isSelected() == true) {
-            RolRecurso.setLeer(1);
-        }
-        if (chbUsuariosMostrar.isSelected() == true) {
-            RolRecurso.setMostrar(1);
-        }
-        listaRolRecurso.add(RolRecurso);
-    }
-
-    public void rolRecursoDespachos(MdlRecursos recurso) {
-        MdlRolRecurso RolRecurso = new MdlRolRecurso();
-        RolRecurso.setRecurso(recurso);
-        RolRecurso.setCrear(0);
-        RolRecurso.setEditar(0);
-        RolRecurso.setLeer(0);
-        RolRecurso.setMostrar(0);
-        RolRecurso.setEliminar(0);
-        if (chbDespachosAgregar.isSelected() == true) {
-            RolRecurso.setCrear(1);
-        }
-        if (chbDespachosEditar.isSelected() == true) {
-            RolRecurso.setEditar(1);
-        }
-        if (chbDespachosEliminar.isSelected() == true) {
-            RolRecurso.setEliminar(1);
-        }
-        if (chbDespachosVer.isSelected() == true) {
-            RolRecurso.setLeer(1);
-        }
-        if (chbDespachosMostrar.isSelected() == true) {
-            RolRecurso.setMostrar(1);
-        }
-        listaRolRecurso.add(RolRecurso);
-    }
-
-    public void rolRecursoFacturas(MdlRecursos recurso) {
-        MdlRolRecurso RolRecurso = new MdlRolRecurso();
-        RolRecurso.setRecurso(recurso);
-        RolRecurso.setCrear(0);
-        RolRecurso.setEditar(0);
-        RolRecurso.setLeer(0);
-        RolRecurso.setMostrar(0);
-        RolRecurso.setEliminar(0);
-        if (chbFacturasAgregar.isSelected() == true) {
-            RolRecurso.setCrear(1);
-        }
-        if (chbFacturasEditar.isSelected() == true) {
-            RolRecurso.setEditar(1);
-        }
-        if (chbFacturasEliminar.isSelected() == true) {
-            RolRecurso.setEliminar(1);
-        }
-        if (chbFacturasVer.isSelected() == true) {
-            RolRecurso.setLeer(1);
-        }
-        if (chbFacturasMostrar.isSelected() == true) {
-            RolRecurso.setMostrar(1);
-        }
-        listaRolRecurso.add(RolRecurso);
-    }
-
-    public void confirmacionCancelacion() {
-        for (int posicion = 0; posicion < listaRolRecurso.size(); posicion++) {
-            System.out.println(listaRolRecurso.get(posicion));
-        }
-        int result = JOptionPane.showConfirmDialog(panelRound1, "Seguro que desea salir", "Cancelar", 2);
-        if (result == 0) {
-            vstRolPer panel = new vstRolPer();
-            vstMenu.panelContenedor(panel);
-        }
-    }
-
-    public void condicionVerCliente() {
-        if (!chbClienteVer.isSelected()) {
-            chbClienteMostrar.setEnabled(false);
-            chbClienteEditar.setEnabled(false);
-            chbClienteEliminar.setEnabled(false);
-        } else {
-            chbClienteMostrar.setEnabled(true);
-            chbClienteEditar.setEnabled(true);
-            chbClienteEliminar.setEnabled(true);
-        }
-    }
-
-    public void condicionVerInventario() {
-        if (!chbInventarioVer.isSelected()) {
-            chbInventarioMostrar.setEnabled(false);
-            chbInventarioEditar.setEnabled(false);
-            chbInventarioEliminar.setEnabled(false);
-        } else {
-            chbInventarioMostrar.setEnabled(true);
-            chbInventarioEditar.setEnabled(true);
-            chbInventarioEliminar.setEnabled(true);
-        }
-    }
-
-    public void condicionVerRoles() {
-        if (!chbRolesVer.isSelected()) {
-            chbRolesMostrar.setEnabled(false);
-            chbRolesEditar.setEnabled(false);
-            chbRolesEliminar.setEnabled(false);
-        } else {
-            chbRolesMostrar.setEnabled(true);
-            chbRolesEditar.setEnabled(true);
-            chbRolesEliminar.setEnabled(true);
-        }
-    }
-
-    public void condicionVerProveedor() {
-        if (!chbProveedoresVer.isSelected()) {
-            chbProveedoresMostrar.setEnabled(false);
-            chbProveedoresEditar.setEnabled(false);
-            chbProveedoresEliminar.setEnabled(false);
-        } else {
-            chbProveedoresMostrar.setEnabled(true);
-            chbProveedoresEditar.setEnabled(true);
-            chbProveedoresEliminar.setEnabled(true);
-        }
-    }
-
-    public void condicionVerUsuario() {
-        if (!chbUsuariosVer.isSelected()) {
-            chbUsuariosMostrar.setEnabled(false);
-            chbUsuariosEditar.setEnabled(false);
-            chbUsuariosEliminar.setEnabled(false);
-        } else {
-            chbUsuariosMostrar.setEnabled(true);
-            chbUsuariosEditar.setEnabled(true);
-            chbUsuariosEliminar.setEnabled(true);
-        }
+    
+    public void irEditar(){
+        vstAgregarEditarRol panel = new vstAgregarEditarRol(rolInfo.getId());
+        vstMenu.panelContenedor(panel);
     }
 
     /**
@@ -491,9 +380,8 @@ public class vstInformacionRol extends javax.swing.JPanel {
         txtNombreRol = new javax.swing.JTextField();
         lblNombreRol = new javax.swing.JLabel();
         pnlOpciones = new javax.swing.JPanel();
-        btnCrear = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         lblNombreRol1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -578,11 +466,6 @@ public class vstInformacionRol extends javax.swing.JPanel {
         });
 
         chbClienteVer.setSelected(true);
-        chbClienteVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbClienteVerActionPerformed(evt);
-            }
-        });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -651,11 +534,6 @@ public class vstInformacionRol extends javax.swing.JPanel {
         });
 
         chbRolesVer.setSelected(true);
-        chbRolesVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbRolesVerActionPerformed(evt);
-            }
-        });
 
         chbRolesEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -736,11 +614,6 @@ public class vstInformacionRol extends javax.swing.JPanel {
         });
 
         chbProveedoresVer.setSelected(true);
-        chbProveedoresVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbProveedoresVerActionPerformed(evt);
-            }
-        });
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -809,11 +682,6 @@ public class vstInformacionRol extends javax.swing.JPanel {
         });
 
         chbInventarioVer.setSelected(true);
-        chbInventarioVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbInventarioVerActionPerformed(evt);
-            }
-        });
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -882,17 +750,6 @@ public class vstInformacionRol extends javax.swing.JPanel {
         });
 
         chbUsuariosVer.setSelected(true);
-        chbUsuariosVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbUsuariosVerActionPerformed(evt);
-            }
-        });
-
-        chbUsuariosEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbUsuariosEliminarActionPerformed(evt);
-            }
-        });
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -961,17 +818,6 @@ public class vstInformacionRol extends javax.swing.JPanel {
         });
 
         chbFacturasVer.setSelected(true);
-        chbFacturasVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbFacturasVerActionPerformed(evt);
-            }
-        });
-
-        chbFacturasEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbFacturasEliminarActionPerformed(evt);
-            }
-        });
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1040,17 +886,6 @@ public class vstInformacionRol extends javax.swing.JPanel {
         });
 
         chbDespachosVer.setSelected(true);
-        chbDespachosVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbDespachosVerActionPerformed(evt);
-            }
-        });
-
-        chbDespachosEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbDespachosEliminarActionPerformed(evt);
-            }
-        });
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1170,30 +1005,21 @@ public class vstInformacionRol extends javax.swing.JPanel {
 
         pnlOpciones.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnCrear.setBackground(new java.awt.Color(0, 255, 153));
-        btnCrear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCrear.setText("Crear");
-        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+        btnVolver.setBackground(new java.awt.Color(204, 204, 204));
+        btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnVolver.setText("Cancelar");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearActionPerformed(evt);
+                btnVolverActionPerformed(evt);
             }
         });
 
-        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setBackground(new java.awt.Color(255, 255, 0));
+        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditar.setText("Ir a Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
-        btnActualizar.setBackground(new java.awt.Color(255, 255, 0));
-        btnActualizar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -1203,11 +1029,9 @@ public class vstInformacionRol extends javax.swing.JPanel {
             pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOpcionesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
+                .addComponent(btnVolver)
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(btnActualizar)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(btnCrear)
+                .addComponent(btnEditar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlOpcionesLayout.setVerticalGroup(
@@ -1215,13 +1039,12 @@ public class vstInformacionRol extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOpcionesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizar)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnCrear))
+                    .addComponent(btnEditar)
+                    .addComponent(btnVolver))
                 .addContainerGap())
         );
 
-        panelRound1.add(pnlOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 570, 320, 40));
+        panelRound1.add(pnlOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 570, 250, 40));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1289,80 +1112,36 @@ public class vstInformacionRol extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlInventarioMousePressed
 
-    private void chbUsuariosEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbUsuariosEliminarActionPerformed
-
     private void pnlUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlUsuariosMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlUsuariosMousePressed
 
-    private void txtNombreRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreRolActionPerformed
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        volver();
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreRolActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        confirmacionCancelacion();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        validarInformacionRol();
-    }//GEN-LAST:event_btnCrearActionPerformed
-
-    private void chbClienteVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbClienteVerActionPerformed
-        condicionVerCliente();
-    }//GEN-LAST:event_chbClienteVerActionPerformed
-
-    private void chbInventarioVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInventarioVerActionPerformed
-        condicionVerInventario();
-    }//GEN-LAST:event_chbInventarioVerActionPerformed
-
-    private void chbRolesVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRolesVerActionPerformed
-        condicionVerRoles();
-    }//GEN-LAST:event_chbRolesVerActionPerformed
-
-    private void chbProveedoresVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbProveedoresVerActionPerformed
-        condicionVerProveedor();
-    }//GEN-LAST:event_chbProveedoresVerActionPerformed
-
-    private void chbUsuariosVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbUsuariosVerActionPerformed
-        condicionVerUsuario();
-    }//GEN-LAST:event_chbUsuariosVerActionPerformed
-
-    private void chbFacturasVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbFacturasVerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFacturasVerActionPerformed
-
-    private void chbFacturasEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbFacturasEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFacturasEliminarActionPerformed
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     private void pnlUsuarios2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlUsuarios2MousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlUsuarios2MousePressed
 
-    private void chbDespachosVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbDespachosVerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbDespachosVerActionPerformed
-
-    private void chbDespachosEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbDespachosEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbDespachosEliminarActionPerformed
-
     private void pnlUsuarios3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlUsuarios3MousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_pnlUsuarios3MousePressed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        irEditar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void txtNombreRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreRolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreRolActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JCheckBox chbClienteAgregar;
     private javax.swing.JCheckBox chbClienteEditar;
     private javax.swing.JCheckBox chbClienteEliminar;
