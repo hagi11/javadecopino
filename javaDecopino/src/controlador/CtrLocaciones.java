@@ -42,6 +42,30 @@ public class CtrLocaciones {
         return listaCiudades;
     }
     
+    public ArrayList<MdlCiudad> consultarTodasCiudades(){
+        ArrayList<MdlCiudad> listaCiudades = new ArrayList();
+        Conexion conectar = new Conexion();
+        String sql = "SELECT * FROM madciudades where estado =1";
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            while (rs.next()) {
+                MdlCiudad ciudad = new MdlCiudad();
+                
+                ciudad.setId(rs.getInt("id"));
+                ciudad.setCiudad(rs.getString("ciudad"));
+                ciudad.setDepartamento(consultarDep(rs.getInt("departamento")));
+                ciudad.setEstado(rs.getInt("estado"));
+                ciudad.setFregistro(rs.getTimestamp("fregistro"));
+                ciudad.setFactualizado(rs.getTimestamp("factualizado"));
+                listaCiudades.add(ciudad);
+            }
+        } catch (Exception e) {
+            System.out.println("Error en consultar Ciudades(controlador ciudad): " + e);
+        }
+        
+        return listaCiudades;
+    }
     
     
     
