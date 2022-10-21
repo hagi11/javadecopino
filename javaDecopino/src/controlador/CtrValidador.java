@@ -37,4 +37,13 @@ public class CtrValidador {
         }
         return validar;
     }
+
+    public boolean validarNumero(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }

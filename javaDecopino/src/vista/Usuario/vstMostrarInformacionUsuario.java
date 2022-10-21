@@ -28,7 +28,7 @@ public class vstMostrarInformacionUsuario extends javax.swing.JPanel {
     }
     
     public void agregarLocacion(){
-        vstAgregarEditarUsuario panel = new vstAgregarEditarUsuario();
+        vstAgregarEditarUsuario panel = new vstAgregarEditarUsuario(0);
         vstMenu.panelContenedor(panel);
     }
     /**

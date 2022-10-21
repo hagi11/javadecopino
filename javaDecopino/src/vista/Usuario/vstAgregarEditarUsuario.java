@@ -5,14 +5,18 @@
  */
 package vista.Usuario;
 
+import controlador.CtrAuxiliares;
 import controlador.CtrLocaciones;
 import controlador.CtrRol;
 import controlador.CtrUsuario;
+import controlador.CtrValidador;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import modelo.MdlCiudad;
 import modelo.MdlDepartamento;
 import modelo.MdlRol;
+import modelo.MdlUsuario;
 
 /**
  *
@@ -23,30 +27,40 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
     /**
      * Creates new form pnlInicio
      */
-    MdlRol Rol = new MdlRol();
-    MdlCiudad ciudad = new MdlCiudad();
-    ArrayList<MdlCiudad> ciudades = new ArrayList();
+    int ciudad = 0;
+
     ArrayList<MdlDepartamento> departamentos = new ArrayList();
     int TipoIdentificicacion = 0;
+    int id = 0;
 
     int habilidarLLenadoCiudad = 0;
 
-    public vstAgregarEditarUsuario() {
+    public vstAgregarEditarUsuario(int id) {
         initComponents();
-        inicio();
+
+        this.id = id;
+        if (id == 0) {
+            ModoAgregar();
+
+        } else {
+            ModoEditar(id);
+        }
     }
 
-    public void inicio() {
-        cbbCiudad.removeAllItems();
-        cbbCiudad.addItem("Seleccione Ciudad");
-        cbbCiudad.setEnabled(false);
+    public void ModoAgregar() {
         llenarComboBoxs();
+        btnActulizar.setVisible(false);
+    }
+
+    public void ModoEditar(int id) {
+        btnAceptar.setVisible(false);
     }
 
     public void llenarComboBoxs() {
         llenarComboRol();
         llenarComboTipoIdent();
         llenarComboDepa();
+        llenarComboCiudad();
     }
 
     public void llenarComboRol() {
@@ -59,8 +73,8 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
     }
 
     public void llenarComboTipoIdent() {
-        CtrUsuario ctru = new CtrUsuario();
-        ArrayList<String> listaTipoIdent = ctru.consultarTipoIdent();
+        CtrAuxiliares ctra = new CtrAuxiliares();
+        ArrayList<String> listaTipoIdent = ctra.consultarTipoIdent();
         cbbTipoIdent.removeAllItems();
         for (int posicion = 0; posicion < listaTipoIdent.size(); posicion++) {
             cbbTipoIdent.addItem(listaTipoIdent.get(posicion));
@@ -74,6 +88,7 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         for (int posicion = 0; posicion < departamentos.size(); posicion++) {
             cbbDepartamento.addItem(departamentos.get(posicion).getDepartamento());
         }
+        cbbDepartamento.setSelectedItem("VALLE DEL CAUCA");
         habilidarLLenadoCiudad = 1;
     }
 
@@ -85,18 +100,72 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
             for (int posicion = 0; posicion < departamentos.size(); posicion++) {
                 if (depaSeleccionado.equals(departamentos.get(posicion).getDepartamento())) {
                     idDepartamento = departamentos.get(posicion).getId();
-                    
                 }
             }
-            if (!(idDepartamento == 0)) {
-                ArrayList<MdlCiudad> listaCiudad = ctrl.consultarCiudades(idDepartamento);
-                cbbCiudad.setEnabled(true);
-                cbbCiudad.removeAllItems();
-                for (int posicion = 0; posicion < listaCiudad.size(); posicion++) {
-                    cbbCiudad.addItem(listaCiudad.get(posicion).getCiudad());
-                }
+
+            ArrayList<MdlCiudad> listaCiudad = ctrl.consultarCiudades(idDepartamento);
+            cbbCiudad.removeAllItems();
+            for (int posicion = 0; posicion < listaCiudad.size(); posicion++) {
+                cbbCiudad.addItem(listaCiudad.get(posicion).getCiudad());
+            }
+            if (cbbDepartamento.getSelectedItem().toString().equals("VALLE DEL CAUCA")) {
+                cbbCiudad.setSelectedItem("Calí");
+            }
+
+        }
+    }
+
+    public void validarEntradaNumericaIdent() {
+        CtrValidador ctrv = new CtrValidador();
+        for (int posicion = 0; posicion < txtIdentificacion.getText().length(); posicion++) {
+            if (!ctrv.validarNumero(txtIdentificacion.getText().substring(posicion, posicion + 1))) {
+                txtIdentificacion.setText(txtIdentificacion.getText().substring(0, posicion));
+                JOptionPane.showMessageDialog(null, "Solo permite el ingreso de números", "Infomracion", 1);
             }
         }
+    }
+
+    public void validarInformacionUsuario() {
+        MdlUsuario usuario = new MdlUsuario();
+        usuario = obtenerInformacion();
+        crearUsuario(usuario);
+    }
+
+    public MdlUsuario obtenerInformacion() {
+        MdlUsuario usuario = new MdlUsuario();
+        usuario.setRol(obtenerRol());
+        usuario.setTidenrificacion(obtenerTipoIdent());
+        usuario.setIdentificacion(Integer.parseInt( txtIdentificacion.getText()));
+        usuario.setNombre(txtNombre.getText());
+        usuario.setApellido(txtApellido.getText());
+        
+        
+
+        return usuario;
+    }
+
+    public MdlRol obtenerRol() {
+        MdlRol rol = new MdlRol();
+        String rolNombre = cbbRol.getSelectedItem().toString();
+        CtrRol ctrr = new CtrRol();
+        rol = ctrr.mostrarRolNombre(rolNombre);
+        return rol;
+    }
+
+    public String obtenerTipoIdent() {
+        CtrAuxiliares ctra = new CtrAuxiliares();
+        String tipoIdent = ctra.mostrarTipoIdentNombre(cbbTipoIdent.getSelectedItem().toString());
+        return tipoIdent;
+    }
+
+    public void crearUsuario(MdlUsuario usuario) {
+
+        System.out.println(usuario.getRol().getNombre());
+        System.out.println(usuario.getTidenrificacion());
+        System.out.println(usuario.getIdentificacion());
+//        usuario.setIdentificacion(Integer.parseInt(txtIdentificacion.getText()));
+//        usuario.setNombre(txtNombre.getText());
+//        usuario.setApellido(txtApellido.getText());
     }
 
     /**
@@ -113,32 +182,32 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         panelRound2 = new componentes.PanelRound();
         panelRound3 = new componentes.PanelRound();
         jSeparator1 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         panelRound4 = new componentes.PanelRound();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField2 = new javax.swing.JTextField();
+        txtIdentificacion = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         panelRound6 = new componentes.PanelRound();
         jSeparator4 = new javax.swing.JSeparator();
-        jTextField4 = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         panelRound5 = new componentes.PanelRound();
         jSeparator3 = new javax.swing.JSeparator();
-        jTextField3 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         panelRound7 = new componentes.PanelRound();
         jSeparator5 = new javax.swing.JSeparator();
-        jTextField5 = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         panelRound8 = new componentes.PanelRound();
         jSeparator6 = new javax.swing.JSeparator();
-        jTextField6 = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         panelRound10 = new componentes.PanelRound();
         jSeparator8 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
-        jPasswordField3 = new javax.swing.JPasswordField();
+        txtContrasena = new javax.swing.JPasswordField();
         panelRound12 = new componentes.PanelRound();
         jLabel11 = new javax.swing.JLabel();
         cbbTipoIdent = new javax.swing.JComboBox<>();
@@ -149,13 +218,13 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         cbbDepartamento = new javax.swing.JComboBox<>();
         cbbCiudad = new javax.swing.JComboBox<>();
         panelRound9 = new componentes.PanelRound();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnActulizar = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         panelRound13 = new componentes.PanelRound();
         jSeparator9 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        txtConfirContrasena = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -183,14 +252,14 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         panelRound3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelRound3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 460, 10));
 
-        jTextField1.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        txtNombre.setBorder(null);
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
-        panelRound3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
+        panelRound3.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
         jLabel1.setText("Nombre");
@@ -202,14 +271,19 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         panelRound4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelRound4.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 460, 10));
 
-        jTextField2.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
-        jTextField2.setBorder(null);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtIdentificacion.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        txtIdentificacion.setBorder(null);
+        txtIdentificacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtIdentificacionActionPerformed(evt);
             }
         });
-        panelRound4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
+        txtIdentificacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIdentificacionKeyReleased(evt);
+            }
+        });
+        panelRound4.add(txtIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         jLabel3.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
         jLabel3.setText("Identificacion");
@@ -221,14 +295,14 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         panelRound6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelRound6.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 460, 10));
 
-        jTextField4.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
-        jTextField4.setBorder(null);
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        txtApellido.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        txtApellido.setBorder(null);
+        txtApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                txtApellidoActionPerformed(evt);
             }
         });
-        panelRound6.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
+        panelRound6.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         jLabel5.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
         jLabel5.setText("Apellido");
@@ -240,14 +314,14 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         panelRound5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelRound5.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 460, 10));
 
-        jTextField3.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
-        jTextField3.setBorder(null);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefono.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        txtTelefono.setBorder(null);
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtTelefonoActionPerformed(evt);
             }
         });
-        panelRound5.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
+        panelRound5.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         jLabel4.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
         jLabel4.setText("Telefono");
@@ -259,14 +333,14 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         panelRound7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelRound7.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 460, 10));
 
-        jTextField5.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
-        jTextField5.setBorder(null);
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txtCorreo.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        txtCorreo.setBorder(null);
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                txtCorreoActionPerformed(evt);
             }
         });
-        panelRound7.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
+        panelRound7.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         jLabel6.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
         jLabel6.setText("Correo");
@@ -278,14 +352,14 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         panelRound8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelRound8.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 460, 10));
 
-        jTextField6.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
-        jTextField6.setBorder(null);
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        txtDireccion.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        txtDireccion.setBorder(null);
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                txtDireccionActionPerformed(evt);
             }
         });
-        panelRound8.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
+        panelRound8.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         jLabel7.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
         jLabel7.setText("Dirección");
@@ -301,8 +375,8 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         jLabel9.setText("Contraseña");
         panelRound10.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 20));
 
-        jPasswordField3.setBorder(null);
-        panelRound10.add(jPasswordField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
+        txtContrasena.setBorder(null);
+        panelRound10.add(txtContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         panelRound2.add(panelRound10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 630, 40));
 
@@ -352,22 +426,27 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         panelRound9.setBackground(new java.awt.Color(255, 255, 255));
         panelRound9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 0));
-        jButton1.setText("Actualizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnActulizar.setBackground(new java.awt.Color(255, 255, 0));
+        btnActulizar.setText("Actualizar");
+        btnActulizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnActulizarActionPerformed(evt);
             }
         });
-        panelRound9.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
+        panelRound9.add(btnActulizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
-        jButton2.setBackground(new java.awt.Color(0, 255, 153));
-        jButton2.setText("Aceptar");
-        panelRound9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
+        btnAceptar.setBackground(new java.awt.Color(0, 255, 153));
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+        panelRound9.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
 
-        jButton3.setBackground(new java.awt.Color(255, 51, 51));
-        jButton3.setText("Cancelar");
-        panelRound9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
+        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCancelar.setText("Cancelar");
+        panelRound9.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
 
         panelRound2.add(panelRound9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 630, 40));
 
@@ -379,8 +458,8 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         jLabel12.setText("Conf. Contraseña");
         panelRound13.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
 
-        jPasswordField2.setBorder(null);
-        panelRound13.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 440, 20));
+        txtConfirContrasena.setBorder(null);
+        panelRound13.add(txtConfirContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 440, 20));
 
         panelRound2.add(panelRound13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 630, 40));
 
@@ -389,33 +468,33 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtIdentificacionActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtTelefonoActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtApellidoActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtCorreoActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_txtDireccionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnActulizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActulizarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnActulizarActionPerformed
 
     private void cbbRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbRolActionPerformed
         // TODO add your handling code here:
@@ -426,15 +505,23 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         llenarComboCiudad();
     }//GEN-LAST:event_cbbDepartamentoActionPerformed
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        validarInformacionUsuario();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txtIdentificacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyReleased
+        validarEntradaNumericaIdent();
+    }//GEN-LAST:event_txtIdentificacionKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnActulizar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> cbbCiudad;
     private javax.swing.JComboBox<String> cbbDepartamento;
     private javax.swing.JComboBox<String> cbbRol;
     private javax.swing.JComboBox<String> cbbTipoIdent;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -446,8 +533,6 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JPasswordField jPasswordField3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -456,12 +541,6 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel lblTitulo;
     private componentes.PanelRound panelRound1;
     private componentes.PanelRound panelRound10;
@@ -476,5 +555,13 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
     private componentes.PanelRound panelRound7;
     private componentes.PanelRound panelRound8;
     private componentes.PanelRound panelRound9;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JPasswordField txtConfirContrasena;
+    private javax.swing.JPasswordField txtContrasena;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtIdentificacion;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

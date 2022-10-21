@@ -15,20 +15,6 @@ import modelo.MdlRol;
  * @author hamme
  */
 public class CtrUsuario {
-    public ArrayList<String> consultarTipoIdent() {
-        ArrayList<String> listaTipoIdent = new ArrayList();
-        Conexion conectar = new Conexion();
-        String sql = "SELECT `nombre` FROM `madparametros` WHERE `tiparametro`= 1 && `estado` = 1";
-        ResultSet rs;
-        try {
-            rs = conectar.consultar(sql);
-            while (rs.next()) {
-                listaTipoIdent.add(rs.getString("nombre"));
-            }
-        } catch (Exception e) {
-            System.out.println("Error en consultar Roles(controlador rol): " + e);
-        }
-        return listaTipoIdent;
-    }
+    
     
 }

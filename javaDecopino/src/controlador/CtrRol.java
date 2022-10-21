@@ -148,7 +148,31 @@ public class CtrRol {
 
         return rol;
     }
+    
+    public MdlRol mostrarRolNombre(String nombre) {
+        MdlRol rol = new MdlRol();
+        Conexion conectar = new Conexion();
+        String sql = "SELECT * FROM madroles where estado = 1 && nombre ='"+nombre+"'";
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            if (rs.next()) {
+                rol.setId(rs.getInt("id"));
+                rol.setNombre(rs.getString("nombre"));
+                rol.setCodigo(rs.getString("codigo"));
+                rol.setFunciones(rs.getString("funciones"));
+                rol.setEstado(rs.getInt("estado"));
+                rol.setFregistro(rs.getTimestamp("fregistro"));
+                rol.setFactualizado(rs.getTimestamp("factualizado"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en consultar Roles(controlador rol): " + e);
+        }
 
+        return rol;
+    }
+            
+            
     public MdlRecursos mostrarRecurso(int id) {
         MdlRecursos recurso = new MdlRecursos();
         Conexion conectar = new Conexion();
