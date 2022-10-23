@@ -117,7 +117,6 @@ public class CtrRol {
                 + " VALUES ('" + rol.getNombre() + "','" + rol.getCodigo() + "','" + rol.getFunciones() + "','1')";
         try {
             if (conectar.ejecutar(sqlt)) {
-                System.out.println("Rol Guardado");
                 confirmacion = true;
             }
         } catch (Exception e) {

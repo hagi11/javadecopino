@@ -5,6 +5,9 @@
  */
 package controlador;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author hamme
@@ -46,4 +49,42 @@ public class CtrValidador {
             return false;
         }
     }
+
+    public boolean validarTelefono(String numero) {
+        boolean validar = false;
+        if (validarNumero(numero)) {
+            if (numero.length()==7 || numero.length()==10) {
+                validar = true;
+            }
+        }
+        return validar;
+    }
+
+    public boolean validarCorreo(String correo) {
+        boolean validar = true;
+        // Patrón para validar el email
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        // El email a validar
+        Matcher mather = pattern.matcher(correo);
+        if (!(mather.find() == true)) {
+            validar = false;
+        }
+        return validar;
+    }
+
+    public boolean validarDireccion(String direccion) {
+        boolean validar = true;
+
+        return validar;
+    }
+
+    public boolean validarContrasenia(String text) {
+        boolean validar = true;
+
+        return validar;
+
+    }
+
 }

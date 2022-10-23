@@ -10,7 +10,7 @@ package conexion;
  * @author USUARIO
  */
 public interface Configuracion {
-
+    
 //    String DRIVER = "oracle.jdbc.driver.OracleDriver";
 //    String CONNECTION_URL = "jdbc:oracle:thin:@localhost:1521:xe";
 //    String USERNAME = "system";
@@ -54,7 +54,7 @@ public interface Configuracion {
 //    String USERNAME = "decoraci_adsi200admin";
 //    String PASSWORD = "aJZ[+&&3*,hX";
     
-        String DRIVER = "com.mysql.cj.jdbc.Driver";
+    String DRIVER = "com.mysql.cj.jdbc.Driver";
     String DATA_BASE = "decoraci_decopino";
     String CONNECTION_URL = "jdbc:mysql://190.8.176.111:3306/"+DATA_BASE;    
     String USERNAME = "decoraci_adsi200";

@@ -6,6 +6,7 @@
 package vista.Usuario;
 
 import controlador.CtrAuxiliares;
+import controlador.CtrContrasena;
 import controlador.CtrLocaciones;
 import controlador.CtrRol;
 import controlador.CtrUsuario;
@@ -17,6 +18,7 @@ import modelo.MdlCiudad;
 import modelo.MdlDepartamento;
 import modelo.MdlRol;
 import modelo.MdlUsuario;
+import vista.vstMenu;
 
 /**
  *
@@ -28,16 +30,17 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
      * Creates new form pnlInicio
      */
     int ciudad = 0;
-
     ArrayList<MdlDepartamento> departamentos = new ArrayList();
     int TipoIdentificicacion = 0;
     int id = 0;
-
     int habilidarLLenadoCiudad = 0;
 
     public vstAgregarEditarUsuario(int id) {
         initComponents();
 
+//        CtrContrasena ctrc = new CtrContrasena();
+//        String encrip = ctrc.hash("12345678");
+//        System.out.println(encrip);
         this.id = id;
         if (id == 0) {
             ModoAgregar();
@@ -115,33 +118,66 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         }
     }
 
-    public void validarEntradaNumericaIdent() {
-        CtrValidador ctrv = new CtrValidador();
-        for (int posicion = 0; posicion < txtIdentificacion.getText().length(); posicion++) {
-            if (!ctrv.validarNumero(txtIdentificacion.getText().substring(posicion, posicion + 1))) {
-                txtIdentificacion.setText(txtIdentificacion.getText().substring(0, posicion));
-                JOptionPane.showMessageDialog(null, "Solo permite el ingreso de números", "Infomracion", 1);
-            }
-        }
-    }
-
-    public void validarInformacionUsuario() {
+    public void obtenerValidarInformacionUsuario() {
         MdlUsuario usuario = new MdlUsuario();
-        usuario = obtenerInformacion();
-        crearUsuario(usuario);
-    }
+        String informacionError = "Dato invalido en los campos:\n";
+        boolean validarIdent = true;
+        boolean validarNombre = true;
+        boolean validarApellido = true;
+        boolean validarTelefono = true;
+        boolean validarCorreo = true;
+        boolean validarDireccion = true;
+        boolean validarContra = true;
 
-    public MdlUsuario obtenerInformacion() {
-        MdlUsuario usuario = new MdlUsuario();
         usuario.setRol(obtenerRol());
+        usuario.setCiudad(obtenerCiudad());
         usuario.setTidenrificacion(obtenerTipoIdent());
-        usuario.setIdentificacion(Integer.parseInt( txtIdentificacion.getText()));
-        usuario.setNombre(txtNombre.getText());
-        usuario.setApellido(txtApellido.getText());
-        
-        
+        usuario.setIdentificacion(obtenerIdent());
+        if (usuario.getIdentificacion() == 0) {
+            validarIdent = false;
+            informacionError = informacionError + "Identificación\n";
+        }
+        usuario.setNombre(obtenerNombre());
+        if (usuario.getNombre().isEmpty()) {
+            validarNombre = false;
+            informacionError = informacionError + "Nombre\n";
+        }
 
-        return usuario;
+        usuario.setApellido(obtenerApellido());
+        if (usuario.getApellido().isEmpty()) {
+            validarApellido = false;
+            informacionError = informacionError + "Apellido\n";
+        }
+
+        usuario.setTelefono(obtenerTelefono());
+        if (usuario.getTelefono().isEmpty()) {
+            validarTelefono = false;
+            informacionError = informacionError + "Telefono\n";
+        }
+
+        usuario.setCorreo(obtenerCorreo());
+        if (usuario.getCorreo().isEmpty()) {
+            validarCorreo = false;
+            informacionError = informacionError + "Correo\n";
+        }
+
+        usuario.setDireccion(obtenerDireccion());
+        if (usuario.getDireccion().isEmpty()) {
+            validarDireccion = false;
+            informacionError = informacionError + "Direccion\n";
+        }
+
+        usuario.setContrasenia(obtenerContrasenia());
+        if (usuario.getContrasenia().isEmpty()) {
+            validarContra = false;
+            informacionError = informacionError + "Contraseña o ConfContraseña\n";
+        }
+
+        if (validarIdent && validarNombre && validarApellido && validarTelefono && validarCorreo && validarContra && validarDireccion) {
+            crearUsuario(usuario);
+        } else {
+            JOptionPane.showMessageDialog(null, informacionError, "Dato invalido", 1);
+        }
     }
 
     public MdlRol obtenerRol() {
@@ -152,20 +188,174 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         return rol;
     }
 
+    public MdlCiudad obtenerCiudad() {
+        MdlCiudad ciudad = new MdlCiudad();
+        String ciudadNombre = cbbCiudad.getSelectedItem().toString();
+        CtrLocaciones ctrl = new CtrLocaciones();
+        ciudad = ctrl.mostrarCiudadNombre(ciudadNombre);
+        return ciudad;
+    }
+
     public String obtenerTipoIdent() {
         CtrAuxiliares ctra = new CtrAuxiliares();
         String tipoIdent = ctra.mostrarTipoIdentNombre(cbbTipoIdent.getSelectedItem().toString());
         return tipoIdent;
     }
 
-    public void crearUsuario(MdlUsuario usuario) {
+    public int obtenerIdent() {
+        txtIdentificacion.setForeground(Color.black);
+        CtrValidador ctrv = new CtrValidador();
+        int ident = 0;
+        if (ctrv.validarTamano(txtIdentificacion.getText(), 7, 11)) {
+            ident = Integer.parseInt(txtIdentificacion.getText());
+        } else {
+            txtIdentificacion.setForeground(Color.red);
+        }
+        return ident;
+    }
 
-        System.out.println(usuario.getRol().getNombre());
-        System.out.println(usuario.getTidenrificacion());
-        System.out.println(usuario.getIdentificacion());
-//        usuario.setIdentificacion(Integer.parseInt(txtIdentificacion.getText()));
-//        usuario.setNombre(txtNombre.getText());
-//        usuario.setApellido(txtApellido.getText());
+    public String obtenerNombre() {
+        txtNombre.setForeground(Color.black);
+        CtrValidador ctrv = new CtrValidador();
+        String nombre = "";
+        txtNombre.setText(quitarEspacioInicial(txtNombre.getText().toLowerCase()));
+        if (ctrv.validarCaracteres(txtNombre.getText()) && ctrv.validarTamano(txtNombre.getText(), 2, 45)) {
+            nombre = txtNombre.getText();
+        } else {
+            txtNombre.setForeground(Color.red);
+        }
+        return nombre;
+    }
+
+    public String obtenerApellido() {
+        txtApellido.setForeground(Color.black);
+        CtrValidador ctrv = new CtrValidador();
+        String Apellido = "";
+        txtApellido.setText(quitarEspacioInicial(txtApellido.getText().toLowerCase()));
+        if (ctrv.validarCaracteres(txtApellido.getText()) && ctrv.validarTamano(txtApellido.getText(), 2, 45)) {
+            Apellido = txtApellido.getText();
+        } else {
+            txtApellido.setForeground(Color.red);
+        }
+        return Apellido;
+    }
+
+    public String obtenerTelefono() {
+        txtTelefono.setForeground(Color.black);
+        CtrValidador ctrv = new CtrValidador();
+        String telefono = "";
+        txtTelefono.setText(quitarEspacioInicial(txtTelefono.getText()));
+        if (ctrv.validarTelefono(txtTelefono.getText())) {
+            telefono = txtTelefono.getText();
+        } else {
+            txtTelefono.setForeground(Color.red);
+        }
+        return telefono;
+    }
+
+    public String obtenerCorreo() {
+        txtCorreo.setForeground(Color.black);
+        CtrValidador ctrv = new CtrValidador();
+        String correo = "";
+        txtCorreo.setText(quitarEspacioInicial(txtCorreo.getText()));
+        if (ctrv.validarCorreo(txtCorreo.getText())) {
+            correo = txtCorreo.getText();
+        } else {
+            txtCorreo.setForeground(Color.red);
+        }
+        return correo;
+    }
+
+    public String obtenerDireccion() {
+        txtDireccion.setForeground(Color.black);
+        CtrValidador ctrv = new CtrValidador();
+        String direccion = "";
+        txtDireccion.setText(quitarEspacioInicial(txtDireccion.getText()));
+        if (ctrv.validarDireccion(txtDireccion.getText())) {
+            direccion = txtDireccion.getText();
+        } else {
+            txtDireccion.setForeground(Color.red);
+        }
+        return direccion;
+    }
+
+    public String obtenerContrasenia() {
+        txtContrasena.setForeground(Color.black);
+        txtConfirContrasena.setForeground(Color.black);
+        CtrValidador ctrv = new CtrValidador();
+        String contrasenia = "";
+        if (ctrv.validarContrasenia(txtContrasena.getText())) {
+            if (txtContrasena.getText().equals(txtConfirContrasena.getText())) {
+                contrasenia = txtContrasena.getText();
+            } else {
+                txtConfirContrasena.setForeground(Color.red);
+            }
+        } else {
+            txtContrasena.setForeground(Color.red);
+        }
+
+        return contrasenia;
+    }
+
+    public void crearUsuario(MdlUsuario usuario) {
+        CtrUsuario ctru = new CtrUsuario();
+        String informacionError = "";
+        boolean validar = true;
+
+        if (!(ctru.correNoExiste(usuario.getCorreo()))) {
+            txtCorreo.setForeground(Color.red);
+            informacionError = "El correo ya exite\n";
+            validar = false;
+        }
+
+        if (!(ctru.identNoExiste(usuario.getIdentificacion()))) {
+            txtIdentificacion.setForeground(Color.red);
+            informacionError = informacionError + "El numero de identificaion ya exite\n";
+            validar = false;
+        }
+        if (validar) {
+            boolean subir = ctru.crearPersonaUsuario(usuario);
+            if (subir == true) {
+                JOptionPane.showMessageDialog(null, "Usuario creado exitosamente", "Informacion", 1);
+                vstVerUsuario panel = new vstVerUsuario();
+                vstMenu.panelContenedor(panel);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, informacionError, "Error en la creanción del usuario", 1);
+        }
+
+    }
+
+    public void validarEntradaNumericaIdent() {
+        CtrValidador ctrv = new CtrValidador();
+        for (int posicion = 0; posicion < txtIdentificacion.getText().length(); posicion++) {
+            if (!ctrv.validarNumero(txtIdentificacion.getText().substring(posicion, posicion + 1))) {
+                txtIdentificacion.setText(txtIdentificacion.getText().substring(0, posicion));
+                JOptionPane.showMessageDialog(null, "Solo permite el ingreso de números", "Infomracion", 1);
+            }
+        }
+    }
+
+    public void validarEntradaNumericaTelefono() {
+        CtrValidador ctrv = new CtrValidador();
+        for (int posicion = 0; posicion < txtTelefono.getText().length(); posicion++) {
+            if (!ctrv.validarNumero(txtTelefono.getText().substring(posicion, posicion + 1))) {
+                txtTelefono.setText(txtTelefono.getText().substring(0, posicion));
+                JOptionPane.showMessageDialog(null, "Solo permite el ingreso de números", "Infomracion", 1);
+            }
+        }
+    }
+
+    public String quitarEspacioInicial(String texto) {
+        String textoAjustado = texto;
+        for (int posicion = 0; posicion < texto.length(); posicion++) {
+            if (texto.substring(posicion, posicion + 1).equals(" ")) {
+                textoAjustado = texto.substring(posicion + 1, texto.length());
+            } else {
+                break;
+            }
+        }
+        return textoAjustado;
     }
 
     /**
@@ -316,9 +506,9 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
 
         txtTelefono.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
         txtTelefono.setBorder(null);
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyReleased(evt);
             }
         });
         panelRound5.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
@@ -476,10 +666,6 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdentificacionActionPerformed
 
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
-
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoActionPerformed
@@ -506,12 +692,16 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_cbbDepartamentoActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        validarInformacionUsuario();        // TODO add your handling code here:
+        obtenerValidarInformacionUsuario();        // TODO add your handling code here:
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtIdentificacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyReleased
         validarEntradaNumericaIdent();
     }//GEN-LAST:event_txtIdentificacionKeyReleased
+
+    private void txtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyReleased
+        validarEntradaNumericaTelefono();
+    }//GEN-LAST:event_txtTelefonoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
