@@ -5,8 +5,7 @@
  */
 package vista.Cliente;
 
-import vista.vistaUsuario.*;
-import vista.vistaCliente.*;
+
 import componentes.ScrollBar;
 import java.awt.Color;
 import java.awt.Cursor;

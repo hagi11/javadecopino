@@ -70,7 +70,7 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
 
     public void llenarComboRol() {
         CtrRol ctrr = new CtrRol();
-        ArrayList<MdlRol> listaRoles = ctrr.consultar();
+        ArrayList<MdlRol> listaRoles = ctrr.consultar("");
         cbbRol.removeAllItems();
         for (int posicion = 0; posicion < listaRoles.size(); posicion++) {
             cbbRol.addItem(listaRoles.get(posicion).getNombre());
@@ -385,7 +385,7 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         for (int posicion = 0; posicion < txtNombre.getText().length(); posicion++) {
             if (!ctrv.validarNumero(txtNombre.getText().substring(posicion, posicion + 1))) {
                 txtNombre.setText(txtNombre.getText().substring(0, posicion));
-                JOptionPane.showMessageDialog(null, "Solo permite el ingreso de números", "Infomracion", 1);
+                JOptionPane.showMessageDialog(null, "Solo permite el ingreso de números", "Información", 1);
             }
         }
     }

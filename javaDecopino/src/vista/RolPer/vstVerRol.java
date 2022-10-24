@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import componentes.TextPrompt;
 import controlador.CtrRol;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.MdlRol;
@@ -61,7 +62,7 @@ public class vstVerRol extends javax.swing.JPanel {
     public void llenarTabla() {
         limpiarTabla();
         CtrRol ctrr = new CtrRol();
-        listaRol = ctrr.consultar();
+        listaRol = ctrr.consultar(txtBuscador.getText());
         for (int posicion = 0; posicion < listaRol.size(); posicion++) {
             tblRoles.setValueAt(posicion + 1, posicion, 0);
             tblRoles.setValueAt(listaRol.get(posicion).getNombre(), posicion, 1);
@@ -175,9 +176,12 @@ public class vstVerRol extends javax.swing.JPanel {
         } else {
             itemNoValido();
         }
-
-//        vstMostrarInformacionUsuario panel = new vstMostrarInformacionUsuario();
-//        vstMenu.panelContenedor(panel);
+    }
+    
+    public void buscar(java.awt.event.KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            llenarTabla();
+        }
     }
 
     public void itemNoValido() {
@@ -484,6 +488,11 @@ public class vstVerRol extends javax.swing.JPanel {
         txtBuscador.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtBuscador.setAutoscrolls(false);
         txtBuscador.setBorder(null);
+        txtBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscadorKeyReleased(evt);
+            }
+        });
         pnlBuscador.add(txtBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 550, 30));
 
         add(pnlBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 760, 40));
@@ -535,6 +544,10 @@ public class vstVerRol extends javax.swing.JPanel {
     private void tblRolesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRolesMouseClicked
         seleccionarRol();
     }//GEN-LAST:event_tblRolesMouseClicked
+
+    private void txtBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscadorKeyReleased
+        buscar(evt);
+    }//GEN-LAST:event_txtBuscadorKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -79,8 +79,6 @@ public class CtrLocaciones {
         try {
             rs = conectar.consultar(sql);
             while (rs.next()) {
-               
-                
                 Departamento.setId(rs.getInt("id"));
                 Departamento.setDepartamento(rs.getString("departamento"));
                 Departamento.setPais(rs.getInt("pais"));

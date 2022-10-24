@@ -11,19 +11,15 @@ import vista.Usuario.vstUsuario;
 import vista.Proveedor.vstProveedor;
 
 import vista.Cliente.vstVerCliente;
-import com.jtattoo.plaf.bernstein.BernsteinLookAndFeel;
-import com.jtattoo.plaf.graphite.GraphiteLookAndFeel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Panel;
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import modelo.MdlUsuario;
 
 /**
  *
@@ -41,11 +37,12 @@ public class vstMenu extends javax.swing.JFrame {
     private Color lblColorUser = new Color(255, 255, 255);
     private Font font = new Font("Serif", Font.BOLD, 15);
     private int numItem;
+    public static MdlUsuario usuario;
 
     public vstMenu() {
         initComponents();
+        setLocationRelativeTo(this);
         ConfiguracionesVisuales();
-
     }
 
     public void ConfiguracionesVisuales() {
@@ -55,10 +52,14 @@ public class vstMenu extends javax.swing.JFrame {
     }
     
     public void inicio(){
+        VstLogin vstl = new VstLogin();
+        usuario = vstl.getUsuario();
         numItem = 0;
         colorItemsMenu();
         vstInicio inicio = new vstInicio(); 
         panelContenedor(inicio);
+        lblUsuarioNombre.setText(usuario.getApellido());
+        lblUsuarioRol.setText(usuario.getRol().getNombre());
     }
     
 
@@ -81,7 +82,6 @@ public class vstMenu extends javax.swing.JFrame {
         String ruta = new String();
         ruta = "src/imagenes/icons/user.png";
         this.pintarImagen(this.lblItemImgCliente, ruta);
-        
     }
 
     private void pintarImagen(JLabel label, String ruta) {
@@ -403,7 +403,7 @@ public class vstMenu extends javax.swing.JFrame {
         pnlPerfil.add(lblUsuarioNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 70, 20));
 
         lblUsuarioRol.setText("Rol");
-        pnlPerfil.add(lblUsuarioRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 40, 20));
+        pnlPerfil.add(lblUsuarioRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 100, 20));
 
         panelRound1.setRoundBottomLeft(10);
         panelRound1.setRoundBottomRight(10);

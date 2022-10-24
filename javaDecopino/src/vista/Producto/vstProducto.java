@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package vista.Producto;
-
-import vista.Proveedor.*;
-import vista.vistaUsuario.*;
 import vista.*;
 
 /**

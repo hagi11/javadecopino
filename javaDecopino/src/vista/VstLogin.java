@@ -5,36 +5,53 @@
  */
 package vista;
 
-import com.jtattoo.plaf.BaseBorders;
-import com.jtattoo.plaf.noire.NoireLookAndFeel;
-import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 import componentes.TextPrompt;
+import controlador.CtrUsuario;
+import java.util.Locale;
+import javax.swing.JOptionPane;
+import modelo.MdlUsuario;
 
 /**
  *
  * @author cdss2
  */
 public class VstLogin extends javax.swing.JFrame {
-
+    public static MdlUsuario usuario;
     /**
      * Creates new form VstLogin
      */
     public VstLogin() {
         initComponents();
+        setLocationRelativeTo(this);
         configuraciones();
     }
-    
-    public void configuraciones(){
-        TextPrompt holder = new TextPrompt("Ingrese Su Correo",txtCorreo);
-        TextPrompt holder1 = new TextPrompt("Ingrese Su Contraseña",pswContrasena);
+
+    public void configuraciones() {
+        TextPrompt holder = new TextPrompt("Ingrese Su Correo", txtCorreo);
+        TextPrompt holder1 = new TextPrompt("Ingrese Su Contraseña", pswContrasena);
+    }
+
+    public void validarIngreso(){
+        CtrUsuario ctru = new CtrUsuario();
+        int idUsuario =ctru.validarIngreso(txtCorreo.getText(), pswContrasena.getText());
+        
+        if(idUsuario !=0){
+            usuario = ctru.mostrarUsuario(idUsuario);
+            System.out.println(usuario.getNombre());
+            ingresar(usuario);
+        }else{
+            JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrecto", "Error", 1);
+        }
+    }
+    public void ingresar(MdlUsuario usuario) {
+        dispose();
+        vstMenu menu = new vstMenu();
+        menu.setVisible(true);
     }
     
+    public MdlUsuario getUsuario(){
+        return this.usuario;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,6 +119,11 @@ public class VstLogin extends javax.swing.JFrame {
         btnIngresar.setBackground(new java.awt.Color(95, 148, 3));
         btnIngresar.setFont(new java.awt.Font("Perpetua Titling MT", 1, 18)); // NOI18N
         btnIngresar.setText("Ingresar");
+        btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnIngresarMousePressed(evt);
+            }
+        });
         panelLogin.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 360, 130, 40));
 
         jLabel1.setFont(new java.awt.Font("Perpetua Titling MT", 1, 12)); // NOI18N
@@ -129,6 +151,10 @@ public class VstLogin extends javax.swing.JFrame {
     private void pswContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pswContrasenaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pswContrasenaActionPerformed
+
+    private void btnIngresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMousePressed
+        validarIngreso();
+    }//GEN-LAST:event_btnIngresarMousePressed
 
     /**
      * @param args the command line arguments

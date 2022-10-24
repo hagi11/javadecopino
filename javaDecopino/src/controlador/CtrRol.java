@@ -19,11 +19,11 @@ import modelo.MdlRolRecurso;
  */
 public class CtrRol {
 
-    public ArrayList<MdlRol> consultar() {
+    public ArrayList<MdlRol> consultar(String busqueda) {
         ArrayList<MdlRol> listaRoles = new ArrayList();
 
         Conexion conectar = new Conexion();
-        String sql = "SELECT * FROM `madroles` WHERE estado = 1";
+        String sql = "SELECT * FROM `madroles` WHERE estado = 1 && (nombre LIKE '%"+busqueda+"%' or codigo LIKE '%"+busqueda+"%')";
 
         ResultSet rs;
         try {

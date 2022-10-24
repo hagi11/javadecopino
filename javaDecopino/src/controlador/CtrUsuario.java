@@ -8,7 +8,6 @@ package controlador;
 import conexion.Conexion;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import modelo.MdlRol;
 import modelo.MdlUsuario;
 
 /**
@@ -17,14 +16,15 @@ import modelo.MdlUsuario;
  */
 public class CtrUsuario {
 
-    public ArrayList<MdlUsuario> consultar() {
+    public ArrayList<MdlUsuario> consultar(String busqueda) {
         ArrayList<MdlUsuario> listaUsuarios = new ArrayList();
 
         Conexion conectar = new Conexion();
+        
         String sql = "SELECT usu.id as idusuario, usu.login, usu.contrasenia,usu.fregistro, "
                 + "per.id as idpersona,per.tidentificacion, per.identificacion, per.nombre,per.apellido, per.telefono, per.direccion, per.ciudad, per.fregistro,"
                 + " rol.id as rol FROM mususuarios as usu JOIN madpersonas as per on per.id=usu.persona "
-                + "JOIN madusuarioroles as rol on usu.id=rol.usuario  WHERE usu.estado = 1";
+                + "JOIN madusuarioroles as rol on usu.id=rol.usuario  WHERE usu.estado = 1 && (per.nombre LIKE '%"+busqueda+"%' or per.apellido LIKE '%"+busqueda+"%' or per.identificacion LIKE '%"+busqueda+"%')";
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
@@ -296,6 +296,22 @@ public class CtrUsuario {
             }
         } catch (Exception e) {
             System.out.println("Error en eliminar usuario rol (controlador usuario): " + e);
+        }
+        return validar;
+    }
+    
+    public int validarIngreso(String login, String contrasenia){
+        int validar =0;
+        Conexion conectar = new Conexion();
+        String sql = "SELECT id FROM mususuarios where estado = 1 && login ='"+login+"' && contrasenia ='"+contrasenia+"'";
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            if (rs.next()) {
+                validar=(rs.getInt("id"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en validar ingreso (controlador usuario): " + e);
         }
         return validar;
     }
