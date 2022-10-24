@@ -34,8 +34,8 @@ public class MdlUsuario extends MdlPersona {
         this.factualizado = factualizado;
     }
 
-    public MdlUsuario(int idUsu, String login, String contrasenia, int estadoUsu, MdlRol rol, Timestamp fregistroUsu, Timestamp factualizadoUsu, int id, String tidenrificacion, int identificacion, String nombre, String apellido, String correo, String telefono, String direccion, MdlCiudad ciudad, int estado, Timestamp fregistro, Timestamp factualizado) {
-        super(id, tidenrificacion, identificacion, nombre, apellido, correo, telefono, direccion, ciudad, estado, fregistro, factualizado);
+    public MdlUsuario(int idUsu, String login, String contrasenia, int estadoUsu, MdlRol rol, Timestamp fregistroUsu, Timestamp factualizadoUsu, int idPersona, String tidenrificacion, int identificacion, String nombre, String apellido, String correo, String telefono, String direccion, MdlCiudad ciudad, int estado, Timestamp fregistro, Timestamp factualizado) {
+        super(idPersona, tidenrificacion, identificacion, nombre, apellido, correo, telefono, direccion, ciudad, estado, fregistro, factualizado);
         this.id = idUsu;
         this.login = login;
         this.contrasenia = contrasenia;

@@ -140,13 +140,18 @@ public class vstVerRol extends javax.swing.JPanel {
 
     public void PressBtnEliminar() {
         if (habilitar) {
-            CtrRol ctrr = new CtrRol();
-            boolean borrar = ctrr.validarEliminarRol(rolSeleccionado.getId());
-            if (borrar == true) {
-                JOptionPane.showMessageDialog(null, "Rol borrado Correctamente", "Información", 1);
-                llenarTabla();
-            } else {
-                JOptionPane.showMessageDialog(null, "Él rol no pudo ser eliminado debido\na que hay usuario con este rol.", "Información", 1);
+
+            int result = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar este rol", "Eliminar", 2);
+            if (result == 0) {
+                CtrRol ctrr = new CtrRol();
+                boolean borrar = ctrr.validarEliminarRol(rolSeleccionado.getId());
+
+                if (borrar == true) {
+                    JOptionPane.showMessageDialog(null, "Rol borrado Correctamente", "Información", 1);
+                    llenarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Él rol no pudo ser eliminado debido\na que hay usuario con este rol.", "Información", 1);
+                }
             }
         } else {
             itemNoValido();

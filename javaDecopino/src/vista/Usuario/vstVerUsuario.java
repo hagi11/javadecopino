@@ -14,6 +14,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import componentes.TextPrompt;
+import controlador.CtrAuxiliares;
+import controlador.CtrUsuario;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import modelo.MdlUsuario;
 import vista.vstMenu;
 
 /**
@@ -21,71 +26,172 @@ import vista.vstMenu;
  * @author hamme
  */
 public class vstVerUsuario extends javax.swing.JPanel {
-    
+
+    ArrayList<MdlUsuario> listaUsuarios = new ArrayList();
+    MdlUsuario usuSeleccionado = new MdlUsuario();
+    boolean habilitar = false;
+
     private ImageIcon imagen;
     private Icon icon;
+
     private Color fondoInformacion = new Color(111, 111, 111);
     private Color fondoModificar = new Color(111, 111, 111);
     private Color fondoEliminar = new Color(111, 111, 111);
-    
+
     private Color fondoHoldInformacion = new Color(255, 255, 255);
     private Color fondoHoldModificar = new Color(255, 255, 255);
     private Color fondoHoldEliminar = new Color(255, 255, 255);
-    
-    
-    
-    
+
     public vstVerUsuario() {
         initComponents();
         configuracionVista();
+        inicio();
     }
-    
-    public void configuracionVista(){
+
+    public void inicio() {
+        llenarTabla();
+    }
+
+    public void llenarTabla() {
+        limpiarTabla();
+        CtrUsuario ctru = new CtrUsuario();
+        CtrAuxiliares ctra = new CtrAuxiliares();
+        listaUsuarios = ctru.consultar();
+        for (int posicion = 0; posicion < listaUsuarios.size(); posicion++) {
+            tblUsuario.setValueAt(posicion + 1, posicion, 0);
+            if (listaUsuarios.get(posicion).getTidenrificacion().equals("1")) {
+                tblUsuario.setValueAt("CC", posicion, 1);
+            } else {
+                tblUsuario.setValueAt(ctra.mostrarTipoIdentId(listaUsuarios.get(posicion).getTidenrificacion()), posicion, 1);
+            }
+            tblUsuario.setValueAt(listaUsuarios.get(posicion).getIdentificacion(), posicion, 2);
+            tblUsuario.setValueAt(listaUsuarios.get(posicion).getNombre(), posicion, 3);
+            tblUsuario.setValueAt(listaUsuarios.get(posicion).getApellido(), posicion, 4);
+            tblUsuario.setValueAt(listaUsuarios.get(posicion).getCorreo(), posicion, 5);
+            tblUsuario.setValueAt(listaUsuarios.get(posicion).getRol().getNombre(), posicion, 6);
+        }
+    }
+
+    public void limpiarTabla() {
+        for (int posicion = 0; posicion < 98; posicion++) {
+            tblUsuario.setValueAt("", posicion, 0);
+            tblUsuario.setValueAt("", posicion, 1);
+            tblUsuario.setValueAt("", posicion, 2);
+            tblUsuario.setValueAt("", posicion, 3);
+            tblUsuario.setValueAt("", posicion, 4);
+            tblUsuario.setValueAt("", posicion, 5);
+            tblUsuario.setValueAt("", posicion, 6);
+
+        }
+    }
+
+    public void seleccionarUsuario() {
+        for (int posicion = 0; posicion < listaUsuarios.size(); posicion++) {
+            if (tblUsuario.getSelectedRow() == posicion) {
+                usuSeleccionado = listaUsuarios.get(posicion);
+                habilitar = true;
+                pnlInformacion.setBackground(new Color(250, 250, 170));
+                pnlModificar.setBackground(new Color(170, 225, 250));
+                pnlEliminar.setBackground(new Color(250, 200, 170));
+
+                fondoInformacion = new Color(250, 250, 170);
+                fondoModificar = new Color(170, 225, 250);
+                fondoEliminar = new Color(250, 200, 170);
+            }
+        }
+        if (tblUsuario.getSelectedRow() >= listaUsuarios.size()) {
+            habilitar = false;
+            pnlInformacion.setBackground(new Color(111, 111, 111));
+            pnlModificar.setBackground(new Color(111, 111, 111));
+            pnlEliminar.setBackground(new Color(111, 111, 111));
+
+            fondoInformacion = new Color(111, 111, 111);
+            fondoModificar = new Color(111, 111, 111);
+            fondoEliminar = new Color(111, 111, 111);
+        }
+    }
+
+    public void configuracionVista() {
         String ruta = new String();
         ruta = "src/imagenes/icons/loupe.png";
-        this.pintarImagen(this.lblImgBuscador, ruta);        
-        
+        this.pintarImagen(this.lblImgBuscador, ruta);
+
         jScrollPane2.setVerticalScrollBar(new ScrollBar());
-        
+
         TextPrompt PlaceHolderBuscador = new TextPrompt("Buscador", txtBuscador);
-        
+
         pnlModificar.setBackground(fondoModificar);
         pnlEliminar.setBackground(fondoEliminar);
         pnlInformacion.setBackground(fondoInformacion);
-        
-    }    
-    
+
+    }
+
     private void pintarImagen(JLabel label, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icon = new ImageIcon(this.imagen.getImage());
         label.setIcon(icon);
         this.repaint();
     }
-        
-        public void MouseOnBoton(JPanel panel, Color color){
-            panel.setCursor(new Cursor(HAND_CURSOR));
+
+    public void MouseOnBoton(JPanel panel, Color color) {
+        panel.setCursor(new Cursor(HAND_CURSOR));
+
+        if (habilitar) {
             panel.setBackground(color);
         }
-        
-        public void MouseOutBoton(JPanel panel, Color color){
+    }
+
+    public void MouseOutBoton(JPanel panel, Color color) {
+        if (habilitar) {
             panel.setBackground(color);
+        }
+    }
+
+    public void PressBtnEliminar() {
+        if (habilitar) {
+            CtrUsuario ctru = new CtrUsuario();
+
+            int result = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar este usuario", "Eliminar", 2);
+            if (result == 0) {
+                boolean borrar = ctru.validarEliminarUsuario(usuSeleccionado.getId(), usuSeleccionado.getIdPersona());
+                if (borrar == true) {
+                    JOptionPane.showMessageDialog(null, "Usuario borrado Correctamente", "Información", 1);
+                    llenarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Él usuario no pudo ser eliminado", "Información", 1);
+                }
+            }
+            
+        } else {
+            itemNoValido();
+        }
+    }
+
+    public void PressBtnModificar() {
+        if (habilitar) {
+            vstAgregarEditarUsuario panel = new vstAgregarEditarUsuario(usuSeleccionado.getId());
+            vstMenu.panelContenedor(panel);
+        } else {
+            itemNoValido();
+        }
+    }
+
+    public void PressBtnInformacion() {
+        if (habilitar) {
+            vstInformacionUsuario panel = new vstInformacionUsuario(usuSeleccionado);
+            vstMenu.panelContenedor(panel);
+        } else {
+            itemNoValido();
         }
 
-        public void PressBtnEliminar(){
-       
-            System.out.println("Esta Seguro de que quiere eliminar");
+//        vstMostrarInformacionUsuario panel = new vstMostrarInformacionUsuario();
+//        vstMenu.panelContenedor(panel);
     }
-        
-        public void PressBtnModificar(){
-          
+
+    public void itemNoValido() {
+        JOptionPane.showMessageDialog(null, "Seleccione un usuario", "Error", 1);
     }
-        
-        public void PressBtnInformacion(){
-        vstMostrarInformacionUsuario panel = new vstMostrarInformacionUsuario();
-        vstMenu.panelContenedor(panel);
-    }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -103,7 +209,7 @@ public class vstVerUsuario extends javax.swing.JPanel {
         lblModificar = new javax.swing.JLabel();
         pnlTabla = new componentes.PanelRound();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblCliente = new componentes.Tabla();
+        tblUsuario = new componentes.Tabla();
         pnlBuscador = new componentes.PanelRound();
         lblImgBuscador = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -238,123 +344,135 @@ public class vstVerUsuario extends javax.swing.JPanel {
 
         jScrollPane2.setBorder(null);
 
-        tblCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "TI", "121212", "Hammer", "HAgi@gmail.com", "4203034"},
-                {"2", "CC", "131313", "Carlos", "Car@Gmail.com", "3153214343"},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "#", "TI", "Identificación", "Nombre", "Correo", "Telefono"
+                "#", "TI", "Identificación", "Nombre", "Apellido", "Correo", "Rol"
             }
-        ));
-        jScrollPane2.setViewportView(tblCliente);
-        if (tblCliente.getColumnModel().getColumnCount() > 0) {
-            tblCliente.getColumnModel().getColumn(0).setResizable(false);
-            tblCliente.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tblCliente.getColumnModel().getColumn(1).setResizable(false);
-            tblCliente.getColumnModel().getColumn(1).setPreferredWidth(10);
-            tblCliente.getColumnModel().getColumn(2).setResizable(false);
-            tblCliente.getColumnModel().getColumn(3).setResizable(false);
-            tblCliente.getColumnModel().getColumn(4).setResizable(false);
-            tblCliente.getColumnModel().getColumn(5).setResizable(false);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblUsuarioMousePressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblUsuario);
+        if (tblUsuario.getColumnModel().getColumnCount() > 0) {
+            tblUsuario.getColumnModel().getColumn(0).setResizable(false);
+            tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tblUsuario.getColumnModel().getColumn(1).setResizable(false);
+            tblUsuario.getColumnModel().getColumn(1).setPreferredWidth(10);
+            tblUsuario.getColumnModel().getColumn(2).setResizable(false);
+            tblUsuario.getColumnModel().getColumn(3).setResizable(false);
+            tblUsuario.getColumnModel().getColumn(4).setResizable(false);
+            tblUsuario.getColumnModel().getColumn(5).setResizable(false);
+            tblUsuario.getColumnModel().getColumn(6).setResizable(false);
         }
 
         pnlTabla.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 740, 470));
@@ -383,12 +501,11 @@ public class vstVerUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_pnlEliminarMousePressed
 
     private void pnlEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEliminarMouseEntered
-        MouseOnBoton(pnlEliminar,fondoHoldEliminar);
-        
+        MouseOnBoton(pnlEliminar, fondoHoldEliminar);
     }//GEN-LAST:event_pnlEliminarMouseEntered
 
     private void pnlModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlModificarMouseEntered
-       MouseOnBoton(pnlModificar,fondoHoldModificar);
+        MouseOnBoton(pnlModificar, fondoHoldModificar);
     }//GEN-LAST:event_pnlModificarMouseEntered
 
     private void pnlModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlModificarMousePressed
@@ -396,24 +513,28 @@ public class vstVerUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_pnlModificarMousePressed
 
     private void pnlInformacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInformacionMouseEntered
-         MouseOnBoton(pnlInformacion,fondoHoldInformacion);
+        MouseOnBoton(pnlInformacion, fondoHoldInformacion);
     }//GEN-LAST:event_pnlInformacionMouseEntered
 
     private void pnlInformacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInformacionMouseExited
-        MouseOutBoton(pnlInformacion,fondoInformacion);
+        MouseOutBoton(pnlInformacion, fondoInformacion);
     }//GEN-LAST:event_pnlInformacionMouseExited
 
     private void pnlModificarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlModificarMouseExited
-       MouseOutBoton(pnlModificar,fondoModificar);
+        MouseOutBoton(pnlModificar, fondoModificar);
     }//GEN-LAST:event_pnlModificarMouseExited
 
     private void pnlEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEliminarMouseExited
-        MouseOutBoton(pnlEliminar,fondoEliminar);
+        MouseOutBoton(pnlEliminar, fondoEliminar);
     }//GEN-LAST:event_pnlEliminarMouseExited
 
     private void pnlInformacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInformacionMousePressed
         PressBtnInformacion();
     }//GEN-LAST:event_pnlInformacionMousePressed
+
+    private void tblUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMousePressed
+        seleccionarUsuario();
+    }//GEN-LAST:event_tblUsuarioMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -428,7 +549,7 @@ public class vstVerUsuario extends javax.swing.JPanel {
     private componentes.PanelRound pnlInformacion;
     private componentes.PanelRound pnlModificar;
     private componentes.PanelRound pnlTabla;
-    private componentes.Tabla tblCliente;
+    private componentes.Tabla tblUsuario;
     private javax.swing.JTextField txtBuscador;
     // End of variables declaration//GEN-END:variables
 }

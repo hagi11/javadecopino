@@ -162,5 +162,28 @@ public class CtrLocaciones {
 
         return ciudad;
     }
+    
+    public MdlCiudad consultarCiudadId(int ciudadId) {
+        MdlCiudad ciudad = new MdlCiudad();
+        Conexion conectar = new Conexion();
+        String sql = "SELECT * FROM madciudades where estado = 1 && id ='"+ciudadId+"'";
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            if (rs.next()) {
+                ciudad.setId(rs.getInt("id"));
+                ciudad.setCiudad(rs.getString("ciudad"));
+                ciudad.setDepartamento(consultarDep(rs.getInt("departamento")));
+                ciudad.setEstado(rs.getInt("estado"));
+                ciudad.setFregistro(rs.getTimestamp("fregistro"));
+                ciudad.setFactualizado(rs.getTimestamp("factualizado"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en consultar Roles(controlador rol): " + e);
+        }
+
+        return ciudad;
+    }
+    
 
 }

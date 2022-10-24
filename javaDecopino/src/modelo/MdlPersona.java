@@ -13,7 +13,7 @@ import java.sql.Timestamp;
  */
 public class MdlPersona {
 
-    private int id;
+    private int idPersona;
     private String tidenrificacion;
     private int identificacion;
     private String nombre;
@@ -30,7 +30,7 @@ public class MdlPersona {
     }
 
     public MdlPersona(int id, String tidenrificacion, int identificacion, String nombre, String apellido, String correo, String telefono, String direccion, MdlCiudad ciudad, int estado, Timestamp fregistro, Timestamp factualizado) {
-        this.id = id;
+        this.idPersona = id;
         this.tidenrificacion = tidenrificacion;
         this.identificacion = identificacion;
         this.nombre = nombre;
@@ -44,12 +44,12 @@ public class MdlPersona {
         this.factualizado = factualizado;
     }
 
-    public int getId() {
-        return id;
+    public int getIdPersona() {
+        return idPersona;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdPersona(int id) {
+        this.idPersona = id;
     }
 
     public String getTidenrificacion() {

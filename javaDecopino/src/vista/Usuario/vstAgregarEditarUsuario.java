@@ -6,7 +6,6 @@
 package vista.Usuario;
 
 import controlador.CtrAuxiliares;
-import controlador.CtrContrasena;
 import controlador.CtrLocaciones;
 import controlador.CtrRol;
 import controlador.CtrUsuario;
@@ -14,6 +13,7 @@ import controlador.CtrValidador;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import modelo.MdlCiudad;
 import modelo.MdlDepartamento;
 import modelo.MdlRol;
@@ -31,16 +31,14 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
      */
     int ciudad = 0;
     ArrayList<MdlDepartamento> departamentos = new ArrayList();
+    MdlUsuario oldUsuario = new MdlUsuario();
     int TipoIdentificicacion = 0;
     int id = 0;
     int habilidarLLenadoCiudad = 0;
 
     public vstAgregarEditarUsuario(int id) {
         initComponents();
-
-//        CtrContrasena ctrc = new CtrContrasena();
-//        String encrip = ctrc.hash("12345678");
-//        System.out.println(encrip);
+        llenarComboBoxs();
         this.id = id;
         if (id == 0) {
             ModoAgregar();
@@ -51,12 +49,16 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
     }
 
     public void ModoAgregar() {
-        llenarComboBoxs();
+        lblTitulo.setText("Agregar Usuario");
         btnActulizar.setVisible(false);
     }
 
     public void ModoEditar(int id) {
+        lblTitulo.setText("Editar Usuario");
         btnAceptar.setVisible(false);
+        CtrUsuario ctru = new CtrUsuario();
+        oldUsuario = ctru.mostrarUsuario(id);
+        llenarDatosUsuario(oldUsuario);
     }
 
     public void llenarComboBoxs() {
@@ -167,16 +169,33 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
             informacionError = informacionError + "Direccion\n";
         }
 
-        usuario.setContrasenia(obtenerContrasenia());
-        if (usuario.getContrasenia().isEmpty()) {
-            validarContra = false;
-            informacionError = informacionError + "Contraseña o ConfContraseña\n";
+        if (id == 0) {
+            usuario.setContrasenia(obtenerContrasenia());
+            if (usuario.getContrasenia().isEmpty()) {
+                validarContra = false;
+                informacionError = informacionError + "Contraseña o ConfContraseña\n";
+            }
+        } else {
+            if (txtContrasena.getText().isEmpty()) {
+                usuario.setContrasenia("NoCambio");
+            } else {
+                usuario.setContrasenia(obtenerContrasenia());
+                if (usuario.getContrasenia().isEmpty()) {
+                    validarContra = false;
+                    informacionError = informacionError + "Contraseña o ConfContraseña\n";
+                }
+            }
+
         }
 
-        if (validarIdent && validarNombre && validarApellido && validarTelefono && validarCorreo && validarContra && validarDireccion) {
-            crearUsuario(usuario);
+        if (id == 0) {
+            if (validarIdent && validarNombre && validarApellido && validarTelefono && validarCorreo && validarContra && validarDireccion) {
+                crearUsuario(usuario);
+            } else {
+                JOptionPane.showMessageDialog(null, informacionError, "Dato invalido", 1);
+            }
         } else {
-            JOptionPane.showMessageDialog(null, informacionError, "Dato invalido", 1);
+            editarUsuario(usuario);
         }
     }
 
@@ -293,8 +312,24 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         } else {
             txtContrasena.setForeground(Color.red);
         }
-
         return contrasenia;
+    }
+
+    public void llenarDatosUsuario(MdlUsuario usuario) {
+        CtrAuxiliares ctra = new CtrAuxiliares();
+        CtrLocaciones ctrl = new CtrLocaciones();
+        cbbTipoIdent.setSelectedItem(ctra.mostrarTipoIdentId(usuario.getTidenrificacion()));
+        cbbDepartamento.setSelectedItem(usuario.getCiudad().getDepartamento().getDepartamento());
+        cbbCiudad.setSelectedItem(usuario.getCiudad().getCiudad());
+        cbbRol.setSelectedItem(usuario.getRol().getNombre());
+
+        txtIdentificacion.setText(String.valueOf(usuario.getIdentificacion()));
+        txtNombre.setText(usuario.getNombre());
+        txtApellido.setText(usuario.getApellido());
+        txtCorreo.setText(usuario.getCorreo());
+        txtDireccion.setText(usuario.getDireccion());
+        txtTelefono.setText(usuario.getTelefono());
+
     }
 
     public void crearUsuario(MdlUsuario usuario) {
@@ -326,21 +361,30 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
 
     }
 
-    public void validarEntradaNumericaIdent() {
-        CtrValidador ctrv = new CtrValidador();
-        for (int posicion = 0; posicion < txtIdentificacion.getText().length(); posicion++) {
-            if (!ctrv.validarNumero(txtIdentificacion.getText().substring(posicion, posicion + 1))) {
-                txtIdentificacion.setText(txtIdentificacion.getText().substring(0, posicion));
-                JOptionPane.showMessageDialog(null, "Solo permite el ingreso de números", "Infomracion", 1);
-            }
+    public void editarUsuario(MdlUsuario usuario) {
+        CtrUsuario ctru = new CtrUsuario();
+        String informacionError = "";
+        boolean validar = true;
+        int cambiarContrasenia = 1;
+        if (usuario.getContrasenia().equals("NoCambio")) {
+            cambiarContrasenia=0;
+        }
+        boolean subir = ctru.editarPersonaUsuario(usuario, oldUsuario.getIdPersona(), oldUsuario.getId(), cambiarContrasenia);
+        if (subir == true) {
+            JOptionPane.showMessageDialog(null, "Usuario Editado exitosamente", "Informacion", 1);
+            MdlUsuario usuarioActualizado = ctru.mostrarUsuario(id);
+            vstInformacionUsuario panel = new vstInformacionUsuario(usuarioActualizado);
+            vstMenu.panelContenedor(panel);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en la creanción del usuario", "Informacion", 1);
         }
     }
 
-    public void validarEntradaNumericaTelefono() {
+    public void validarEntradaNumerica(JTextField txtNombre) {
         CtrValidador ctrv = new CtrValidador();
-        for (int posicion = 0; posicion < txtTelefono.getText().length(); posicion++) {
-            if (!ctrv.validarNumero(txtTelefono.getText().substring(posicion, posicion + 1))) {
-                txtTelefono.setText(txtTelefono.getText().substring(0, posicion));
+        for (int posicion = 0; posicion < txtNombre.getText().length(); posicion++) {
+            if (!ctrv.validarNumero(txtNombre.getText().substring(posicion, posicion + 1))) {
+                txtNombre.setText(txtNombre.getText().substring(0, posicion));
                 JOptionPane.showMessageDialog(null, "Solo permite el ingreso de números", "Infomracion", 1);
             }
         }
@@ -356,6 +400,18 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
             }
         }
         return textoAjustado;
+    }
+
+    public void cancer() {
+        int result = JOptionPane.showConfirmDialog(panelRound1, "Seguro que desea salir", "Cancelar", 2);
+        if (result == 0 && id == 0) {
+            vstUsuario panel = new vstUsuario();
+            vstMenu.panelContenedor(panel);
+        }
+        if (result == 0 && !(id == 0)) {
+            vstVerUsuario panel = new vstVerUsuario();
+            vstMenu.panelContenedor(panel);
+        }
     }
 
     /**
@@ -444,11 +500,6 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
 
         txtNombre.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
         txtNombre.setBorder(null);
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
         panelRound3.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
@@ -463,11 +514,6 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
 
         txtIdentificacion.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
         txtIdentificacion.setBorder(null);
-        txtIdentificacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdentificacionActionPerformed(evt);
-            }
-        });
         txtIdentificacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtIdentificacionKeyReleased(evt);
@@ -487,11 +533,6 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
 
         txtApellido.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
         txtApellido.setBorder(null);
-        txtApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidoActionPerformed(evt);
-            }
-        });
         panelRound6.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         jLabel5.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
@@ -525,11 +566,6 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
 
         txtCorreo.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
         txtCorreo.setBorder(null);
-        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCorreoActionPerformed(evt);
-            }
-        });
         panelRound7.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         jLabel6.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
@@ -544,11 +580,6 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
 
         txtDireccion.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
         txtDireccion.setBorder(null);
-        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDireccionActionPerformed(evt);
-            }
-        });
         panelRound8.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 460, 20));
 
         jLabel7.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 12)); // NOI18N
@@ -623,7 +654,7 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
                 btnActulizarActionPerformed(evt);
             }
         });
-        panelRound9.add(btnActulizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
+        panelRound9.add(btnActulizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         btnAceptar.setBackground(new java.awt.Color(0, 255, 153));
         btnAceptar.setText("Aceptar");
@@ -632,13 +663,18 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
                 btnAceptarActionPerformed(evt);
             }
         });
-        panelRound9.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
+        panelRound9.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setText("Cancelar");
-        panelRound9.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        panelRound9.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, -1));
 
-        panelRound2.add(panelRound9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 630, 40));
+        panelRound2.add(panelRound9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 510, 310, 40));
 
         panelRound13.setBackground(new java.awt.Color(255, 255, 255));
         panelRound13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -658,28 +694,8 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdentificacionActionPerformed
-
-    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
-
-    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoActionPerformed
-
-    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccionActionPerformed
-
     private void btnActulizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActulizarActionPerformed
-        // TODO add your handling code here:
+        obtenerValidarInformacionUsuario();
     }//GEN-LAST:event_btnActulizarActionPerformed
 
     private void cbbRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbRolActionPerformed
@@ -696,12 +712,16 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtIdentificacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyReleased
-        validarEntradaNumericaIdent();
+        validarEntradaNumerica(txtIdentificacion);
     }//GEN-LAST:event_txtIdentificacionKeyReleased
 
     private void txtTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyReleased
-        validarEntradaNumericaTelefono();
+        validarEntradaNumerica(txtTelefono);
     }//GEN-LAST:event_txtTelefonoKeyReleased
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        cancer();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

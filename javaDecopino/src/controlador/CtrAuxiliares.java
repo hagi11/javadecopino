@@ -46,4 +46,23 @@ public class CtrAuxiliares {
 
         return tipoIdent;
     }
+    
+    public String mostrarTipoIdentId(String id){
+        String tipoIdent = "";
+        Conexion conectar = new Conexion();
+        String sql = "SELECT nombre FROM `madparametros` where estado = 1 && id ="+id;
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            if (rs.next()) {
+                tipoIdent = rs.getString("nombre");
+            }
+        } catch (Exception e) {
+            System.out.println("Error en consultar nombre del Tipo de identificacion(controlador auxiliar): " + e);
+        }
+
+        return tipoIdent;
+    }   
+    
+    
 }
