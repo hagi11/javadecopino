@@ -4,10 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/hamme/OneDrive/Escritorio/proyecto%20final%20ecommerce/javaproyect/javaDecopino/src/vista/vstMenu.java</file>
+            <file>file:/C:/Users/hamme/OneDrive/Escritorio/proyecto%20final%20ecommerce/javaproyect/javaDecopino/src/controlador/CtrLogin.java</file>
+            <file>file:/C:/Users/hamme/OneDrive/Escritorio/proyecto%20final%20ecommerce/javaproyect/javaDecopino/src/vista/Cliente/vstVerCliente.java</file>
             <file>file:/C:/Users/hamme/OneDrive/Escritorio/proyecto%20final%20ecommerce/javaproyect/javaDecopino/src/vista/VstLogin.java</file>
-            <file>file:/C:/Users/hamme/OneDrive/Escritorio/proyecto%20final%20ecommerce/javaproyect/javaDecopino/src/controlador/CtrLocaciones.java</file>
-            <file>file:/C:/Users/hamme/OneDrive/Escritorio/proyecto%20final%20ecommerce/javaproyect/javaDecopino/src/vista/Usuario/vstAgregarEditarUsuario.java</file>
-            <file>file:/C:/Users/hamme/OneDrive/Escritorio/proyecto%20final%20ecommerce/javaproyect/javaDecopino/src/controlador/CtrUsuario.java</file>
+            <file>file:/C:/Users/hamme/OneDrive/Escritorio/proyecto%20final%20ecommerce/javaproyect/javaDecopino/src/vista/RolPer/vstVerRol.java</file>
         </group>
     </open-files>
 </project-private>

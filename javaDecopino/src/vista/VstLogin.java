@@ -6,8 +6,9 @@
 package vista;
 
 import componentes.TextPrompt;
+import controlador.CtrLogin;
 import controlador.CtrUsuario;
-import java.util.Locale;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.MdlUsuario;
 
@@ -16,7 +17,7 @@ import modelo.MdlUsuario;
  * @author cdss2
  */
 public class VstLogin extends javax.swing.JFrame {
-    public static MdlUsuario usuario;
+    public static MdlUsuario usuarioLogin;
     /**
      * Creates new form VstLogin
      */
@@ -33,12 +34,12 @@ public class VstLogin extends javax.swing.JFrame {
 
     public void validarIngreso(){
         CtrUsuario ctru = new CtrUsuario();
-        int idUsuario =ctru.validarIngreso(txtCorreo.getText(), pswContrasena.getText());
+        CtrLogin ctrl = new CtrLogin();
+        int idUsuario = ctrl.validarIngreso(txtCorreo.getText(), pswContrasena.getText());
         
         if(idUsuario !=0){
-            usuario = ctru.mostrarUsuario(idUsuario);
-            System.out.println(usuario.getNombre());
-            ingresar(usuario);
+            usuarioLogin = ctru.mostrarUsuario(idUsuario);
+            ingresar(usuarioLogin);
         }else{
             JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrecto", "Error", 1);
         }
@@ -50,7 +51,7 @@ public class VstLogin extends javax.swing.JFrame {
     }
     
     public MdlUsuario getUsuario(){
-        return this.usuario;
+        return this.usuarioLogin;
     }
 
     /**
@@ -103,9 +104,9 @@ public class VstLogin extends javax.swing.JFrame {
 
         pswContrasena.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         pswContrasena.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pswContrasena.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pswContrasenaActionPerformed(evt);
+        pswContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pswContrasenaKeyReleased(evt);
             }
         });
         panelLogin.add(pswContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, 250, 40));
@@ -148,13 +149,15 @@ public class VstLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorreoActionPerformed
 
-    private void pswContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pswContrasenaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pswContrasenaActionPerformed
-
     private void btnIngresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMousePressed
         validarIngreso();
     }//GEN-LAST:event_btnIngresarMousePressed
+
+    private void pswContrasenaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pswContrasenaKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            validarIngreso();
+        }
+    }//GEN-LAST:event_pswContrasenaKeyReleased
 
     /**
      * @param args the command line arguments

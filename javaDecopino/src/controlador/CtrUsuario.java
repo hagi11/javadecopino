@@ -23,7 +23,7 @@ public class CtrUsuario {
         
         String sql = "SELECT usu.id as idusuario, usu.login, usu.contrasenia,usu.fregistro, "
                 + "per.id as idpersona,per.tidentificacion, per.identificacion, per.nombre,per.apellido, per.telefono, per.direccion, per.ciudad, per.fregistro,"
-                + " rol.id as rol FROM mususuarios as usu JOIN madpersonas as per on per.id=usu.persona "
+                + " rol.rol as rol FROM mususuarios as usu JOIN madpersonas as per on per.id=usu.persona "
                 + "JOIN madusuarioroles as rol on usu.id=rol.usuario  WHERE usu.estado = 1 && (per.nombre LIKE '%"+busqueda+"%' or per.apellido LIKE '%"+busqueda+"%' or per.identificacion LIKE '%"+busqueda+"%')";
         ResultSet rs;
         try {
@@ -68,7 +68,7 @@ public class CtrUsuario {
         Conexion conectar = new Conexion();
         String sql = "SELECT usu.id as idusuario, usu.login,usu.fregistro, "
                 + "per.id as idpersona,per.tidentificacion, per.identificacion, per.nombre,per.apellido, per.telefono, per.direccion, per.ciudad, per.fregistro,"
-                + " rol.id as rol FROM mususuarios as usu JOIN madpersonas as per on per.id=usu.persona "
+                + " rol.rol as rol FROM mususuarios as usu JOIN madpersonas as per on per.id=usu.persona "
                 + "JOIN madusuarioroles as rol on usu.id=rol.usuario  WHERE usu.estado = 1 && usu.id =" + id;
         ResultSet rs;
         try {
@@ -300,21 +300,6 @@ public class CtrUsuario {
         return validar;
     }
     
-    public int validarIngreso(String login, String contrasenia){
-        int validar =0;
-        Conexion conectar = new Conexion();
-        String sql = "SELECT id FROM mususuarios where estado = 1 && login ='"+login+"' && contrasenia ='"+contrasenia+"'";
-        ResultSet rs;
-        try {
-            rs = conectar.consultar(sql);
-            if (rs.next()) {
-                validar=(rs.getInt("id"));
-            }
-        } catch (Exception e) {
-            System.out.println("Error en validar ingreso (controlador usuario): " + e);
-        }
-        return validar;
-    }
     
     public int generarId(String peticion) {
         int codigo = 0;
