@@ -6,7 +6,6 @@
 package vista;
 
 import controlador.CtrLogin;
-import vista.Producto.vstProducto;
 import vista.RolPer.vstRolPer;
 import vista.Usuario.vstUsuario;
 import vista.Proveedor.vstProveedor;
@@ -101,7 +100,6 @@ public class vstMenu extends javax.swing.JFrame {
     public void colorItemsMenu() {
         pnlItemClientes.setBackground(colorInactivo);
         pnlItemUsuarios.setBackground(colorInactivo);
-        pnlItemProductos.setBackground(colorInactivo);
 
         pnlItemRolPer.setBackground(colorInactivo);
         pnlItemProveedores.setBackground(colorInactivo);
@@ -137,8 +135,6 @@ public class vstMenu extends javax.swing.JFrame {
         lblItemUsuario.setForeground(lblColor);
         lblItemProveedores.setFont(font);
         lblItemProveedores.setForeground(lblColor);
-        lblItemProductos.setFont(font);
-        lblItemProductos.setForeground(lblColor);
         lblItemRolPer.setFont(font);
         lblItemRolPer.setForeground(lblColor);
 
@@ -184,12 +180,6 @@ public class vstMenu extends javax.swing.JFrame {
         panelContenedor(panel);
     }
 
-    public void ItemBtnProducto() {
-        seleccionItem(pnlItemProductos, colorSelecciondo, 5);
-        vstProducto panel = new vstProducto();
-        panelContenedor(panel);
-    }
-
     public void cerrarSesion(int modo) {
         if(modo == 0){
         int result = JOptionPane.showConfirmDialog(null, "Seguro que desea cerrar sesión", "Cerrar Sesion", 2);
@@ -230,9 +220,6 @@ public class vstMenu extends javax.swing.JFrame {
         pnlItemRolPer = new javax.swing.JPanel();
         lblItemImgRolPer = new javax.swing.JLabel();
         lblItemRolPer = new javax.swing.JLabel();
-        pnlItemProductos = new javax.swing.JPanel();
-        lblItemImgProductos = new javax.swing.JLabel();
-        lblItemProductos = new javax.swing.JLabel();
         pnlLogo = new componentes.PanelRound();
         lblLogo = new javax.swing.JLabel();
         pnlPerfil = new componentes.PanelRound();
@@ -286,7 +273,7 @@ public class vstMenu extends javax.swing.JFrame {
         lblItemUsuario.setText("Usuarios");
         pnlItemUsuarios.add(lblItemUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 80, 20));
 
-        pnlMenu4.add(pnlItemUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 220, -1));
+        pnlMenu4.add(pnlItemUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 220, -1));
 
         pnlItemClientes.setBackground(getBackground());
         pnlItemClientes.setPreferredSize(new java.awt.Dimension(220, 30));
@@ -362,31 +349,6 @@ public class vstMenu extends javax.swing.JFrame {
         pnlItemRolPer.add(lblItemRolPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 140, 20));
 
         pnlMenu4.add(pnlItemRolPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 220, 30));
-
-        pnlItemProductos.setBackground(new java.awt.Color(255, 204, 0));
-        pnlItemProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlItemProductos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                pnlItemProductosMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                pnlItemProductosMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlItemProductosMousePressed(evt);
-            }
-        });
-        pnlItemProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblItemImgProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons/user.png"))); // NOI18N
-        pnlItemProductos.add(lblItemImgProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 30, 30));
-
-        lblItemProductos.setFont(new java.awt.Font("Poor Richard", 1, 20)); // NOI18N
-        lblItemProductos.setForeground(new java.awt.Color(255, 255, 255));
-        lblItemProductos.setText("Inventario");
-        pnlItemProductos.add(lblItemProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 110, 20));
-
-        pnlMenu4.add(pnlItemProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 220, 30));
 
         pnlLogo.setRoundBottomLeft(30);
         pnlLogo.setRoundBottomRight(30);
@@ -515,18 +477,6 @@ public class vstMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_pnlItemRolPerMousePressed
 
-    private void pnlItemProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemProductosMouseEntered
-        inColor(pnlItemProductos, colorActivo, 5);
-    }//GEN-LAST:event_pnlItemProductosMouseEntered
-
-    private void pnlItemProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemProductosMouseExited
-        outColor(pnlItemProductos, colorInactivo, 5);
-    }//GEN-LAST:event_pnlItemProductosMouseExited
-
-    private void pnlItemProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlItemProductosMousePressed
-        ItemBtnProducto();
-    }//GEN-LAST:event_pnlItemProductosMousePressed
-
     private void lblLogoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMousePressed
         inicio();
     }//GEN-LAST:event_lblLogoMousePressed
@@ -588,11 +538,9 @@ public class vstMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblImgUsuario;
     private javax.swing.JLabel lblItemCliente;
     private javax.swing.JLabel lblItemImgCliente;
-    private javax.swing.JLabel lblItemImgProductos;
     private javax.swing.JLabel lblItemImgProveedores;
     private javax.swing.JLabel lblItemImgRolPer;
     private javax.swing.JLabel lblItemImgUsuario;
-    private javax.swing.JLabel lblItemProductos;
     private javax.swing.JLabel lblItemProveedores;
     private javax.swing.JLabel lblItemRolPer;
     private javax.swing.JLabel lblItemUsuario;
@@ -602,7 +550,6 @@ public class vstMenu extends javax.swing.JFrame {
     public static javax.swing.JPanel pnlContenedor;
     private componentes.PanelRound pnlImgUsuario;
     private javax.swing.JPanel pnlItemClientes;
-    private javax.swing.JPanel pnlItemProductos;
     private javax.swing.JPanel pnlItemProveedores;
     private javax.swing.JPanel pnlItemRolPer;
     private javax.swing.JPanel pnlItemUsuarios;

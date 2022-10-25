@@ -5,7 +5,6 @@
  */
 package vista.Usuario;
 
-import vista.Proveedor.*;
 import vista.*;
 
 /**
@@ -41,10 +40,12 @@ public class vstUsuario extends javax.swing.JPanel {
 
         panelRound1 = new componentes.PanelRound();
         jLabel1 = new javax.swing.JLabel();
-        pnlNuevoUsuario = new componentes.PanelRound();
+        pnlLogsRegistrados = new componentes.PanelRound();
         jLabel2 = new javax.swing.JLabel();
         pnlVerUsurios = new componentes.PanelRound();
         jLabel3 = new javax.swing.JLabel();
+        pnlNuevoUsuario1 = new componentes.PanelRound();
+        jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -60,37 +61,37 @@ public class vstUsuario extends javax.swing.JPanel {
         jLabel1.setText("Usuarios");
         panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 180, 91));
 
-        pnlNuevoUsuario.setRoundBottomLeft(30);
-        pnlNuevoUsuario.setRoundBottomRight(30);
-        pnlNuevoUsuario.setRoundTopLeft(30);
-        pnlNuevoUsuario.setRoundTopRight(30);
-        pnlNuevoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlLogsRegistrados.setRoundBottomLeft(30);
+        pnlLogsRegistrados.setRoundBottomRight(30);
+        pnlLogsRegistrados.setRoundTopLeft(30);
+        pnlLogsRegistrados.setRoundTopRight(30);
+        pnlLogsRegistrados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlNuevoUsuarioMousePressed(evt);
+                pnlLogsRegistradosMousePressed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Nuevo Usuario");
+        jLabel2.setText("Historial de logs");
 
-        javax.swing.GroupLayout pnlNuevoUsuarioLayout = new javax.swing.GroupLayout(pnlNuevoUsuario);
-        pnlNuevoUsuario.setLayout(pnlNuevoUsuarioLayout);
-        pnlNuevoUsuarioLayout.setHorizontalGroup(
-            pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+        javax.swing.GroupLayout pnlLogsRegistradosLayout = new javax.swing.GroupLayout(pnlLogsRegistrados);
+        pnlLogsRegistrados.setLayout(pnlLogsRegistradosLayout);
+        pnlLogsRegistradosLayout.setHorizontalGroup(
+            pnlLogsRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLogsRegistradosLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addComponent(jLabel2)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
-        pnlNuevoUsuarioLayout.setVerticalGroup(
-            pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+        pnlLogsRegistradosLayout.setVerticalGroup(
+            pnlLogsRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLogsRegistradosLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addComponent(jLabel2)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        panelRound1.add(pnlNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 190, 90));
+        panelRound1.add(pnlLogsRegistrados, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 190, 90));
 
         pnlVerUsurios.setRoundBottomLeft(30);
         pnlVerUsurios.setRoundBottomRight(30);
@@ -122,7 +123,39 @@ public class vstUsuario extends javax.swing.JPanel {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        panelRound1.add(pnlVerUsurios, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 190, 90));
+        panelRound1.add(pnlVerUsurios, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 190, 90));
+
+        pnlNuevoUsuario1.setRoundBottomLeft(30);
+        pnlNuevoUsuario1.setRoundBottomRight(30);
+        pnlNuevoUsuario1.setRoundTopLeft(30);
+        pnlNuevoUsuario1.setRoundTopRight(30);
+        pnlNuevoUsuario1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlNuevoUsuario1MousePressed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Nuevo Usuario");
+
+        javax.swing.GroupLayout pnlNuevoUsuario1Layout = new javax.swing.GroupLayout(pnlNuevoUsuario1);
+        pnlNuevoUsuario1.setLayout(pnlNuevoUsuario1Layout);
+        pnlNuevoUsuario1Layout.setHorizontalGroup(
+            pnlNuevoUsuario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoUsuario1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel4)
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+        pnlNuevoUsuario1Layout.setVerticalGroup(
+            pnlNuevoUsuario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoUsuario1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel4)
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+
+        panelRound1.add(pnlNuevoUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, 190, 90));
 
         add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
@@ -131,17 +164,23 @@ public class vstUsuario extends javax.swing.JPanel {
         verUsuario();
     }//GEN-LAST:event_pnlVerUsuriosMousePressed
 
-    private void pnlNuevoUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNuevoUsuarioMousePressed
+    private void pnlLogsRegistradosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLogsRegistradosMousePressed
         nuevoUsuario();
-    }//GEN-LAST:event_pnlNuevoUsuarioMousePressed
+    }//GEN-LAST:event_pnlLogsRegistradosMousePressed
+
+    private void pnlNuevoUsuario1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNuevoUsuario1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlNuevoUsuario1MousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private componentes.PanelRound panelRound1;
-    private componentes.PanelRound pnlNuevoUsuario;
+    private componentes.PanelRound pnlLogsRegistrados;
+    private componentes.PanelRound pnlNuevoUsuario1;
     private componentes.PanelRound pnlVerUsurios;
     // End of variables declaration//GEN-END:variables
 }
