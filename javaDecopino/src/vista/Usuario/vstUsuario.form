@@ -150,7 +150,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="componentes.PanelRound" name="pnlNuevoUsuario1">
+        <Container class="componentes.PanelRound" name="pnlNuevoUsuario">
           <Properties>
             <Property name="roundBottomLeft" type="int" value="30"/>
             <Property name="roundBottomRight" type="int" value="30"/>
@@ -158,7 +158,7 @@
             <Property name="roundTopRight" type="int" value="30"/>
           </Properties>
           <Events>
-            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnlNuevoUsuario1MousePressed"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnlNuevoUsuarioMousePressed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

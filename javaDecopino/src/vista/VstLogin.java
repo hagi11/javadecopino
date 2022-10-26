@@ -33,6 +33,7 @@ public class VstLogin extends javax.swing.JFrame {
     }
 
     public void validarIngreso(){
+        
         CtrUsuario ctru = new CtrUsuario();
         CtrLogin ctrl = new CtrLogin();
         int idUsuario = ctrl.validarIngreso(txtCorreo.getText(), pswContrasena.getText());
@@ -41,7 +42,9 @@ public class VstLogin extends javax.swing.JFrame {
             usuarioLogin = ctru.mostrarUsuario(idUsuario);
             ingresar(usuarioLogin);
         }else{
+            pswContrasena.setFocusable(false);
             JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrecto", "Error", 1);
+            pswContrasena.setFocusable(true);
         }
     }
     public void ingresar(MdlUsuario usuario) {
@@ -52,6 +55,10 @@ public class VstLogin extends javax.swing.JFrame {
     
     public MdlUsuario getUsuario(){
         return this.usuarioLogin;
+    }
+    
+    public void pasarAPassword(){
+        pswContrasena.requestFocus(true);
     }
 
     /**
@@ -95,6 +102,11 @@ public class VstLogin extends javax.swing.JFrame {
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorreoActionPerformed(evt);
+            }
+        });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyReleased(evt);
             }
         });
         panelLogin.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, 250, 40));
@@ -158,6 +170,12 @@ public class VstLogin extends javax.swing.JFrame {
             validarIngreso();
         }
     }//GEN-LAST:event_pswContrasenaKeyReleased
+
+    private void txtCorreoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            pasarAPassword();
+        }
+    }//GEN-LAST:event_txtCorreoKeyReleased
 
     /**
      * @param args the command line arguments

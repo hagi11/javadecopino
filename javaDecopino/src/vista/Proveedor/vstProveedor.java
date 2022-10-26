@@ -5,6 +5,7 @@
  */
 package vista.Proveedor;
 
+import vista.Usuario.*;
 import vista.*;
 
 /**
@@ -20,15 +21,16 @@ public class vstProveedor extends javax.swing.JPanel {
         initComponents();
     }
     
-    public void verUsuario(){
+    public void verProveedor(){
         vstVerProveedor panel = new vstVerProveedor();
         vstMenu.panelContenedor(panel);
     }
     
-    public void nuevoUsuario(){
-        vstAgregarEditarProveedor panel = new vstAgregarEditarProveedor();
+    public void nuevoProveedor(){
+        vstAgregarEditarProveedor panel = new vstAgregarEditarProveedor(0);
         vstMenu.panelContenedor(panel);
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,10 +42,10 @@ public class vstProveedor extends javax.swing.JPanel {
 
         panelRound1 = new componentes.PanelRound();
         jLabel1 = new javax.swing.JLabel();
-        pnlNuevoUsuario = new componentes.PanelRound();
-        jLabel2 = new javax.swing.JLabel();
-        pnlVerUsurios = new componentes.PanelRound();
+        pnlVerProveedores = new componentes.PanelRound();
         jLabel3 = new javax.swing.JLabel();
+        pnlNuevoUsuario = new componentes.PanelRound();
+        jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,8 +58,40 @@ public class vstProveedor extends javax.swing.JPanel {
         panelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Proveedores");
+        jLabel1.setText("Proveedor");
         panelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 180, 91));
+
+        pnlVerProveedores.setRoundBottomLeft(30);
+        pnlVerProveedores.setRoundBottomRight(30);
+        pnlVerProveedores.setRoundTopLeft(30);
+        pnlVerProveedores.setRoundTopRight(30);
+        pnlVerProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlVerProveedoresMousePressed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Ver Proveedores");
+
+        javax.swing.GroupLayout pnlVerProveedoresLayout = new javax.swing.GroupLayout(pnlVerProveedores);
+        pnlVerProveedores.setLayout(pnlVerProveedoresLayout);
+        pnlVerProveedoresLayout.setHorizontalGroup(
+            pnlVerProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVerProveedoresLayout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(45, 45, 45))
+        );
+        pnlVerProveedoresLayout.setVerticalGroup(
+            pnlVerProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVerProveedoresLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel3)
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        panelRound1.add(pnlVerProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 190, 90));
 
         pnlNuevoUsuario.setRoundBottomLeft(30);
         pnlNuevoUsuario.setRoundBottomRight(30);
@@ -69,78 +103,46 @@ public class vstProveedor extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Nuevo Usuario");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Nuevo Proveedor");
 
         javax.swing.GroupLayout pnlNuevoUsuarioLayout = new javax.swing.GroupLayout(pnlNuevoUsuario);
         pnlNuevoUsuario.setLayout(pnlNuevoUsuarioLayout);
         pnlNuevoUsuarioLayout.setHorizontalGroup(
             pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel2)
-                .addContainerGap(51, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNuevoUsuarioLayout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(40, 40, 40))
         );
         pnlNuevoUsuarioLayout.setVerticalGroup(
             pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel2)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(jLabel4)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        panelRound1.add(pnlNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 190, 90));
-
-        pnlVerUsurios.setRoundBottomLeft(30);
-        pnlVerUsurios.setRoundBottomRight(30);
-        pnlVerUsurios.setRoundTopLeft(30);
-        pnlVerUsurios.setRoundTopRight(30);
-        pnlVerUsurios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlVerUsuriosMousePressed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Ver Usuarios");
-
-        javax.swing.GroupLayout pnlVerUsuriosLayout = new javax.swing.GroupLayout(pnlVerUsurios);
-        pnlVerUsurios.setLayout(pnlVerUsuriosLayout);
-        pnlVerUsuriosLayout.setHorizontalGroup(
-            pnlVerUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsuriosLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel3)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-        pnlVerUsuriosLayout.setVerticalGroup(
-            pnlVerUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVerUsuriosLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel3)
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-
-        panelRound1.add(pnlVerUsurios, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 190, 90));
+        panelRound1.add(pnlNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, 190, 90));
 
         add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pnlVerUsuriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerUsuriosMousePressed
-        verUsuario();
-    }//GEN-LAST:event_pnlVerUsuriosMousePressed
+    private void pnlVerProveedoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlVerProveedoresMousePressed
+        verProveedor();
+    }//GEN-LAST:event_pnlVerProveedoresMousePressed
 
     private void pnlNuevoUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNuevoUsuarioMousePressed
-        nuevoUsuario();
+       nuevoProveedor();
     }//GEN-LAST:event_pnlNuevoUsuarioMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private componentes.PanelRound panelRound1;
     private componentes.PanelRound pnlNuevoUsuario;
-    private componentes.PanelRound pnlVerUsurios;
+    private componentes.PanelRound pnlVerProveedores;
     // End of variables declaration//GEN-END:variables
 }

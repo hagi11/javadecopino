@@ -5,7 +5,6 @@
  */
 package vista.RolPer;
 
-import vista.Usuario.*;
 import componentes.ScrollBar;
 import java.awt.Color;
 import java.awt.Cursor;

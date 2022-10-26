@@ -29,6 +29,11 @@ public class vstUsuario extends javax.swing.JPanel {
         vstAgregarEditarUsuario panel = new vstAgregarEditarUsuario(0);
         vstMenu.panelContenedor(panel);
     }
+    
+    public void verLogs(){
+        vstVerLogs panel = new vstVerLogs();
+         vstMenu.panelContenedor(panel);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,7 +49,7 @@ public class vstUsuario extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         pnlVerUsurios = new componentes.PanelRound();
         jLabel3 = new javax.swing.JLabel();
-        pnlNuevoUsuario1 = new componentes.PanelRound();
+        pnlNuevoUsuario = new componentes.PanelRound();
         jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(244, 244, 244));
@@ -125,37 +130,37 @@ public class vstUsuario extends javax.swing.JPanel {
 
         panelRound1.add(pnlVerUsurios, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 190, 90));
 
-        pnlNuevoUsuario1.setRoundBottomLeft(30);
-        pnlNuevoUsuario1.setRoundBottomRight(30);
-        pnlNuevoUsuario1.setRoundTopLeft(30);
-        pnlNuevoUsuario1.setRoundTopRight(30);
-        pnlNuevoUsuario1.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlNuevoUsuario.setRoundBottomLeft(30);
+        pnlNuevoUsuario.setRoundBottomRight(30);
+        pnlNuevoUsuario.setRoundTopLeft(30);
+        pnlNuevoUsuario.setRoundTopRight(30);
+        pnlNuevoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlNuevoUsuario1MousePressed(evt);
+                pnlNuevoUsuarioMousePressed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Nuevo Usuario");
 
-        javax.swing.GroupLayout pnlNuevoUsuario1Layout = new javax.swing.GroupLayout(pnlNuevoUsuario1);
-        pnlNuevoUsuario1.setLayout(pnlNuevoUsuario1Layout);
-        pnlNuevoUsuario1Layout.setHorizontalGroup(
-            pnlNuevoUsuario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNuevoUsuario1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlNuevoUsuarioLayout = new javax.swing.GroupLayout(pnlNuevoUsuario);
+        pnlNuevoUsuario.setLayout(pnlNuevoUsuarioLayout);
+        pnlNuevoUsuarioLayout.setHorizontalGroup(
+            pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel4)
                 .addContainerGap(51, Short.MAX_VALUE))
         );
-        pnlNuevoUsuario1Layout.setVerticalGroup(
-            pnlNuevoUsuario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNuevoUsuario1Layout.createSequentialGroup()
+        pnlNuevoUsuarioLayout.setVerticalGroup(
+            pnlNuevoUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoUsuarioLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel4)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        panelRound1.add(pnlNuevoUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, 190, 90));
+        panelRound1.add(pnlNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, 190, 90));
 
         add(panelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 620));
     }// </editor-fold>//GEN-END:initComponents
@@ -165,12 +170,12 @@ public class vstUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_pnlVerUsuriosMousePressed
 
     private void pnlLogsRegistradosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLogsRegistradosMousePressed
-        nuevoUsuario();
+        verLogs();
     }//GEN-LAST:event_pnlLogsRegistradosMousePressed
 
-    private void pnlNuevoUsuario1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNuevoUsuario1MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnlNuevoUsuario1MousePressed
+    private void pnlNuevoUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNuevoUsuarioMousePressed
+       nuevoUsuario();
+    }//GEN-LAST:event_pnlNuevoUsuarioMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -180,7 +185,7 @@ public class vstUsuario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private componentes.PanelRound panelRound1;
     private componentes.PanelRound pnlLogsRegistrados;
-    private componentes.PanelRound pnlNuevoUsuario1;
+    private componentes.PanelRound pnlNuevoUsuario;
     private componentes.PanelRound pnlVerUsurios;
     // End of variables declaration//GEN-END:variables
 }

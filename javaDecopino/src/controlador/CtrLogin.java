@@ -7,6 +7,8 @@ package controlador;
 
 import conexion.Conexion;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import modelo.MdlLogs;
 
 /**
  *
@@ -63,4 +65,33 @@ public class CtrLogin {
         }
         return validar;
     }
+    public ArrayList<MdlLogs> consultarLogs(String busqueda, int pagina){
+        ArrayList<MdlLogs> listaLogs= new ArrayList();
+        Conexion conectar = new Conexion();
+        CtrUsuario ctru = new CtrUsuario();
+        String sql = "SELECT log.id, log.usuario, log.fregistro, log.factualizado FROM `madsesion` "
+                + "as log JOIN mususuarios as usu on log.usuario = usu.id JOIN madpersonas "
+                + "as per on usu.persona = per.id  WHERE `plataforma` = 4 && (per.apellido like '%"+busqueda+"%' or "
+                + "per.identificacion like '%"+busqueda+"%' or log.fregistro like '%"+busqueda+"%' or log.factualizado like '%"+busqueda+"%') "
+                + "LIMIT 10 OFFSET "+((pagina-1)*10)+"";
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            while (rs.next()) {
+                MdlLogs log = new MdlLogs();
+                log.setId(rs.getInt("id"));
+                log.setUsuario(ctru.mostrarUsuario(rs.getInt("usuario")));
+                log.setFregistro(rs.getTimestamp("fregistro"));
+                log.setFactualizado(rs.getTimestamp("factualizado"));
+             
+                listaLogs.add(log);
+            }
+        } catch (Exception e) {
+            System.out.println("Error en consultar de logs (controlador login): " + e);
+        }
+        return listaLogs;
+    
+    }
+    
+    
 }

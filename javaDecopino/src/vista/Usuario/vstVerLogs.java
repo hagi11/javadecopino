@@ -6,21 +6,15 @@
 package vista.Usuario;
 
 import componentes.ScrollBar;
-import java.awt.Color;
-import java.awt.Cursor;
-import static java.awt.Cursor.HAND_CURSOR;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import componentes.TextPrompt;
 import controlador.CtrAuxiliares;
-import controlador.CtrUsuario;
+import controlador.CtrLogin;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import modelo.MdlUsuario;
-import vista.vstMenu;
+import modelo.MdlLogs;
 
 /**
  *
@@ -28,69 +22,99 @@ import vista.vstMenu;
  */
 public class vstVerLogs extends javax.swing.JPanel {
 
-    ArrayList<MdlUsuario> listaUsuarios = new ArrayList();
-    MdlUsuario usuSeleccionado = new MdlUsuario();
-    boolean habilitar = false;
-
+    ArrayList<MdlLogs> listaLogs = new ArrayList();
     private ImageIcon imagen;
     private Icon icon;
-
-    private Color fondoInformacion = new Color(111, 111, 111);
-    private Color fondoModificar = new Color(111, 111, 111);
-    private Color fondoEliminar = new Color(111, 111, 111);
-
-    private Color fondoHoldInformacion = new Color(255, 255, 255);
-    private Color fondoHoldModificar = new Color(255, 255, 255);
-    private Color fondoHoldEliminar = new Color(255, 255, 255);
+    int pagina = 1;
+    int pagMax = 1;
 
     public vstVerLogs() {
         initComponents();
+        configuracionVista();
         inicio();
     }
 
     public void inicio() {
+        numeroPaginas();
         llenarTabla();
+    }
+
+    public void numeroPaginas() {
+        CtrAuxiliares ctra = new CtrAuxiliares();
+        float numRegistros = (float) ctra.contarRegistros("madsesion") / 10;
+        pagMax = (int) Math.floor(numRegistros);
     }
 
     public void llenarTabla() {
         limpiarTabla();
-        CtrUsuario ctru = new CtrUsuario();
-        CtrAuxiliares ctra = new CtrAuxiliares();
-        listaUsuarios = ctru.consultar(txtBuscador.getText());
-        for (int posicion = 0; posicion < listaUsuarios.size(); posicion++) {
-            tblUsuario.setValueAt(posicion + 1, posicion, 0);
-            if (listaUsuarios.get(posicion).getTidenrificacion().equals("1")) {
-                tblUsuario.setValueAt("CC", posicion, 1);
+        CtrLogin ctrl = new CtrLogin();
+        lblPagina.setText("Pag " + pagina + " de " + pagMax);
+        listaLogs = ctrl.consultarLogs(txtBuscador.getText(), pagina);
+
+        for (int posicion = 0; posicion < listaLogs.size(); posicion++) {
+            if (posicion < 9) {
+                tblLogs.setValueAt((pagina - 1) + "" + (posicion + 1), posicion, 0);
             } else {
-                tblUsuario.setValueAt(ctra.mostrarTipoIdentId(listaUsuarios.get(posicion).getTidenrificacion()), posicion, 1);
+                tblLogs.setValueAt((pagina) + "0", posicion, 0);
             }
-            tblUsuario.setValueAt(listaUsuarios.get(posicion).getIdentificacion(), posicion, 2);
-            tblUsuario.setValueAt(listaUsuarios.get(posicion).getNombre(), posicion, 3);
-            tblUsuario.setValueAt(listaUsuarios.get(posicion).getApellido(), posicion, 4);
-            tblUsuario.setValueAt(listaUsuarios.get(posicion).getCorreo(), posicion, 5);
-            tblUsuario.setValueAt(listaUsuarios.get(posicion).getRol().getNombre(), posicion, 6);
+            tblLogs.setValueAt(listaLogs.get(posicion).getUsuario().getIdentificacion(), posicion, 1);
+            tblLogs.setValueAt(listaLogs.get(posicion).getUsuario().getApellido(), posicion, 2);
+            tblLogs.setValueAt(listaLogs.get(posicion).getFregistro(), posicion, 3);
+            if (listaLogs.get(posicion).getFactualizado() == null) {
+                tblLogs.setValueAt("En sesion", posicion, 4);
+            } else {
+                tblLogs.setValueAt(listaLogs.get(posicion).getFactualizado(), posicion, 4);
+            }
         }
     }
 
     public void limpiarTabla() {
-        for (int posicion = 0; posicion < 98; posicion++) {
-            tblUsuario.setValueAt("", posicion, 0);
-            tblUsuario.setValueAt("", posicion, 1);
-            tblUsuario.setValueAt("", posicion, 2);
-            tblUsuario.setValueAt("", posicion, 3);
-            tblUsuario.setValueAt("", posicion, 4);
-            tblUsuario.setValueAt("", posicion, 5);
-            tblUsuario.setValueAt("", posicion, 6);
-
+        for (int posicion = 0; posicion < 11; posicion++) {
+            tblLogs.setValueAt("", posicion, 0);
+            tblLogs.setValueAt("", posicion, 1);
+            tblLogs.setValueAt("", posicion, 2);
+            tblLogs.setValueAt("", posicion, 3);
+            tblLogs.setValueAt("", posicion, 4);
         }
     }
 
+    public void configuracionVista() {
+        String ruta = new String();
+        ruta = "src/imagenes/icons/loupe.png";
+        this.pintarImagen(this.lblImgBuscador, ruta);
+        jScrollPane2.setVerticalScrollBar(new ScrollBar());
+        TextPrompt PlaceHolderBuscador = new TextPrompt("Buscador", txtBuscador);
+    }
+
+    private void pintarImagen(JLabel label, String ruta) {
+        this.imagen = new ImageIcon(ruta);
+        this.icon = new ImageIcon(this.imagen.getImage());
+        label.setIcon(icon);
+        this.repaint();
+    }
 
     public void buscar(java.awt.event.KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             llenarTabla();
+            pagina = 1;
         }
     }
+
+    public void cambiarPagina(int accion) {
+        if (accion == 0) {
+            if (pagina > 1) {
+                pagina = pagina - 1;
+                llenarTabla();
+            }
+        } else {
+            if (pagina < pagMax) {
+                pagina = pagina + 1;
+                llenarTabla();
+            }
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,14 +126,15 @@ public class vstVerLogs extends javax.swing.JPanel {
 
         pnlTabla = new componentes.PanelRound();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblUsuario = new componentes.Tabla();
+        tblLogs = new componentes.Tabla();
         pnlBuscador = new componentes.PanelRound();
         lblImgBuscador = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         txtBuscador = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        btnListaSiguiente = new javax.swing.JButton();
         btnListaAnterios = new javax.swing.JButton();
+        btnListaSiguiente = new javax.swing.JButton();
+        lblPagina = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -123,135 +148,50 @@ public class vstVerLogs extends javax.swing.JPanel {
 
         jScrollPane2.setBorder(null);
 
-        tblUsuario.setModel(new javax.swing.table.DefaultTableModel(
+        tblLogs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "#", "TI", "Identificación", "Nombre", "Apellido", "Correo", "Rol"
+                "#", "Identificación", "Apellido", "Ingreso", "Salida"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblUsuario);
-        if (tblUsuario.getColumnModel().getColumnCount() > 0) {
-            tblUsuario.getColumnModel().getColumn(0).setResizable(false);
-            tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tblUsuario.getColumnModel().getColumn(1).setResizable(false);
-            tblUsuario.getColumnModel().getColumn(1).setPreferredWidth(10);
-            tblUsuario.getColumnModel().getColumn(2).setResizable(false);
-            tblUsuario.getColumnModel().getColumn(3).setResizable(false);
-            tblUsuario.getColumnModel().getColumn(4).setResizable(false);
-            tblUsuario.getColumnModel().getColumn(5).setResizable(false);
-            tblUsuario.getColumnModel().getColumn(6).setResizable(false);
+        tblLogs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLogsMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblLogs);
+        if (tblLogs.getColumnModel().getColumnCount() > 0) {
+            tblLogs.getColumnModel().getColumn(0).setResizable(false);
+            tblLogs.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tblLogs.getColumnModel().getColumn(1).setResizable(false);
+            tblLogs.getColumnModel().getColumn(2).setResizable(false);
+            tblLogs.getColumnModel().getColumn(3).setResizable(false);
+            tblLogs.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        pnlTabla.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 740, 470));
+        pnlTabla.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 740, 440));
 
-        add(pnlTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 760, 490));
+        add(pnlTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 760, 460));
 
         pnlBuscador.setBackground(new java.awt.Color(255, 255, 255));
         pnlBuscador.setRoundBottomLeft(30);
@@ -274,45 +214,67 @@ public class vstVerLogs extends javax.swing.JPanel {
 
         add(pnlBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 760, 40));
 
-        btnListaSiguiente.setText("Siguiente>");
+        jPanel1.setBackground(new java.awt.Color(244, 244, 244));
 
-        btnListaAnterios.setText("< Anterior");
-        btnListaAnterios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListaAnteriosActionPerformed(evt);
+        btnListaAnterios.setText("Anterior");
+        btnListaAnterios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnListaAnteriosMousePressed(evt);
             }
         });
+
+        btnListaSiguiente.setText("Siguiente");
+        btnListaSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListaSiguienteActionPerformed(evt);
+            }
+        });
+
+        lblPagina.setBackground(new java.awt.Color(244, 244, 244));
+        lblPagina.setText("Pag 1 de 1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(btnListaAnterios)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(lblPagina)
+                .addGap(41, 41, 41)
                 .addComponent(btnListaSiguiente)
-                .addContainerGap())
+                .addGap(29, 29, 29))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnListaAnterios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListaSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnListaSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPagina))
+                .addContainerGap())
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 570, 200, 30));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 550, 330, 30));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblLogsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLogsMouseClicked
+
+    }//GEN-LAST:event_tblLogsMouseClicked
 
     private void txtBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscadorKeyReleased
         buscar(evt);
     }//GEN-LAST:event_txtBuscadorKeyReleased
 
-    private void btnListaAnteriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaAnteriosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnListaAnteriosActionPerformed
+    private void btnListaAnteriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaAnteriosMousePressed
+        cambiarPagina(0);
+    }//GEN-LAST:event_btnListaAnteriosMousePressed
+
+    private void btnListaSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaSiguienteActionPerformed
+        cambiarPagina(1);
+    }//GEN-LAST:event_btnListaSiguienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -322,9 +284,10 @@ public class vstVerLogs extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblImgBuscador;
+    private javax.swing.JLabel lblPagina;
     private componentes.PanelRound pnlBuscador;
     private componentes.PanelRound pnlTabla;
-    private componentes.Tabla tblUsuario;
+    private componentes.Tabla tblLogs;
     private javax.swing.JTextField txtBuscador;
     // End of variables declaration//GEN-END:variables
 }

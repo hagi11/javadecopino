@@ -16,7 +16,7 @@ import modelo.MdlUsuario;
  */
 public class CtrUsuario {
 
-    public ArrayList<MdlUsuario> consultar(String busqueda) {
+    public ArrayList<MdlUsuario> consultar(String busqueda, int pagina) {
         ArrayList<MdlUsuario> listaUsuarios = new ArrayList();
 
         Conexion conectar = new Conexion();
@@ -24,7 +24,8 @@ public class CtrUsuario {
         String sql = "SELECT usu.id as idusuario, usu.login, usu.contrasenia,usu.fregistro, "
                 + "per.id as idpersona,per.tidentificacion, per.identificacion, per.nombre,per.apellido, per.telefono, per.direccion, per.ciudad, per.fregistro,"
                 + " rol.rol as rol FROM mususuarios as usu JOIN madpersonas as per on per.id=usu.persona "
-                + "JOIN madusuarioroles as rol on usu.id=rol.usuario  WHERE usu.estado = 1 && (per.nombre LIKE '%"+busqueda+"%' or per.apellido LIKE '%"+busqueda+"%' or per.identificacion LIKE '%"+busqueda+"%')";
+                + "JOIN madusuarioroles as rol on usu.id=rol.usuario  WHERE usu.estado = 1 && (per.nombre LIKE '%"+busqueda+"%' or per.apellido LIKE '%"+busqueda+"%' or "
+                + "per.identificacion LIKE '%"+busqueda+"%') LIMIT 10 OFFSET "+((pagina-1)*10)+"";
         ResultSet rs;
         try {
             rs = conectar.consultar(sql);
@@ -57,7 +58,7 @@ public class CtrUsuario {
                 listaUsuarios.add(usuario);
             }
         } catch (Exception e) {
-            System.out.println("Error en consultar Roles(controlador rol): " + e);
+            System.out.println("Error en consultar usuarios(controlador usuarios): " + e);
         }
         return listaUsuarios;
     }
@@ -98,7 +99,7 @@ public class CtrUsuario {
                 usuario.setTelefono(rs.getString("telefono"));
             }
         } catch (Exception e) {
-            System.out.println("Error en consultar Roles(controlador rol): " + e);
+            System.out.println("Error en consultar usuario(controlador usuario): " + e);
         }
         return usuario;
     }

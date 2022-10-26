@@ -63,6 +63,20 @@ public class CtrAuxiliares {
 
         return tipoIdent;
     }   
-    
+    public int contarRegistros(String tabla){
+        int resgistros = 0;
+        Conexion conectar = new Conexion();
+        String sql = "SELECT count(`id`) as numero FROM `"+tabla+"`";
+        ResultSet rs;
+        try {
+            rs = conectar.consultar(sql);
+            if (rs.next()) {
+                resgistros = rs.getInt("numero");
+            }
+        } catch (Exception e) {
+            System.out.println("Error en consultar si el identificacion existe(controlador usuario): " + e);
+        }
+        return resgistros;
+    }
     
 }

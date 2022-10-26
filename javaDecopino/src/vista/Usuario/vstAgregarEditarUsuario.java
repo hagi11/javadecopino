@@ -380,11 +380,11 @@ public class vstAgregarEditarUsuario extends javax.swing.JPanel {
         }
     }
 
-    public void validarEntradaNumerica(JTextField txtNombre) {
+    public void validarEntradaNumerica(JTextField txtVal) {
         CtrValidador ctrv = new CtrValidador();
-        for (int posicion = 0; posicion < txtNombre.getText().length(); posicion++) {
-            if (!ctrv.validarNumero(txtNombre.getText().substring(posicion, posicion + 1))) {
-                txtNombre.setText(txtNombre.getText().substring(0, posicion));
+        for (int posicion = 0; posicion < txtVal.getText().length(); posicion++) {
+            if (!ctrv.validarNumero(txtVal.getText().substring(posicion, posicion + 1))) {
+                txtVal.setText(txtVal.getText().substring(0, posicion));
                 JOptionPane.showMessageDialog(null, "Solo permite el ingreso de números", "Información", 1);
             }
         }

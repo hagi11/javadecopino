@@ -61,7 +61,7 @@ public class vstMenu extends javax.swing.JFrame {
         panelContenedor(inicio);
         lblUsuarioNombre.setText(usuarioLogueado.getApellido());
         lblUsuarioRol.setText(usuarioLogueado.getRol().getNombre());
-        String imgUsuario = usuarioLogueado.getNombre().substring(0, 1) + usuarioLogueado.getApellido().substring(0, 1);
+        String imgUsuario = usuarioLogueado.getNombre().substring(0, 1).toUpperCase()+ usuarioLogueado.getApellido().substring(0, 1).toUpperCase();
         lblImgUsuario.setText(imgUsuario);
     }
 

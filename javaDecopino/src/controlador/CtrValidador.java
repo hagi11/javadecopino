@@ -43,7 +43,12 @@ public class CtrValidador {
 
     public boolean validarNumero(String cadena) {
         try {
-            Integer.parseInt(cadena);
+
+            for (int i = 0; i < cadena.length(); i++) {   
+                String valor = String.valueOf(cadena.charAt(i));
+                Integer.parseInt(valor);
+            }
+
             return true;
         } catch (NumberFormatException nfe) {
             return false;
@@ -52,8 +57,9 @@ public class CtrValidador {
 
     public boolean validarTelefono(String numero) {
         boolean validar = false;
+
         if (validarNumero(numero)) {
-            if (numero.length()==7 || numero.length()==10) {
+            if (numero.length() == 7 || numero.length() == 10) {
                 validar = true;
             }
         }
