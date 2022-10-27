@@ -5,8 +5,9 @@
  */
 package vista.Proveedor;
 
-import vista.Usuario.*;
+import javax.swing.JOptionPane;
 import vista.*;
+import static vista.vstMenu.usuarioPermisos;
 
 /**
  *
@@ -21,16 +22,29 @@ public class vstProveedor extends javax.swing.JPanel {
         initComponents();
     }
     
-    public void verProveedor(){
+
+    public void verProveedor() {
+        if (usuarioPermisos.get(1).getLeer() == 1) {
         vstVerProveedor panel = new vstVerProveedor();
         vstMenu.panelContenedor(panel);
+         }else {
+            mensajeSinPermiso();
+        }
     }
-    
-    public void nuevoProveedor(){
+
+    public void nuevoProveedor() {
+        
+        if (usuarioPermisos.get(1).getCrear()== 1) {
         vstAgregarEditarProveedor panel = new vstAgregarEditarProveedor(0);
         vstMenu.panelContenedor(panel);
+         }else {
+            mensajeSinPermiso();
+        }
     }
-    
+
+     public void mensajeSinPermiso(){
+           JOptionPane.showMessageDialog(null, "Este usuario no tiene permisos \npara ejecutar esta accion", "Error de permisos", 1);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,7 +147,7 @@ public class vstProveedor extends javax.swing.JPanel {
     }//GEN-LAST:event_pnlVerProveedoresMousePressed
 
     private void pnlNuevoUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNuevoUsuarioMousePressed
-       nuevoProveedor();
+        nuevoProveedor();
     }//GEN-LAST:event_pnlNuevoUsuarioMousePressed
 
 

@@ -8,6 +8,7 @@ package vista.Proveedor;
 import controlador.CtrAuxiliares;
 import modelo.MdlProveedor;
 import vista.vstMenu;
+import static vista.vstMenu.usuarioPermisos;
 
 /**
  *
@@ -24,9 +25,13 @@ public class vstInformacionProveedor extends javax.swing.JPanel {
         initComponents();
         this.proveedor = proveedor;
         inicio();
-
+        ajustarPermisos();
     }
-
+    public void ajustarPermisos(){
+        if (usuarioPermisos.get(1).getEditar() == 0) {
+            btnEditar.setVisible(false);
+        }
+    }
     public void inicio() {
         CtrAuxiliares ctra = new CtrAuxiliares();
         txtTipoIdentificacion.setText(ctra.mostrarTipoIdentId(proveedor.getTidenrificacion()));
@@ -55,6 +60,7 @@ public class vstInformacionProveedor extends javax.swing.JPanel {
     }
     
     public void irEditar(){
+
         vstAgregarEditarProveedor panel = new vstAgregarEditarProveedor(proveedor.getId());
         vstMenu.panelContenedor(panel);
     }

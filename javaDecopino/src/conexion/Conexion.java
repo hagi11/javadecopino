@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public class Conexion implements Configuracion {
 
@@ -17,11 +18,10 @@ public class Conexion implements Configuracion {
             if (con != null) {
                 System.out.println("Conexion exitosa");
             } else {
-                System.out.println("Conexion fallida");
+                JOptionPane.showMessageDialog(null, "Conexion fallida", "Error", 1);
             }
         } catch (ClassNotFoundException | SQLException error) {
-            error.printStackTrace();
-            System.out.println("Error en conexión: "+error);
+            JOptionPane.showMessageDialog(null, "Error en conexion", "Error", 1);
         }
     }
     

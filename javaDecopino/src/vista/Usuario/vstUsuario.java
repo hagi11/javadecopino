@@ -5,7 +5,9 @@
  */
 package vista.Usuario;
 
+import javax.swing.JOptionPane;
 import vista.*;
+import static vista.vstMenu.usuarioPermisos;
 
 /**
  *
@@ -19,21 +21,39 @@ public class vstUsuario extends javax.swing.JPanel {
     public vstUsuario() {
         initComponents();
     }
-    
-    public void verUsuario(){
-        vstVerUsuario panel = new vstVerUsuario();
-        vstMenu.panelContenedor(panel);
+
+    public void verUsuario() {
+
+        if (usuarioPermisos.get(4).getLeer() == 1) {
+            vstVerUsuario panel = new vstVerUsuario();
+            vstMenu.panelContenedor(panel);
+        } else {
+            mensajeSinPermiso();
+        }
     }
-    
-    public void nuevoUsuario(){
-        vstAgregarEditarUsuario panel = new vstAgregarEditarUsuario(0);
-        vstMenu.panelContenedor(panel);
+
+    public void nuevoUsuario() {
+        if (usuarioPermisos.get(4).getCrear() == 1) {
+            vstAgregarEditarUsuario panel = new vstAgregarEditarUsuario(0);
+            vstMenu.panelContenedor(panel);
+        } else {
+            mensajeSinPermiso();
+        }
     }
-    
-    public void verLogs(){
-        vstVerLogs panel = new vstVerLogs();
-         vstMenu.panelContenedor(panel);
+
+    public void verLogs() {
+        if (usuarioPermisos.get(4).getMostrar() == 1) {
+            vstVerLogs panel = new vstVerLogs();
+            vstMenu.panelContenedor(panel);
+        } else {
+            mensajeSinPermiso();
+        }
     }
+
+    public void mensajeSinPermiso() {
+        JOptionPane.showMessageDialog(null, "Este usuario no tiene permisos \npara ejecutar esta accion", "Error de permisos", 1);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -174,7 +194,7 @@ public class vstUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_pnlLogsRegistradosMousePressed
 
     private void pnlNuevoUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNuevoUsuarioMousePressed
-       nuevoUsuario();
+        nuevoUsuario();
     }//GEN-LAST:event_pnlNuevoUsuarioMousePressed
 
 

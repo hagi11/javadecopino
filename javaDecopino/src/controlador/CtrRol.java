@@ -267,7 +267,7 @@ public class CtrRol {
         sqlt = "UPDATE `madroles` SET `nombre`='" + rol.getNombre() + "',`codigo`='" + rol.getCodigo() + "',`funciones`='" + rol.getFunciones() + "',`factualizado`='" + fecha_actualizado + "' WHERE `id` =" + rol.getId();
         try {
             if (conectar.ejecutar(sqlt)) {
-                System.out.println("Rol Actualizado");
+
                 confirmacion = true;
             }
         } catch (Exception e) {

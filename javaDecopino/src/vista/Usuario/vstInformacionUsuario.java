@@ -8,6 +8,7 @@ package vista.Usuario;
 import controlador.CtrAuxiliares;
 import modelo.MdlUsuario;
 import vista.vstMenu;
+import static vista.vstMenu.usuarioPermisos;
 
 /**
  *
@@ -24,7 +25,14 @@ public class vstInformacionUsuario extends javax.swing.JPanel {
         initComponents();
         this.usuario = usuario;
         inicio();
+        ajustarPermisos();
+    }
 
+    public void ajustarPermisos() {
+
+        if (usuarioPermisos.get(4).getEditar() == 0) {
+            btnEditar.setVisible(false);
+        }
     }
 
     public void inicio() {
@@ -55,13 +63,14 @@ public class vstInformacionUsuario extends javax.swing.JPanel {
         txtFechaCreacion.setEditable(false);
 
     }
-    
-    public void irEditar(){
+
+    public void irEditar() {
         vstAgregarEditarUsuario panel = new vstAgregarEditarUsuario(usuario.getId());
         vstMenu.panelContenedor(panel);
+        
     }
 
-    public void cancer() {       
+    public void cancer() {
         vstVerUsuario panel = new vstVerUsuario();
         vstMenu.panelContenedor(panel);
     }

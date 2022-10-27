@@ -417,7 +417,7 @@ public class vstAgregarEditarProveedor extends javax.swing.JPanel {
         lblTitulo.setText("Agregar Proveedor");
         panelRound1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 30));
 
-        panelRound2.setBackground(new java.awt.Color(204, 204, 204));
+        panelRound2.setBackground(new java.awt.Color(255, 255, 255));
         panelRound2.setForeground(new java.awt.Color(255, 51, 51));
         panelRound2.setRoundBottomLeft(30);
         panelRound2.setRoundBottomRight(30);

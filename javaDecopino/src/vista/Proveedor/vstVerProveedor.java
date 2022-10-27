@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.MdlProveedor;
 import vista.vstMenu;
+import static vista.vstMenu.usuarioPermisos;
 
 /**
  *
@@ -42,10 +43,10 @@ public class vstVerProveedor extends javax.swing.JPanel {
     private Color fondoHoldInformacion = new Color(255, 255, 255);
     private Color fondoHoldModificar = new Color(255, 255, 255);
     private Color fondoHoldEliminar = new Color(255, 255, 255);
-    
+
     int pagina = 1;
-    int pagMax =1;
-    
+    int pagMax = 1;
+
     public vstVerProveedor() {
         initComponents();
         configuracionVista();
@@ -55,28 +56,44 @@ public class vstVerProveedor extends javax.swing.JPanel {
     public void inicio() {
         numeroPaginas();
         llenarTabla();
+        ajustarPermisos();
     }
-    
-    public void numeroPaginas(){
+
+    public void ajustarPermisos() {
+        pnlInformacion.setVisible(true);
+        pnlModificar.setVisible(true);
+        pnlEliminar.setVisible(true);
+        if (usuarioPermisos.get(1).getMostrar() == 0) {
+            pnlInformacion.setVisible(false);
+        }
+        if (usuarioPermisos.get(1).getEditar() == 0) {
+            pnlModificar.setVisible(false);
+        }
+        if (usuarioPermisos.get(1).getEliminar() == 0) {
+            pnlEliminar.setVisible(false);
+        }
+    }
+
+    public void numeroPaginas() {
         CtrAuxiliares ctra = new CtrAuxiliares();
-        float numRegistros = (float) ctra.contarRegistros("mprproveedores")/10;
-        pagMax = (int) Math.ceil(numRegistros);  
+        float numRegistros = (float) ctra.contarRegistros("mprproveedores") / 10;
+        pagMax = (int) Math.ceil(numRegistros);
     }
 
     public void llenarTabla() {
         limpiarTabla();
         CtrProveedor ctru = new CtrProveedor();
         CtrAuxiliares ctra = new CtrAuxiliares();
-        lblPagina.setText("Pag " + pagina +" de "+ pagMax);
+        lblPagina.setText("Pag " + pagina + " de " + pagMax);
         listaProveedors = ctru.consultar(txtBuscador.getText(), pagina);
         for (int posicion = 0; posicion < listaProveedors.size(); posicion++) {
-            
+
             if (posicion < 9) {
                 tblProveedor.setValueAt((pagina - 1) + "" + (posicion + 1), posicion, 0);
             } else {
                 tblProveedor.setValueAt((pagina) + "0", posicion, 0);
-            } 
-            
+            }
+
             if (listaProveedors.get(posicion).getTidenrificacion().equals("1")) {
                 tblProveedor.setValueAt("CC", posicion, 1);
             } else {
@@ -206,8 +223,7 @@ public class vstVerProveedor extends javax.swing.JPanel {
             llenarTabla();
         }
     }
-    
-    
+
     public void cambiarPagina(int accion) {
         if (accion == 0) {
             if (pagina > 1) {
@@ -215,12 +231,12 @@ public class vstVerProveedor extends javax.swing.JPanel {
                 llenarTabla();
             }
         } else {
-            if(pagina < pagMax){
+            if (pagina < pagMax) {
                 pagina = pagina + 1;
                 llenarTabla();
             }
         }
-        
+
     }
 
     public void itemNoValido() {

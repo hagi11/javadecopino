@@ -14,6 +14,7 @@ import modelo.MdlRecursos;
 import modelo.MdlRol;
 import modelo.MdlRolRecurso;
 import vista.vstMenu;
+import static vista.vstMenu.usuarioPermisos;
 
 /**
  *
@@ -30,8 +31,13 @@ public class vstInformacionRol extends javax.swing.JPanel {
     public vstInformacionRol(MdlRol rol) {
         initComponents();
         inicio(rol);
+        ajustarPermisos();
     }
-    
+    public void ajustarPermisos(){
+    if (usuarioPermisos.get(3).getEditar() == 0) {
+            btnEditar.setVisible(false);
+        }
+    }
     public void inicio(MdlRol rol){
         lblTituloRol.setText("Información Rol");
         

@@ -41,7 +41,7 @@ public class vstVerLogs extends javax.swing.JPanel {
 
     public void numeroPaginas() {
         CtrAuxiliares ctra = new CtrAuxiliares();
-        float numRegistros = (float) ctra.contarRegistros("madsesion") / 10;
+        float numRegistros = (float) ctra.contarRegistros("madsesion WHERE plataforma = 4") / 10;
         pagMax = (int) Math.floor(numRegistros);
     }
 

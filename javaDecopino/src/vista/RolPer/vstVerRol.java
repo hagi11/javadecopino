@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.MdlRol;
 import vista.vstMenu;
+import static vista.vstMenu.usuarioPermisos;
 
 /**
  *
@@ -39,17 +40,35 @@ public class vstVerRol extends javax.swing.JPanel {
     private Color fondoHoldInformacion = new Color(255, 255, 255);
     private Color fondoHoldModificar = new Color(255, 255, 255);
     private Color fondoHoldEliminar = new Color(255, 255, 255);
+    
 
     public vstVerRol() {
         initComponents();
         configuracionVista();
         inicio();
     }
-
+    
     public void inicio() {
         llenarTabla();
         paginas();
+        ajustarPermisos();
     }
+    
+       public void ajustarPermisos() {
+        pnlInformacion.setVisible(true);
+        pnlModificar.setVisible(true);
+        pnlEliminar.setVisible(true);
+        if (usuarioPermisos.get(3).getMostrar() == 0) {
+            pnlInformacion.setVisible(false);
+        }
+        if (usuarioPermisos.get(3).getEditar() == 0) {
+            pnlModificar.setVisible(false);
+        }
+        if (usuarioPermisos.get(3).getEliminar() == 0) {
+            pnlEliminar.setVisible(false);
+        }
+    }
+
 
     public void paginas() {
         if (listaRol.size() <= 100) {

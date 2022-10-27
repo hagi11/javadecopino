@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.MdlUsuario;
 import vista.vstMenu;
+import static vista.vstMenu.usuarioPermisos;
 
 /**
  *
@@ -42,10 +43,10 @@ public class vstVerUsuario extends javax.swing.JPanel {
     private Color fondoHoldInformacion = new Color(255, 255, 255);
     private Color fondoHoldModificar = new Color(255, 255, 255);
     private Color fondoHoldEliminar = new Color(255, 255, 255);
-    
+
     int pagina = 1;
-    int pagMax =1;
-    
+    int pagMax = 1;
+
     public vstVerUsuario() {
         initComponents();
         configuracionVista();
@@ -55,11 +56,27 @@ public class vstVerUsuario extends javax.swing.JPanel {
     public void inicio() {
         numeroPaginas();
         llenarTabla();
+        ajustarPermisos();
     }
-    
-    public void numeroPaginas(){
+
+    public void ajustarPermisos() {
+        pnlInformacion.setVisible(true);
+        pnlModificar.setVisible(true);
+        pnlEliminar.setVisible(true);
+        if (usuarioPermisos.get(4).getMostrar() == 0) {
+            pnlInformacion.setVisible(false);
+        }
+        if (usuarioPermisos.get(4).getEditar() == 0) {
+            pnlModificar.setVisible(false);
+        }
+        if (usuarioPermisos.get(4).getEliminar() == 0) {
+            pnlEliminar.setVisible(false);
+        }
+    }
+
+    public void numeroPaginas() {
         CtrAuxiliares ctra = new CtrAuxiliares();
-        float numRegistros = (float) ctra.contarRegistros("mususuarios")/10;
+        float numRegistros = (float) ctra.contarRegistros("mususuarios") / 10;
         pagMax = (int) Math.ceil(numRegistros);
     }
 
@@ -67,16 +84,16 @@ public class vstVerUsuario extends javax.swing.JPanel {
         limpiarTabla();
         CtrUsuario ctru = new CtrUsuario();
         CtrAuxiliares ctra = new CtrAuxiliares();
-        lblPagina.setText("Pag " + pagina +" de "+ pagMax);
+        lblPagina.setText("Pag " + pagina + " de " + pagMax);
         listaUsuarios = ctru.consultar(txtBuscador.getText(), pagina);
         for (int posicion = 0; posicion < listaUsuarios.size(); posicion++) {
-            
+
             if (posicion < 9) {
                 tblUsuario.setValueAt((pagina - 1) + "" + (posicion + 1), posicion, 0);
             } else {
                 tblUsuario.setValueAt((pagina) + "0", posicion, 0);
-            } 
-            
+            }
+
             if (listaUsuarios.get(posicion).getTidenrificacion().equals("1")) {
                 tblUsuario.setValueAt("CC", posicion, 1);
             } else {
@@ -208,8 +225,7 @@ public class vstVerUsuario extends javax.swing.JPanel {
             llenarTabla();
         }
     }
-    
-    
+
     public void cambiarPagina(int accion) {
         if (accion == 0) {
             if (pagina > 1) {
@@ -217,12 +233,12 @@ public class vstVerUsuario extends javax.swing.JPanel {
                 llenarTabla();
             }
         } else {
-            if(pagina < pagMax){
+            if (pagina < pagMax) {
                 pagina = pagina + 1;
                 llenarTabla();
             }
         }
-        
+
     }
 
     public void itemNoValido() {

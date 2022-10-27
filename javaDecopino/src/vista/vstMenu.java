@@ -5,7 +5,9 @@
  */
 package vista;
 
+import controlador.CtrHilos;
 import controlador.CtrLogin;
+import controlador.CtrRol;
 import vista.RolPer.vstRolPer;
 import vista.Usuario.vstUsuario;
 import vista.Proveedor.vstProveedor;
@@ -15,11 +17,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import modelo.MdlRolRecurso;
 import modelo.MdlUsuario;
 
 /**
@@ -39,6 +43,7 @@ public class vstMenu extends javax.swing.JFrame {
     private Font font = new Font("Serif", Font.BOLD, 15);
     private int numItem;
     public static MdlUsuario usuarioLogueado;
+    public static ArrayList<MdlRolRecurso> usuarioPermisos;
 
     public vstMenu() {
         initComponents();
@@ -47,34 +52,45 @@ public class vstMenu extends javax.swing.JFrame {
     }
 
     public void ConfiguracionesVisuales() {
-        inicio();
+        usuario();
         imagenMenu();
         confTipografia();
+        runHilo();
+        ajustarPermisos();
     }
 
     public void inicio() {
+        imagenMenu();
+        vstInicio panel = new vstInicio();
+        panelContenedor(panel);
+    }
+
+    public void runHilo() {
+        new CtrHilos("Pepe").start();
+    }
+
+    public void ajustarPermisos() {
+        CtrRol ctrr = new CtrRol();
+        usuarioPermisos = ctrr.mostrarRolRec(usuarioLogueado.getRol());
+    }
+
+    public void usuario() {
         VstLogin vstl = new VstLogin();
         usuarioLogueado = vstl.getUsuario();
         numItem = 0;
         colorItemsMenu();
         vstInicio inicio = new vstInicio();
         panelContenedor(inicio);
-        lblUsuarioNombre.setText(usuarioLogueado.getApellido());
-        lblUsuarioRol.setText(usuarioLogueado.getRol().getNombre());
-        String imgUsuario = usuarioLogueado.getNombre().substring(0, 1).toUpperCase()+ usuarioLogueado.getApellido().substring(0, 1).toUpperCase();
+        lblUsuarioNombre.setText(usuarioLogueado.getApellido().toUpperCase());
+        lblUsuarioRol.setText(usuarioLogueado.getRol().getNombre().toUpperCase());
+        String imgUsuario = usuarioLogueado.getNombre().substring(0, 1).toUpperCase() + usuarioLogueado.getApellido().substring(0, 1).toUpperCase();
         lblImgUsuario.setText(imgUsuario);
     }
 
     public void imagenMenu() { //Funcion para agregar las Imagenes Ustilizadas en el menu
         String ruta = new String();
-
-//        ruta = "src/imagenes/borrar.jpeg";
-//        this.pintarImagenEscalada(this.lblFotoPerfil, ruta);
-//        ruta = "src/imagenes/fondos/hoja.jpg";
-//        this.pintarImagen(this.lblmenu, ruta);
         ruta = "src/imagenes/fondos/banner.png";
         this.pintarImagen(this.lblLogo, ruta);
-
     }
 
     public void imagenItems() { //Funcion para agregar las Imagenes de todos lo assets
@@ -100,12 +116,9 @@ public class vstMenu extends javax.swing.JFrame {
     public void colorItemsMenu() {
         pnlItemClientes.setBackground(colorInactivo);
         pnlItemUsuarios.setBackground(colorInactivo);
-
         pnlItemRolPer.setBackground(colorInactivo);
         pnlItemProveedores.setBackground(colorInactivo);
-
         pnlPerfil.setBackground(colorFondoPerfil);
-
     }
 
     public void inColor(JPanel panel, Color color, int numPanel) {
@@ -157,44 +170,72 @@ public class vstMenu extends javax.swing.JFrame {
     }
 
     public void ItemBtnUsuario() {
-        seleccionItem(pnlItemUsuarios, colorSelecciondo, 1);
-        vstUsuario panel = new vstUsuario();
-        panelContenedor(panel);
+
+        if (usuarioPermisos.get(4).getLeer() == 1 || usuarioPermisos.get(4).getCrear() == 1) {
+            seleccionItem(pnlItemUsuarios, colorSelecciondo, 1);
+            vstUsuario panel = new vstUsuario();
+            panelContenedor(panel);
+        } else {
+            mensajeSinPermiso();
+        }
+
     }
 
     public void ItemBtnCliente() {
-        seleccionItem(pnlItemClientes, colorSelecciondo, 2);
-        vstVerCliente panel = new vstVerCliente();
-        panelContenedor(panel);
+
+        if (usuarioPermisos.get(2).getLeer() == 1) {
+            seleccionItem(pnlItemClientes, colorSelecciondo, 2);
+            vstVerCliente panel = new vstVerCliente();
+            panelContenedor(panel);
+        } else {
+            mensajeSinPermiso();
+        }
     }
 
     public void ItemBtnProveedor() {
-        seleccionItem(pnlItemProveedores, colorSelecciondo, 3);
-        vstProveedor panel = new vstProveedor();
-        panelContenedor(panel);
+        if (usuarioPermisos.get(1).getLeer() == 1 || usuarioPermisos.get(1).getCrear() == 1) {
+            seleccionItem(pnlItemProveedores, colorSelecciondo, 3);
+            vstProveedor panel = new vstProveedor();
+            panelContenedor(panel);
+        } else {
+            mensajeSinPermiso();
+        }
     }
 
     public void ItemBtnRolPer() {
-        seleccionItem(pnlItemRolPer, colorSelecciondo, 4);
-        vstRolPer panel = new vstRolPer();
-        panelContenedor(panel);
+        if (usuarioPermisos.get(3).getLeer() == 1 || usuarioPermisos.get(3).getCrear() == 1) {
+            seleccionItem(pnlItemRolPer, colorSelecciondo, 4);
+            vstRolPer panel = new vstRolPer();
+            panelContenedor(panel);
+        } else {
+            mensajeSinPermiso();
+        }
+
+    }
+
+    public void mensajeSinPermiso() {
+        JOptionPane.showMessageDialog(null, "Este usuario no tiene permisos \npara ejecutar esta accion", "Error de permisos", 1);
     }
 
     public void cerrarSesion(int modo) {
-        if(modo == 0){
-        int result = JOptionPane.showConfirmDialog(null, "Seguro que desea cerrar sesión", "Cerrar Sesion", 2);
-        if (result == 0) {
-            CtrLogin ctrl = new CtrLogin();
-            if (ctrl.cerrarSesion(usuarioLogueado.getId())) {
-                dispose();
-                VstLogin login = new VstLogin();
-                login.setVisible(true);
+        if (modo == 0) {
+            int result = JOptionPane.showConfirmDialog(null, "Seguro que desea cerrar sesión", "Cerrar Sesion", 2);
+            if (result == 0) {
+                CtrLogin ctrl = new CtrLogin();
+                if (ctrl.cerrarSesion(usuarioLogueado.getId())) {
+                    dispose();
+                    VstLogin login = new VstLogin();
+                    login.setVisible(true);
+                }
             }
-        }
-        }else{
+        } else {
             CtrLogin ctrl = new CtrLogin();
             ctrl.cerrarSesion(usuarioLogueado.getId());
         }
+    }
+
+    public ArrayList<MdlRolRecurso> getPermisosUsuario() {
+        return usuarioPermisos;
     }
 
     /**
@@ -373,9 +414,11 @@ public class vstMenu extends javax.swing.JFrame {
         pnlPerfil.setRoundTopRight(30);
         pnlPerfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblUsuarioNombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblUsuarioNombre.setText("Usuario");
         pnlPerfil.add(lblUsuarioNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 70, 20));
 
+        lblUsuarioRol.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblUsuarioRol.setText("Rol");
         pnlPerfil.add(lblUsuarioRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 100, 20));
 
