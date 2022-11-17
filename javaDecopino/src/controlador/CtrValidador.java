@@ -32,6 +32,22 @@ public class CtrValidador {
         }
         return validar;
     }
+    public boolean validarCaracteresEspeciales(String text) { // Validador de Nombre y Apellido
+       boolean validar = true;
+       Pattern pat = Pattern.compile("^[a-zA-Z]$");
+       Matcher mat = pat.matcher(text);
+
+              if(mat.matches()){
+
+                     System.out.println("Cadena Valida");
+                     validar = true;
+              }
+              else{
+                     System.out.println("Cadena Invalida");
+                     validar = false;
+             }
+             return validar;
+             }
 
     public boolean validarTamano(String texto, int min, int max) {
         boolean validar = false;
@@ -88,9 +104,7 @@ public class CtrValidador {
 
     public boolean validarContrasenia(String text) {
         boolean validar = true;
-
         return validar;
-
     }
 
 }

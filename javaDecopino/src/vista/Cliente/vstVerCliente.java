@@ -5,7 +5,6 @@
  */
 package vista.Cliente;
 
-
 import componentes.ScrollBar;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -15,6 +14,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import componentes.TextPrompt;
+import controlador.CtrAuxiliares;
+import controlador.CtrCliente;
+import java.util.ArrayList;
+import modelo.MdlCliente;
+import modelo.MdlRol;
 import vista.vstMenu;
 
 /**
@@ -22,71 +26,132 @@ import vista.vstMenu;
  * @author hamme
  */
 public class vstVerCliente extends javax.swing.JPanel {
-    
+
+    MdlCliente cliente = new MdlCliente(); // Modelo de cliente
+    boolean habilitar = false; //bandera
     private ImageIcon imagen;
     private Icon icon;
     private Color fondoInformacion = new Color(111, 111, 111);
     private Color fondoModificar = new Color(111, 111, 111);
     private Color fondoEliminar = new Color(111, 111, 111);
-    
+
     private Color fondoHoldInformacion = new Color(255, 255, 255);
     private Color fondoHoldModificar = new Color(255, 255, 255);
     private Color fondoHoldEliminar = new Color(255, 255, 255);
-    
-    
-    
-    
+
     public vstVerCliente() {
         initComponents();
         configuracionVista();
+        inicio();
     }
-    
-    public void configuracionVista(){
+
+    public void inicio() {
+        MostrarClientes();
+    }
+
+    public void configuracionVista() {
         String ruta = new String();
         ruta = "src/imagenes/icons/loupe.png";
-        this.pintarImagen(this.lblImgBuscador, ruta);        
-        
+        this.pintarImagen(this.lblImgBuscador, ruta);
+
         jScrollPane2.setVerticalScrollBar(new ScrollBar());
-        
-        TextPrompt PlaceHolderBuscador = new TextPrompt("Buscador", txtBuscador);
-        
+
+        TextPrompt PlaceHolderBuscador = new TextPrompt("Buscador", txtBuscadorCliente);
+
         pnlModificar.setBackground(fondoModificar);
         pnlEliminar.setBackground(fondoEliminar);
         pnlInformacion.setBackground(fondoInformacion);
-        
-    }    
-    
+
+    }
+
     private void pintarImagen(JLabel label, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icon = new ImageIcon(this.imagen.getImage());
         label.setIcon(icon);
         this.repaint();
     }
-        
-        public void MouseOnBoton(JPanel panel, Color color){
-            panel.setCursor(new Cursor(HAND_CURSOR));
-            panel.setBackground(color);
-        }
-        
-        public void MouseOutBoton(JPanel panel, Color color){
-            panel.setBackground(color);
-        }
 
-        public void PressBtnEliminar(){
-       
-            System.out.println("Esta Seguro de que quiere eliminar");
+    public void MouseOnBoton(JPanel panel, Color color) {
+        panel.setCursor(new Cursor(HAND_CURSOR));
+        panel.setBackground(color);
     }
-        
-        public void PressBtnModificar(){
-          
+
+    public void MouseOutBoton(JPanel panel, Color color) {
+        panel.setBackground(color);
     }
-        
-        public void PressBtnInformacion(){
-        vstMostrarInformacionCliente panel = new vstMostrarInformacionCliente();
+
+    public void PressBtnEliminar() {
+
+        CtrCliente CTRcliente = new CtrCliente();
+        CTRcliente.Eliminar(cliente);
+        MostrarClientes();
+    }
+
+    public void PressBtnModificar() {
+        vstEditarCliente panel = new vstEditarCliente(cliente);
         vstMenu.panelContenedor(panel);
     }
+
+    public void PressBtnInformacion() {
+        vstInformacionCliente panel = new vstInformacionCliente(cliente);
+        vstMenu.panelContenedor(panel);
+    }
+
+    ArrayList<MdlCliente> ListaClientes = new ArrayList(); //Array de la lista de clientes
+
+    public void MostrarClientes() {
+        limpiarTabla();
+        CtrCliente cliente = new CtrCliente();
+        CtrAuxiliares auxiliar = new CtrAuxiliares();
+        ListaClientes = cliente.consultarCliente();
+        for (int posicion = 0; posicion < ListaClientes.size(); posicion++) {
+            tblCliente.setValueAt(posicion + 1, posicion, 0);
+            tblCliente.setValueAt(auxiliar.mostrarTipoIdentId(ListaClientes.get(posicion).getTidenrificacion()), posicion, 1);
+            tblCliente.setValueAt(ListaClientes.get(posicion).getIdentificacion(), posicion, 2);
+            tblCliente.setValueAt(ListaClientes.get(posicion).getNombre(), posicion, 3);
+            tblCliente.setValueAt(ListaClientes.get(posicion).getCorreo(), posicion, 4);
+            tblCliente.setValueAt(ListaClientes.get(posicion).getTelefono(), posicion, 5);
+        }
+    }
     
-    
+
+    public void limpiarTabla() {
+        for (int posicion = 0; posicion < ListaClientes.size(); posicion++) {
+            tblCliente.setValueAt("", posicion, 0);
+            tblCliente.setValueAt("", posicion, 1);
+            tblCliente.setValueAt("", posicion, 2);
+            tblCliente.setValueAt("", posicion, 3);
+            tblCliente.setValueAt("", posicion, 4);
+            tblCliente.setValueAt("", posicion, 5);
+        }
+    }
+
+    public void seleccionarCliente() {
+        for (int posicion = 0; posicion < ListaClientes.size(); posicion++) {
+            if (tblCliente.getSelectedRow() == posicion) {
+                cliente = ListaClientes.get(posicion);
+                habilitar = true;
+                pnlInformacion.setBackground(new Color(58, 185, 7));
+                pnlModificar.setBackground(new Color(58, 185, 7));
+                pnlEliminar.setBackground(new Color(58, 185, 7));
+
+                fondoInformacion = new Color(58, 185, 7);
+                fondoModificar = new Color(58, 185, 7);
+                fondoEliminar = new Color(58, 185, 7);
+            }
+        }
+        if (tblCliente.getSelectedRow() >= ListaClientes.size()) {
+            habilitar = false;
+            pnlInformacion.setBackground(new Color(111, 111, 111));
+            pnlModificar.setBackground(new Color(111, 111, 111));
+            pnlEliminar.setBackground(new Color(111, 111, 111));
+
+            fondoInformacion = new Color(111, 111, 111);
+            fondoModificar = new Color(111, 111, 111);
+            fondoEliminar = new Color(111, 111, 111);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,7 +173,7 @@ public class vstVerCliente extends javax.swing.JPanel {
         pnlBuscador = new componentes.PanelRound();
         lblImgBuscador = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        txtBuscador = new javax.swing.JTextField();
+        txtBuscadorCliente = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(244, 244, 244));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -119,6 +184,9 @@ public class vstVerCliente extends javax.swing.JPanel {
         pnlInformacion.setRoundTopLeft(30);
         pnlInformacion.setRoundTopRight(30);
         pnlInformacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlInformacionMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 pnlInformacionMouseEntered(evt);
             }
@@ -241,8 +309,8 @@ public class vstVerCliente extends javax.swing.JPanel {
 
         tblCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "TI", "121212", "Hammer", "HAgi@gmail.com", "4203034"},
-                {"2", "CC", "131313", "Carlos", "Car@Gmail.com", "3153214343"},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -345,7 +413,20 @@ public class vstVerCliente extends javax.swing.JPanel {
             new String [] {
                 "#", "TI", "Identificación", "Nombre", "Correo", "Telefono"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblCliente);
         if (tblCliente.getColumnModel().getColumnCount() > 0) {
             tblCliente.getColumnModel().getColumn(0).setResizable(false);
@@ -371,10 +452,10 @@ public class vstVerCliente extends javax.swing.JPanel {
         pnlBuscador.add(lblImgBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 0, 40, 40));
         pnlBuscador.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 550, 10));
 
-        txtBuscador.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtBuscador.setAutoscrolls(false);
-        txtBuscador.setBorder(null);
-        pnlBuscador.add(txtBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 550, 30));
+        txtBuscadorCliente.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtBuscadorCliente.setAutoscrolls(false);
+        txtBuscadorCliente.setBorder(null);
+        pnlBuscador.add(txtBuscadorCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 550, 30));
 
         add(pnlBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 760, 40));
     }// </editor-fold>//GEN-END:initComponents
@@ -384,12 +465,12 @@ public class vstVerCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_pnlEliminarMousePressed
 
     private void pnlEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEliminarMouseEntered
-        MouseOnBoton(pnlEliminar,fondoHoldEliminar);
-        
+        MouseOnBoton(pnlEliminar, fondoHoldEliminar);
+
     }//GEN-LAST:event_pnlEliminarMouseEntered
 
     private void pnlModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlModificarMouseEntered
-       MouseOnBoton(pnlModificar,fondoHoldModificar);
+        MouseOnBoton(pnlModificar, fondoHoldModificar);
     }//GEN-LAST:event_pnlModificarMouseEntered
 
     private void pnlModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlModificarMousePressed
@@ -397,24 +478,33 @@ public class vstVerCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_pnlModificarMousePressed
 
     private void pnlInformacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInformacionMouseEntered
-         MouseOnBoton(pnlInformacion,fondoHoldInformacion);
+        MouseOnBoton(pnlInformacion, fondoHoldInformacion);
     }//GEN-LAST:event_pnlInformacionMouseEntered
 
     private void pnlInformacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInformacionMouseExited
-        MouseOutBoton(pnlInformacion,fondoInformacion);
+        MouseOutBoton(pnlInformacion, fondoInformacion);
     }//GEN-LAST:event_pnlInformacionMouseExited
 
     private void pnlModificarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlModificarMouseExited
-       MouseOutBoton(pnlModificar,fondoModificar);
+        MouseOutBoton(pnlModificar, fondoModificar);
     }//GEN-LAST:event_pnlModificarMouseExited
 
     private void pnlEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEliminarMouseExited
-        MouseOutBoton(pnlEliminar,fondoEliminar);
+        MouseOutBoton(pnlEliminar, fondoEliminar);
     }//GEN-LAST:event_pnlEliminarMouseExited
 
     private void pnlInformacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInformacionMousePressed
         PressBtnInformacion();
     }//GEN-LAST:event_pnlInformacionMousePressed
+
+    private void tblClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteMouseClicked
+        // TODO add your handling code here:
+        seleccionarCliente(); //ordenar codigo
+    }//GEN-LAST:event_tblClienteMouseClicked
+
+    private void pnlInformacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInformacionMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlInformacionMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -430,6 +520,6 @@ public class vstVerCliente extends javax.swing.JPanel {
     private componentes.PanelRound pnlModificar;
     private componentes.PanelRound pnlTabla;
     private componentes.Tabla tblCliente;
-    private javax.swing.JTextField txtBuscador;
+    private javax.swing.JTextField txtBuscadorCliente;
     // End of variables declaration//GEN-END:variables
 }
